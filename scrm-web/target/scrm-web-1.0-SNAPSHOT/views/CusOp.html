@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>客户资料</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/CusOp.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            <!--隐藏保存和取消按钮-->
+            $("#saveBtn").hide();
+            $("#cancelBtn").hide();
+
+            // $('#customForm').bootstrapValidator({
+            //     //live: 'disabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
+            //     //excluded: [':disabled', ':hidden', ':not(:visible)'],//排除无需验证的控件，比如被禁用的或者被隐藏的
+            //     //message: 'This value is not valid',
+            //     feedbackIcons: {
+            //         //根据验证结果显示的各种图标
+            //         valid: 'glyphicon glyphicon-ok',
+            //         invalid: 'glyphicon glyphicon-remove',
+            //         validating: 'glyphicon glyphicon-refresh'
+            //     },
+            //     fields: {
+            //         CUS002: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '名称不能为空'
+            //                 }
+            //             }
+            //         },
+            //         CUS003: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '联系人不能为空'
+            //                 }
+            //             }
+            //         },
+            //         CUS004: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择级别'
+            //                 }
+            //             }
+            //         },
+            //         CUS005: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '地址不能为空'
+            //                 }
+            //             }
+            //         },
+            //         CUS009: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择最近联系时间'
+            //                 }
+            //             }
+            //         },
+            //         CUS011: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择下次联系时间'
+            //                 }
+            //             }
+            //         },
+            //         CUS013: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择来源'
+            //                 }
+            //             }
+            //         },
+            //         salesman: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择业务员'
+            //                 }
+            //             }
+            //         },
+            //         industry: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '行业不能为空'
+            //                 }
+            //             }
+            //         }
+            //     }
+            // });
+
+        });
+
+        //检查输入结果
+        function checkResult() {
+            var cus002 = $("#CUS002").val();
+            if (cus002 == "") {
+                layer.msg("请录入客户名称");
+                return false;
+            }
+            var cus005 = $("#CUS005").val();
+            if (cus005 == "") {
+                layer.msg("请录入地址");
+                return false;
+            }
+            var cus003 = $("#CUS003").val();
+            if (cus003 == "") {
+                layer.msg("请录入联系人");
+                return false;
+            }
+            var cus004 = $("#CUS004").val();
+            if (cus004 == "") {
+                layer.msg("请选择级别");
+                return false;
+            }
+
+            // var cus009 = $("#CUS009").val();
+            // if (cus009 == "") {
+            //     layer.msg("请选择最近联系日期");
+            //     return false;
+            // }
+            // var cus011 = $("#CUS011").val();
+            // if (cus011 == "") {
+            //     layer.msg("请选择下次联系日期");
+            //     return false;
+            // }
+            var cus013 = $("#CUS013").val();
+            if (cus013 == "") {
+                layer.msg("请选择来源");
+                return false;
+            }
+            var salesman = $("#salesman").val();
+            if (salesman == "") {
+                layer.msg("请选择业务员");
+                return false;
+            }
+            var industry = $("#industry").val();
+            if (industry == "") {
+                layer.msg("请录入行业");
+                return false;
+            }
+        }
+
+        //客户资料新建数据
+        function add() {
+            $.ajax({
+                type: "post",
+                url: "custemfindByCode",
+                success: function (data) {
+                    var textId = $("#CUS001");
+                    textId.val(data.uid);
+                    readCustomUser();
+                    <!--显示隐藏和取消按钮-->
+                    $("#saveBtn").show();
+                    $("#cancelBtn").show();
+                    <!--遍历所有控件,清空数据-->
+                    var inputAttr = $("#cusInfo").find("input");
+                    $.each(inputAttr, function (i, n) {
+                        if ($(n).attr("type") == "text" & $(n).attr("id") != "CUS001") {
+                            $(n).val("");
+                        }
+                    });
+                    var selectAttr = $("#cusInfo").find("select");
+                    $.each(selectAttr, function (i, n) {
+                        $(n).val("");
+                    });
+                    $("#CUS014").val("");
+                    $("#id").val("");
+                },
+                dataType: "json",
+                error: function (data) {
+                    alert("取值错误,请重新取值");
+                }
+            });
+        }
+
+        //保存客户资料
+        function saveAll() {
+            // $("#customForm").bootstrapValidator('validate');
+            // if ($("#customForm").data('bootstrapValidator').isValid() == false) {
+            //     //获取验证结果，如果成功，执行下面代码
+            //     return;
+            // }
+            if (checkResult() == false)
+                return;
+            var data = $("#customForm").serialize();
+            $.ajax({
+                type: "post",
+                url: "addcustom",
+                data: data,
+                success: function (data) {
+                    layer.msg("保存成功");
+                    $("#saveBtn").hide();
+                    $("#cancelBtn").hide();
+                },
+                dataType: "text"
+            })
+        }
+
+        //编辑客户资料
+        function update() {
+            var result = $("#CUS001").val();
+            if (result == "") {
+                layer.msg("请选择客户");
+                return;
+            }
+            $.ajax({
+                type: "post",
+                url:"existscustom",
+                data:{"customId":result},
+                success: function (data) {
+                    if (data == "true") {
+
+                        $("#saveBtn").show();
+                        $("#cancelBtn").show();
+                    } else {
+                        layer.msg("该客户不存在,请核实");
+                    }
+                },
+                dataType: "text"
+            })
+        }
+
+        //取消
+        function cancelAll() {
+            <!--隐藏保存和取消按钮-->
+            $("#saveBtn").hide();
+            $("#cancelBtn").hide();
+        }
+
+        //查询客户资料
+        function queryInfo() {
+            layer.open({
+                type: 2,
+                title: '客户资料查询',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['800px', '300px'],
+                content: 'custemQuery',
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    var res = $(layero).find("iframe")[0].contentWindow.formData();
+                    var url = encodeURI(res.data);
+                    layui.use('table', function () {
+                        var table = layui.table;
+                        var datasource = null;
+                        table.render({
+                            elem: '#test',
+                            url: url,
+                            method: 'post',
+                            ContentType: 'application/json;charset=utf-8'
+                            , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                                //,curr: 5 //设定初始在第 5 页
+                                , groups: 5 //只显示 1 个连续页码
+                                , first: false //不显示首页
+                                , last: false //不显示尾页
+                            }
+                            , cols: [
+                                [
+                                    {field: 'cus001', width: '20%', title: '编号', sort: true}
+                                    , {field: 'cus002', width: '60%', title: '名称'}
+                                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '20%'}
+                                ]
+                            ],
+                            limits: [10]
+                            ,
+                            done: function (res, curr, count) {
+                                datasource = res;
+                                //如果是异步请求数据方式，res即为你接口返回的信息。
+                                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                                // layui.msg(res);
+                                //得到当前页码
+                                // layui.msg(curr);
+                                //得到数据总量
+                                // layui.msg(count);
+                            }
+                        });
+
+                        //表格事件
+                        table.on('tool(test)', function (obj) {
+                            var data = obj.data;
+                            var id = data.cus001;
+                            var cus001 = "cus001";
+                            if (obj.event === 'edit') {
+                                var jsonStr = JSON.stringify(datasource);
+                                var resu = datasource.data;
+                                getItem(resu, cus001, id);
+                            }
+                        });
+
+                    });
+                    layer.close(layer.index);
+                }
+            });
+        }
+
+        //预览客户资料信息
+        function getItem(arr, n, v) {
+            readCustomUser();
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i][n] == v) {
+                    $("#id").val(arr[i]["id"]);
+                    $("#CUS001").val(arr[i]["cus001"]);
+                    $("#CUS002").val(arr[i]["cus002"]);
+                    $("#CUS005").val(arr[i]["cus005"]);
+                    $("#CUS016").val(arr[i]["cus016"]);
+                    $("#CUS003").val(arr[i]["cus003"]);
+                    $("#CUS015").val(arr[i]["cus015"]);
+                    $("#CUS004").val(arr[i]["cus004"]);
+                    $("#CUS013").val(arr[i]["cus013"]);
+                    $("#CUS006").val(arr[i]["cus006"]);
+                    $("#CUS007").val(arr[i]["cus007"]);
+                    $("#industry").val(arr[i]["industry"]);
+                    $("#salesman").val(arr[i]["salesman"]);
+                    $("#CUS008").val(arr[i]["cus008"]);
+                    $("#CUS009").val(arr[i]["cus009"]);
+                    $("#CUS011").val(arr[i]["cus011"]);
+                    $("#CUS017").val(arr[i]["cus017"]);
+                    $("#CUS014").val(arr[i]["cus014"]);
+                    var url = 'readcuscon?customId=' + v + '';
+                    readInfo(url);
+                }
+            }
+        }
+
+        //读取联系人
+        function readCustomUser() {
+            $.ajax({
+                async:false,
+                type:"post",
+                url:"readcustomuser",
+                success:function (data) {
+                    var result = $("#salesman");
+                    result.empty();
+                    var otherResult = "<option></option>";
+                    $.each(data, function (x, y) {
+                        otherResult += "<option>" + y + "</option>";
+                    })
+                    result.append(otherResult);
+                },
+                dataType:"json"
+            })
+        }
+        
+        //读取客户联系记录的数据
+        function readInfo(url) {
+            url = encodeURI(url);
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#conInfo',
+                    url: url,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: '首页' //不显示首页
+                        , last: '尾页' //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'oddNum', width: '15%', title: '单号', sort: true}
+                            , {field: 'brs007', width: '10%', title: '联系人'}
+                            , {field: 'brs003', width: '15%', title: '联系日期', sort: true}
+                            , {field: 'brs004', width: '15%', title: '下次联系日期', sort: true}
+                            , {field: 'brs005', width: '10%', title: '沟通方式', sort: true}
+                            , {field: 'brs006', width: '33%', title: '沟通内容'}
+                            // , {fixed: 'right', title: '操作', toolbar: '#barCus', width: 120}
+                        ]
+                    ],
+                    limits: [2, 10, 20],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        //得到当前页码 curr
+                        //得到数据总量 count
+                    }
+                });
+
+                //表格事件
+                table.on('tool(conInfo)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        contEdit(data);
+                    } else if (obj.event === 'del') {
+                        layer.confirm('确认删除此记录?', {
+                                btn: ['删除', '取消']
+                            },
+                            //删除
+                            function () {
+                                layer.close(layer.index);
+                                var oddNum = data.oddNum;
+                                $.ajax({
+                                    type: "post",
+                                    url: "cusbrsDelete",
+                                    data: {"oddNum": oddNum},
+                                    success: function (data) {
+                                        if (data == "success") {
+                                            obj.del();
+                                            layer.close(index);
+                                        }
+                                    },
+                                    dataType: "text"
+                                })
+                            },
+                            function () {
+                                //......
+                                time:2000
+                            }
+                        );
+                    }
+                });
+
+            });
+        }
+        
+        //联系人
+        function con() {
+            var cusId = $("#CUS001").val();
+            if (cusId == "") {
+                layer.msg("请选择客户");
+                return;
+            }
+
+            $.ajax({
+                type: "post",
+                url:"existscustom",
+                data:{"customId":cusId},
+                success: function (data) {
+                    if (data == "true") {
+                        layer.open({
+                            type: 2,
+                            title: '客户联系人',
+                            maxmin: true,
+                            shadeClose: true, //点击遮罩关闭层
+                            area: ['1157px', '600px'],
+                            content: 'findContacts?customId=' + cusId + '',
+                            success: function (layero, index) {
+                                var body = layer.getChildFrame('body', index);
+                                body.find("#customId").val(cusId);
+                            }
+                        });
+                    } else {
+                        layer.msg("该客户不存在,请核实");
+                    }
+                },
+                dataType: "text"
+            })
+        }
+
+        //客户联系记录单新增
+        function contAdd() {
+            var cusId = $("#CUS001").val();
+            if (cusId == "") {
+                layer.msg("请选择客户");
+                return;
+            }
+
+            $.ajax({
+                type: "post",
+                url:"existscustom",
+                data:{"customId":cusId},
+                success: function (data) {
+                    if (data == "true") {
+                        layer.open({
+                            type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                            title: '客户联系记录单',
+                            maxmin: true,
+                            shadeClose: true, //点击遮罩关闭层
+                            area: ['800px', '470px'],
+                            content: 'customGetId?customId=' + cusId + '',
+                            btn: ["保存", "取消"],
+                            success: function (layero, index) {
+                                var body = layer.getChildFrame('body', index);
+                                body.find("#customId").val(cusId);
+                            },
+                            yes: function (index, layero) {
+                                //接收弹出层返回的数据
+                                var res = $(layero).find("iframe")[0].contentWindow.formData();
+                                readInfo(res.data);
+                                layer.close(layer.index);
+                            }
+                        });
+                    } else {
+                        layer.msg("该客户不存在,请核实");
+                    }
+                },
+                dataType: "text"
+            })
+        }
+
+        //客户联系记录单编辑
+        function contEdit(obj) {
+            var cusId = $("#CUS001").val();
+            layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                title: '客户联系记录单',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['800px', '470px'],
+                content: 'customGetId?customId=' + cusId + '',
+                btn: ["保存", "取消"],
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find("#customId").val(cusId);
+                    body.find("#oddNum").val(obj.oddNum);
+                    body.find("#BRS007").val(obj.brs007);
+                    body.find("#BRS005").val(obj.brs005);
+                    body.find("#BRS003").val(obj.brs003);
+                    body.find("#BRS004").val(obj.brs004);
+                    body.find("#BRS006").val(obj.brs006);
+                    body.find("#id").val(obj.id);
+                },
+                yes: function (index, layero) {
+                    //接收弹出层返回的数据
+                    var res = $(layero).find("iframe")[0].contentWindow.formData();
+                    readInfo(res.data);
+                    layer.close(layer.index);
+                }
+            });
+        }
+
+        //客户维护记录单
+        function maintain() {
+            var cusId = $("#CUS001").val();
+            if (cusId == "") {
+                layer.msg("请选择客户");
+                return;
+            }
+
+            $.ajax({
+                type: "post",
+                url:"existscustom",
+                data:{"customId":cusId},
+                success: function (data) {
+                    if (data == "true") {
+                        layer.open({
+                            type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                            title: '客户维护记录单',
+                            maxmin: true,
+                            shadeClose: true, //点击遮罩关闭层
+                            area: ['1200px', '550px'],
+                            content: 'mainfind?customId=' + cusId + '',
+                            success: function (layero, index) {
+                                var body = layer.getChildFrame('body', index);
+                                body.find("#customId").val(cusId);
+                            }
+                        });
+                    } else {
+                        layer.msg("该客户不存在,请核实");
+                    }
+                },
+                dataType: "text"
+            })
+
+        }
+
+
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">预览</a>
+    </script>
+
+    <script type="text/html" id="barCus">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger  layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+</head>
+<body>
+<div class="index">
+    <div th:include="index::html"></div>
+</div>
+<div>
+    <!-- 左边 -->
+    <div class="container">
+        <!-- 上边 -->
+        <div class="top">
+            <div class="top-top">
+                <ol class="list-inline">
+                    <li id="top1">客户资料</li>
+                    <li id="top2"><input style="font-size: 12px" type="button" value="联系单" onclick="maintain()"/>
+                    </li>
+                    <li id="top3"><input style="font-size: 12px" type="button" value="联系人" onclick="con()"/>
+                    </li>
+                </ol>
+            </div>
+            <div class="top-buttom" id="cusInfo">
+                <form class="form-inline" style="margin-top:5px" id="customForm"
+                      enctype="multipart/form-data"
+                      target="nm_iframe"> <!--th:action="@{/addcustom}" method="post" -->
+
+                    <div class="form-group">
+                        <label for="CUS001">编号</label>
+                        <input type="text"
+                               class="form-control"
+                               id="CUS001"
+                               name="CUS001"
+                               readonly="readonly"
+                               style="width: 60px"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS002">名称</label>
+                        <input type="text"
+                               class="form-control"
+                               id="CUS002"
+                               name="CUS002"
+                               style="width:235px"
+                               placeholder="请录入客户名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS005">地址</label>
+                        <input type="text"
+                               class="form-control"
+                               id="CUS005"
+                               name="CUS005"
+                               style="width:235px"
+                               placeholder="请录入客户地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS016">法人</label>
+                        <input type="text"
+                               class="form-control"
+                               id="CUS016"
+                               name="CUS016"
+                               style="width:115px"
+                               placeholder="法人">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS003">联系人</label>
+                        <input type="text"
+                               class="form-control" id="CUS003" name="CUS003"
+                               style="width:100px" placeholder="联系人">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS015">人数</label>
+                        <input type="text"
+                               class="form-control" id="CUS015" name="CUS015"
+                               style="width:70px" placeholder="人数"
+                               oninput="value=value.replace(/[^\d]/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS004">级别</label>
+                        <select
+                                class="select form-control"
+                                style="height:30px;width:70px" id="CUS004"
+                                name="CUS004">
+                            <option></option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>E</option>
+                            <option>X</option>
+                            <option>Y</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS013">来源</label> <select
+                            class="select form-control" id="CUS013" name="CUS013"
+                            style="height:30px;width:80px">
+                        <option></option>
+                        <option>鼎捷</option>
+                        <option>网站</option>
+                        <option>老客</option>
+                        <option>朋友</option>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS006">产值</label>
+                        <input type="text"
+                               class="form-control" id="CUS006" name="CUS006"
+                               style="width:60px" placeholder="最小产值"
+                               onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                        <label for="CUS006" style="width:5px">~</label>
+                        <input type="text"
+                               class="form-control" id="CUS007"
+                               name="CUS007"
+                               style="width:60px" placeholder="最大产值"
+                               onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="industry">行业</label>
+                        <input type="text"
+                               class="form-control" id="industry" name="industry"
+                               style="width:93px" placeholder="客户行业">
+                    </div>
+                    <div class="form-group">
+                        <label for="salesman">业务员</label>
+                        <select class="form-control" id="salesman" name="salesman"
+                                style="width:115px;height: 30px;">
+                            <!--<option th:each="c:${users}" th:value="${c}" th:text="${c}"></option>-->
+                        </select>
+
+                        <!--<input type="text" class="form-control" id="salesman" name="salesman" style="width:210px" placeholder="请选择客户所属业务员" required>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS008" style="width:60px">注册资金</label>
+                        <input
+                                type="text" class="form-control" id="CUS008" name="CUS008"
+                                style="width:60px" placeholder="注册资金"
+                                onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS009" style="width:85px">最近联系时间</label>
+                        <input type="text" class="form-control" id="CUS009" name="CUS009" disabled="true"
+                               onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})">
+                        <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})"-->
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS011" style="width:115px">预计下次联系时间</label>
+                        <input type="text" style="width: 100px" class="form-control" id="CUS011" name="CUS011"  disabled="true"
+                               onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})">
+                        <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})"-->
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS017" style="width:56px">购买模块</label> <input
+                            type="text" class="form-control" id="CUS017" name="CUS017"
+                            style="width:740px" placeholder="请录入客户购买模块">
+                    </div>
+                    <div class="form-group">
+                        <label for="CUS014" style="text-align:right;height:1px">备注</label>
+                        <textarea class="form-control" id="CUS014" name="CUS014"
+                                  style="width:767px;margin-top: 5px" placeholder="其它备注信息"></textarea>
+                    </div>
+                    <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
+                    <div class="top-top-btn">
+                        <ol class="list-inline">
+                            <li id="top01">
+                                <button id="saveBtn" style="font-size: 12px" onclick="saveAll()">保存</button>
+                            </li>
+                            <li id="top02">
+                                <button id="cancelBtn" style="font-size: 12px" onclick="cancelAll()">取消</button>
+                            </li>
+                        </ol>
+                    </div>
+
+                </form>
+
+                <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+
+            </div>
+        </div>
+        <!-- 下边 -->
+        <div class="bottom">
+            <div class="bottom-top">
+                <ol class="list-inline">
+                    <li id="top4">记录单</li>
+                    <li><input id="btn01" style="font-size: 12px;" type="button" value="新建" onclick="contAdd()">
+                    </li>
+                </ol>
+            </div>
+            <div class="bottom-btm" style="height: 275px;overflow: auto">
+                <table class="layui-hide" id="conInfo" lay-filter="conInfo"></table>
+            </div>
+        </div>
+    </div>
+    <!-- 右边 -->
+    <div class="right">
+        <div class="right-top">
+            <label style="text-align:left;margin-left:10px;font-weight: bold;color: #7F8F9C;line-height: 30px;font-size: 16px;">客户信息预览</label>
+            <input style="font-size: 12px" type="button" value="查询" onclick="queryInfo()" id="btn02"/>
+            <input style="font-size: 12px" type="button" value="新建" onclick="add()" id="addBtn"/>
+            <input style="font-size: 12px" type="button" value="编辑" onclick="update()" id="btn03"/>
+        </div>
+        <div class="right-bottom" style="height: 500px;overflow: auto">
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    var use = [[${session.user.getUSE002()}]];
+    if (use != "系统管理员") {
+        var other = [[${session.authorities}]];
+        var result = "";
+        var datare = "";
+        var datare1 = "";
+        var datare2 = "";
+        var datare3 = "";
+        var datare4 = "";
+        for (var i = 0; i < other.length; i++) {
+            if (other[i][2] == "客户联系单")
+                result = "1";
+            if (other[i][2] == "客户维护单")
+                datare = "1";
+            if (other[i][2] == "客户信息") {
+                // 查询
+                if (other[i][4] == "1")
+                    datare1 = "1";
+                //新建
+                if (other[i][5] == "1")
+                    datare2 = "1";
+                //编辑
+                if (other[i][6] == "1")
+                    datare3 = "1";
+                //删除
+                if (other[i][7] == "1")
+                    datare4 = "1";
+            }
+        }
+        if (result != "1")
+            $("#btn01").css("display", "none");
+        if (datare != "1")
+            $("#top2").css("display", "none");
+        if (datare1 != "1")
+            $("#btn02").css("display", "none");
+        if (datare2 != "1")
+            $("#addBtn").css("display", "none");
+        if (datare3 != "1")
+            $("#btn03").css("display", "none");
+    }
+    /*]]>*/
+</script>
+
+</html>
+
+
+
+

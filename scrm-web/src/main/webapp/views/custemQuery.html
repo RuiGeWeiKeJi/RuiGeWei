@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/custemInfo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid-bootstrap-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}" charset="UTF-8"></script>
+
+    <style>
+        .form-group {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+    </style>
+
+    <script>
+        var formData = function () {
+            var CUS004 = $("#CUS004").val();
+            var industry = $("#industry").val();
+            var salesman = $("#salesman").val();
+            var CUS013 = $("#CUS013").val();
+            var CUS009start = $("#currentCon").val();
+            var CUS009end = $("#nextCon").val();
+            var CUS011start = $("#nextcurrentCon").val();
+            var CUS011end = $("#nextnextCon").val();
+            var CUS002=$("#CUS002").val();
+            var other="";
+            if($("#lastone").is(':checked'))
+                other=1;
+            var url = 'querycustom?CUS004=' + CUS004 + '&industry=' + industry + '&salesman=' + salesman + '&CUS013=' + CUS013 + '&CUS009start=' + CUS009start + '&' +
+                'CUS009end=' + CUS009end + '&CUS011start=' + CUS011start + '&CUS011end=' + CUS011end + '&CUS002='+CUS002+'&other='+other+'';
+            var data = {
+                data: url
+            };
+            return data;
+        }
+
+        //完成异步搜索功能
+        function searchName(obj) {
+            var content = "";
+            var datas = $(obj).val();
+            if(datas=="")
+                return;
+            $.ajax({
+                type: "post",
+                url: "findlike",
+                data: {"data": datas},
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            content += "<div style='padding: 5px;cursor:pointer;color: #42C2CF' onmouseover='overFn(this)' onmouseout='outFn(this)' onclick='clickFn(this)'>" + data[i].cus002 + "</div>";
+                        }
+                        $("#result").html(content);
+                        $("#result").css("display", "block");
+                    }
+                },
+                dataType: "json"
+            })
+        }
+
+        function overFn(obj) {
+            $(obj).css("background", "white");
+        }
+
+        function outFn() {
+            $(obj).css("background", "#42C2CF");
+        }
+
+        function clickFn(obj) {
+            $("#CUS002").val($(obj).html());
+            $("#result").css("display","none");
+        }
+        
+    </script>
+
+</head>
+<body>
+<div class="content">
+    <form class="form-inline" style="left:20px;margin-top:15px" autocomplete="off">
+        <div class="form-group" style="position: relative">
+            <label for="CUS002" style="margin-left: 10px">名称</label>
+            <input type="text" class="select form-control"
+                   style="height:25px;width:170px;margin-left:13px;font-size: 10px" id="CUS002" name="CUS002"
+                   onkeyup="searchName(this)" required>
+            <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
+                 id="result">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CUS004" style="margin-left: 10px">级别</label> <select
+                class="select form-control"
+                style="height:25px;width:170px;margin-left:10px;font-size: 10px" id="CUS004"
+                name="CUS004" required>
+            <option></option>
+            <option style="font-size:10px">A</option>
+            <option style="font-size:10px">B</option>
+            <option style="font-size:10px">C</option>
+            <option style="font-size:10px">D</option>
+            <option style="font-size:10px">E</option>
+            <option style="font-size:10px">X</option>
+            <option style="font-size:10px">Y</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label>行业</label>
+            <select class="select form-control"
+                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="industry"
+                    name="industry" required
+            >
+                <option></option>
+                <option th:each="c:${industry}" th:value="${c}" th:text="${c}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>业务员</label>
+            <select class="select form-control"
+                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="salesman"
+                    name="salesman" required>
+                <option></option>
+                <option th:each="d:${salesman}" th:value="${d}" th:text="${d}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="margin-left: 10px">来源</label>
+            <select class="select form-control"
+                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="CUS013"
+                    name="CUS013" required>
+                <option></option>
+                <option style="font-size:10px">鼎捷</option>
+                <option style="font-size:10px">网站</option>
+                <option style="font-size:10px">老客</option>
+                <option style="font-size:10px">朋友</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="lastone" name="lastone" checked="true" value="1">
+            <label for="lastone">超期</label>
+        </div>
+        <div class="form-group">
+            <label>最近联系日期</label>
+            <input type="text" class="form-control" id="currentCon" name="CUS009"
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextCon\')}'})"
+                   style="width: 100px;height: 25px"
+            >
+
+            <input type="text" class="form-control" id="nextCon" name="CUS009"
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'currentCon\')}'})"
+                   style="width: 100px;height: 25px">
+        </div>
+        <div class="form-group" style="margin-top: 10px">
+            <label style="margin-left: 10px">预计下次联系日期</label>
+            <input type="text" class="form-control" id="nextcurrentCon" name="CUS011"
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextnextCon\')}'})"
+                   style="width: 100px;height: 25px"
+            >
+
+            <input type="text" class="form-control" id="nextnextCon" name="CUS011"
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'nextcurrentCon\')}'})"
+                   style="width: 100px;height: 25px">
+        </div>
+    </form>
+</div>
+</body>
+</html>

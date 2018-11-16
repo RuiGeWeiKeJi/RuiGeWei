@@ -1,0 +1,82 @@
+@CHARSET "UTF-8";
+
+.powtop {
+    margin-left: 10%;
+    position: absolute;
+    top: 8%;
+    bottom: 40%;
+    left: 0px;
+    width: 90%;
+    background-color: white;
+    color: black;
+}
+.powbottom {
+    margin-left: 10%;
+    position: absolute;
+    top: 62%;
+    bottom: 0;
+    left: 0px;
+    width: 90%;
+    background-color: white;
+    color: black;
+}
+.powtop-top {
+    margin: 0px;
+    background-color: #F7F5F6;
+    height: 30px;
+    font-weight: bold;
+    color: #7F8F9C;
+    line-height: 30px;
+    background-color: #F7F5F6;
+    font-size: 16px;
+}
+.powtop-top ol li input {
+    width: 50px; /* 宽度 */
+    height: 20px; /* 高度 */
+    margin-top: 2px;
+    margin-left: 15px;
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 5px; /* 边框半径 */
+    background: #42C2CF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 12px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}
+.form-group{
+    margin: 10px;
+}
+#pow1 {
+    margin-left: 3%;
+}
+#pow2 {
+    margin-left: 80%;
+}
+
+#pow3 {
+    margin-left: 3%;
+}
+#pow4 {
+    margin-left: 80%;
+}
+
+.top-btn{
+    width: 50px; /* 宽度 */
+    height: 20px; /* 高度 */
+    margin-top: 2px;
+    margin-left: 15px;
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 5px; /* 边框半径 */
+    background: #42C2CF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 12px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}
+

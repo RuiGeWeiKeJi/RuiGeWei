@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+#left{
+	background-color: black;	
+	position: absolute;
+	top: 8%;
+	bottom: 0px;
+	left: 0px;
+	width: 10%;
+	color: #6A8397;
+	font-famliy:"微软雅黑";
+	font-weight:800;
+	text-align:left;
+}
+
+#menu li{
+	margin-top:20px;
+	line-height:12px;
+	border-bottom:2px;solid:wtite;
+}
+

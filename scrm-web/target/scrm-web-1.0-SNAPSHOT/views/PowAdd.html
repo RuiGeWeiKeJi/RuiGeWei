@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>权限操作</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script>
+
+        var datasource=function () {
+            var role=$("#POW001").val();
+            var task=$("#POW002").val();
+            var run=$("#POW003").is(':checked');
+            var query=$("#POW004").is(':checked');
+            var newone=$("#POW005").is(':checked');
+            var edit=$("#POW006").is(':checked');
+            var del=$("#POW007").is(':checked');
+            var uid=$("#oddNum").val();
+            var id=$("#id").val();
+            if(query || newone || edit || del)
+                run=true;
+            var url='savepow?POW001='+role+'&POW002='+task+'&POW003='+run+'&POW004='+query+'&POW005='+newone+'&POW006='+edit+'&POW007='+del+'&' +
+                'oddNum='+uid+'&id='+id+'';
+            var data = {
+                data: url
+            };
+            return data;
+        }
+
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+    <form class="form-inline" style="margin-top: 20px;">
+        <div class="form-group">
+            <label for="oddNum">编号</label>
+            <input type="text" class="form-control" readonly="readonly" id="oddNum" name="oddNum" th:value="${uid}"
+            style="height: 30px;width: 100px">
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <label for="POW001">角色</label><select class="select form-control" id="POW001" name="POW001"
+            style="width: 120px;height: 30px">
+                <option>业务</option>
+                <option>业务经理</option>
+                <option>技术</option>
+                <option>技术经理</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <label for="POW002" >作业</label>
+            <select class="select form-control" id="POW002" name="POW002" STYLE="width: 120px;height: 30px;">
+                <option>人员信息</option>
+                <option>客户信息</option>
+                <option>客户联系单</option>
+                <option>客户维护单</option>
+                <option>客户资料</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <input type="checkbox" value="1" id="POW003" name="POW003">
+            <label for="POW003">运行</label>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <input type="checkbox" value="2" id="POW004" name="POW004">
+            <label for="POW004">查询</label>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <input type="checkbox" value="3" id="POW005" name="POW005">
+            <label for="POW005">新建</label>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <input type="checkbox" value="4" id="POW006" name="POW006">
+            <label for="POW006">编辑</label>
+        </div>
+        <div class="form-group" style="margin-left: 5px">
+            <input type="checkbox" value="5" id="POW007" name="POW007">
+            <label for="POW007">删除</label>
+        </div>
+        <div class="form-group" hidden="hidden">
+            <input type="text" hidden="hidden" id="id" name="id">
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/cont.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script>
+
+        $(function () {
+            var url = 'Contacts?customId=' + $("#customId").val() + '&page=1&limit=10';
+            tableRequest(url);
+
+            // $('#myform').bootstrapValidator({
+            //     feedbackIcons: {
+            //         //根据验证结果显示的各种图标
+            //         valid: 'glyphicon glyphicon-ok',
+            //         invalid: 'glyphicon glyphicon-remove',
+            //         validating: 'glyphicon glyphicon-refresh'
+            //     },
+            //     fields: {
+            //         CUR002: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '联系人不可为空'
+            //                 }
+            //             }
+            //         },
+            //         CUR007: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择性别'
+            //                 }
+            //             }
+            //         },
+            //         CUR008: {
+            //             validators: {
+            //                 regexp: {//正则验证
+            //                     regexp: /^[0-9]+$/,
+            //                     message: '请输入数字'
+            //                 }
+            //             }
+            //         },
+            //         CUR004: {
+            //             validators: {
+            //                 stringLength: {
+            //                     min: 11,
+            //                     max: 11,
+            //                     message: '请输入11位手机号码'
+            //                 },
+            //                 regexp: {
+            //                     regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+            //                     message: '请输入正确的手机号码'
+            //                 }
+            //             }
+            //         },
+            //         CUR005: {
+            //             validators: {
+            //                 emailAddress: {
+            //                     message: '请输入正确的邮件地址如：123@qq.com'
+            //                 }
+            //             }
+            //         }
+            //     }
+            // });
+
+        })
+
+        //检查数据
+        var flag = true;
+
+        function checkValue() {
+            flag=true;
+            var userId = $("#userId").val();
+            if (userId == "") {
+                layer.msg("联系人编号不可为空");
+                //layer.alert("联系人不可为空", {icon: 5});
+                flag = false;
+                return false;
+            }
+            var cur002 = $("#CUR002").val();
+            if (cur002 == "") {
+                layer.msg("联系人不可为空");
+                //layer.alert("联系人不可为空", {icon: 5});
+                flag = false;
+                return false;
+            }
+            var cur007 = $('input:radio[name="CUR007"]:checked').val();
+            if (cur007 == null) {
+                layer.msg("请选择性别");
+                flag = false; return false;
+            }
+            var meger = /^[1][3,4,5,7,8][0-9]{9}$/;
+            var cur004 = $("#CUR004").val();
+            if (cur004 != "" & !meger.test(cur004)) {
+                layer.msg("请输入正确的手机号码");
+                flag = false; return false;
+            }
+            meger = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            var cur005 = $("#CUR005").val();
+            if (cur005 != "" & !meger.test(cur005)) {
+                layer.msg("请输入正确的邮箱");
+                flag = false; return false;
+            }
+            return flag;
+        }
+
+        function add() {
+            $.ajax({
+                type: "post",
+                url: "customUsefindById",
+                data: {"customId": "0001"},
+                success: function (data) {
+                    var textId = $("#userId");
+                    textId.val(data);
+                    var items = $("#myform").find("input");
+                    $.each(items, function (i, n) {
+                        if ($(n).attr("type") == "text" & $(n).attr("id") != "customId" & $(n).attr("id") != "userId") {
+                            $(n).val("");
+                        }
+                    });
+                    $("#CUR009").val("");
+                    $("#id").val("");
+                    $("#male").attr("checked", false);
+                    $("#female").attr("checked", false);
+                },
+                dataType: "text",
+                error: function () {
+                    alert("读取数据失败,请重试");
+                }
+            })
+        }
+
+        function save() {
+
+            // $("#myform").bootstrapValidator('validate');
+            // if ($("#myform").data('bootstrapValidator').isValid() == false) {
+            //     //获取验证结果，如果成功，执行下面代码
+            //     return;
+            // }
+            checkValue();
+            if(flag==false)
+                return;
+
+            var url = 'customUseSave?customId=' + $("#customId").val() + '&' +
+                'userId=' + $("#userId").val() + '&' +
+                'CUR002=' + $("#CUR002").val() + '&' +
+                'CUR007=' + $("input:radio[name='CUR007']:checked").val() + '&' +
+                'CUR008=' + $("#CUR008").val() + '&' +
+                'CUR003=' + $("#CUR003").val() + '&' +
+                'CUR004=' + $("#CUR004").val() + '&' +
+                'CUR005=' + $("#CUR005").val() + '&' +
+                'CUR006=' + $("#CUR006").val() + '&' +
+                'CUR009=' + $("#CUR009").val() + '&' +
+                'id=' + $("#id").val() + '';
+
+            tableRequest(url);
+            flag=true;
+            $("#userId").val("");
+            $("#CUR002").val("");
+            $("#CUR008").val("");
+            $("#CUR003").val("");
+            $("#CUR004").val("");
+            $("#CUR005").val("");
+            $("#CUR006").val("");
+            $("#CUR009").val("");
+            $("#id").val("");
+            $("input:radio[name='CUR007']:checked").attr('checked',false);
+            return false;
+        }
+
+        function editItem(obj, obj1) {
+            var userId = obj1.userId;
+            getItem(obj, "userId", userId);
+        }
+
+        function deleteItem(obj) {
+            layer.confirm('确认删除此记录?', {
+                    btn: ['删除', '取消']
+                },
+                //删除
+                function () {
+                    layer.close(layer.index);
+                    var customId = obj.customId;
+                    var userId = obj.userId;
+                    var url = 'customUseDelete?customId=' + customId + '&userId=' + userId + '';
+                    tableRequest(url);
+                },
+                function () {
+                    //......
+                    time:2000
+                }
+            );
+        }
+
+        function contactsInfo() {
+            var customId = $("#customId").val();
+            alert(customId);
+            if (customId == "")
+                return;
+            var url = 'Contacts?customId=' + customId + '';
+            tableRequest(url);
+        }
+
+        function tableRequest(url) {
+            url = encodeURI(url);
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#test',
+                    url: url,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: '首页' //不显示首页
+                        , last: '尾页' //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'userId', width: '8%', title: '编号', sort: true}
+                            , {field: 'cur002', width: '8%', title: '姓名'}
+                            , {field: 'cur007', width: '8%', title: '性别', sort: true}
+                            , {field: 'cur008', width: '8%', title: '年龄', sort: true}
+                            , {field: 'cur003', width: '8%', title: '职位', sort: true}
+                            , {field: 'cur004', width: '12%', title: '电话'}
+                            , {field: 'cur005', width: '12%', title: '邮箱'}
+                            , {field: 'cur006', width: '12%', title: '微信'}
+                            , {field: 'cur009', width: '12%', title: '备注'}
+                            , {fixed: 'right', title: '操作', toolbar: '#barCus', width: '12%'}
+                        ]
+                    ],
+                    limits: [10],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        //得到当前页码 curr
+                        //得到数据总量 count
+                    }
+                });
+
+                //表格事件
+                table.on('tool(test)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event == 'edit') {
+                        editItem(datasource.data, data);
+                    } else if (obj.event == 'del') {
+                        deleteItem(data);
+                    }
+                });
+
+            });
+        }
+
+        //预览客户资料信息
+        function getItem(arr, n, v) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i][n] == v) {
+                    $("#userId").val(v);
+                    $("#CUR002").val(arr[i]["cur002"]);
+                    if (arr[i]["cur007"] == "男")
+                        $("#CUR007").val($("#male").prop("checked", true));
+                    else if (arr[i]["cur007"] == "女")
+                        $("#CUR007").val($("#female").prop("checked", true));
+                    $("#CUR008").val(arr[i]["cur008"]);
+                    $("#CUR003").val(arr[i]["cur003"]);
+                    $("#CUR004").val(arr[i]["cur004"]);
+                    $("#CUR005").val(arr[i]["cur005"]);
+                    $("#CUR006").val(arr[i]["cur006"]);
+                    $("#CUR009").val(arr[i]["cur009"]);
+                    $("#id").val(arr[i]["id"]);
+                }
+            }
+        }
+
+    </script>
+
+    <script type="text/html" id="barCus">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <!--method="post" th:action="@{/customUseSave}" enctype="multipart/form-data"-->
+        <form class="form-inline" style="margin-top:15px" id="myform">
+            <div class="form-group">
+                <label style="width: 60px;">客户编号</label>
+                <input type="text" class="form-control" readonly="readonly" id="customId" name="customId"
+                       style="width: 100px" th:value="${customId}">
+            </div>
+            <div class="form-group">
+                <label style="width: 70px">联系人编号</label>
+                <input type="text" class="form-control" readonly="readonly" id="userId" name="userId"
+                       style="width: 100px">
+            </div>
+            <div class="form-group">
+                <label>联系人</label>
+                <input type="text" class="form-control" id="CUR002" name="CUR002" placeholder="联系人"
+                       style="width: 100px">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <input type="radio" value="男" class="form-control" id="male" name="CUR007">男
+                <input type="radio" value="女" class="form-control" id="female" name="CUR007">女
+            </div>
+            <div class="form-group">
+                <label>年龄</label>
+                <input type="text" class="form-control" id="CUR008" name="CUR008" placeholder="年龄" style="width: 100px"
+                       onkeyup="value=value.replace(/[^\d]/g,'')"
+                >
+            </div>
+            <div class="form-group">
+                <label>职位</label>
+                <input type="text" class="form-control" id="CUR003" name="CUR003" placeholder="职位" style="width: 115px">
+            </div>
+            <div class="form-group">
+                <label>电话</label>
+                <input type="text" class="form-control" id="CUR004" name="CUR004" placeholder="电话" style="width: 160px">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="text" class="form-control" id="CUR005" name="CUR005" placeholder="邮箱" style="width: 160px">
+            </div>
+            <div class="form-group">
+                <label>微信</label>
+                <input type="text" class="form-control" id="CUR006" name="CUR006" placeholder="微信" style="width: 160px">
+            </div>
+            <div class="form-group">
+                <label>备注</label>
+                <textarea class="form-control" id="CUR009" name="CUR009" placeholder="备注"
+                          style="width: 830px"></textarea>
+            </div>
+            <div hidden="hidden"><input type="hidden" id="id" name="id"></div>
+            <div>
+                <input type="button" value="新增" class="top-btn" onclick="add()" style="margin-left: 80%">
+                <input type="button" value="保存" class="top-btn" onclick="save()">
+            </div>
+        </form>
+    </div>
+    &nbsp
+    <div class="bottom">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+</div>
+
+</body>
+</html>

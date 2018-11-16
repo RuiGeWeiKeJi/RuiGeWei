@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+.logo {
+	width: 10%;
+	height: 8%;
+	float: left;
+	text-align: center;
+	line-height: 50px;
+	font-size: 20px;
+	font-weight: 800;
+	color: white;
+	background: #46C0CA;
+}
+
+.login {
+	width:90%;
+	height:8%;
+	float: right;
+	text-align: right;
+	font-weight: 800;
+	line-height: 50px;
+	color: white;
+	background: #AADFE5;
+}

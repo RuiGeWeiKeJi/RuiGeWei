@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/scrm.iml" filepath="$PROJECT_DIR$/scrm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrm-common/scrm-common.iml" filepath="$PROJECT_DIR$/scrm-common/scrm-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrm-service/scrm-service.iml" filepath="$PROJECT_DIR$/scrm-service/scrm-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrm-web/scrm-web.iml" filepath="$PROJECT_DIR$/scrm-web/scrm-web.iml" />
+    </modules>
+  </component>
+</project>

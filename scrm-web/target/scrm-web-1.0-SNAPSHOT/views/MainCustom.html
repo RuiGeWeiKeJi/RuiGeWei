@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script>
+
+        $(function () {
+            var url = 'maintable?customId=' + $("#customId").val() + '';
+            readDates(url);
+
+            // $('#myform').bootstrapValidator({
+            //     feedbackIcons: {
+            //         //根据验证结果显示的各种图标
+            //         valid: 'glyphicon glyphicon-ok',
+            //         invalid: 'glyphicon glyphicon-remove',
+            //         validating: 'glyphicon glyphicon-refresh'
+            //     },
+            //     fields: {
+            //         SRS007: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '联系人不可为空'
+            //                 }
+            //             }
+            //         },
+            //         SRS005: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '沟通方式不可为空'
+            //                 }
+            //             }
+            //         },
+            //         SRS004: {
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请选择下次联系日期'
+            //                 }
+            //             }
+            //         },
+            //         SRS006:{
+            //             validators: {
+            //                 notEmpty: {
+            //                     message: '请录入沟通内容'
+            //                 }
+            //             }
+            //         }
+            //     }
+            // });
+
+        })
+
+        //检查未录入
+        function checkValue() {
+            var srs004 = $("#SRS004").val();
+            if (srs004 == "") {
+                layer.msg("请选择下次联系日期");
+                return false;
+            }
+            var srs005 = $("#SRS005").val();
+            if (srs005 == "") {
+                layer.msg("请选择沟通方式");
+                return false;
+            }
+            var srs006 = $("#SRS006").val();
+            if (srs006 == "") {
+                layer.msg("请录入沟通内容");
+                return false;
+            }
+            var srs007 = $("#SRS007").val();
+            if (srs007 == "") {
+                layer.msg("请选择联系人");
+                return false;
+            }
+        }
+
+        function addNew() {
+            $.ajax({
+                type: "post",
+                url: "mainadd",
+                success: function (data) {
+                    $("#oddNum").val(data.oddNum);
+                    $("#conDate").val(data.conDate);
+                    $("#SRS007").val();
+                    $("#SRS005").val();
+                    $("#SRS004").val();
+                    $("#SRS006").val();
+                    $("#id").val();
+                },
+                dataType: "json"
+            })
+        }
+
+        function editItem(obj, obj1) {
+            var oddNum = obj.oddNum;
+            getItem(obj1, "oddNum", oddNum);
+        }
+
+        function deleteItem(obj) {
+            layer.confirm('确认删除此记录?', {
+                    btn: ['删除', '取消']
+                },
+                //删除
+                function () {
+                    layer.close(layer.index);
+                    var customId = $("#customId").val();
+                    var oddNum = obj.oddNum;
+                    var url = 'deletesrs?customId=' + customId + '&oddNum=' + oddNum + '';
+                    readDates(url);
+                    layer.close(layer.index);
+                },
+                function () {
+                    //......
+                    time:2000
+                }
+            );
+        }
+
+        function readDates(url) {
+            url = encodeURI(url);
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#test',
+                    url: url,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'oddNum', width: '12%', title: '单号', sort: true}
+                            , {field: 'srs007', width: '8%', title: '联系人'}
+                            , {field: 'conDate', width: '17%', title: '联系日期', sort: true}
+                            , {field: 'srs004', width: '13%', title: '下次联系日期', sort: true}
+                            , {field: 'srs005', width: '11%', title: '沟通方式', sort: true}
+                            , {field: 'srs006', width: '40%', title: '沟通内容'}
+                            // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '10%'}
+                        ]
+                    ],
+                    limits: [10, 20]
+                    ,
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        // layui.msg(res);
+                        //得到当前页码
+                        // layui.msg(curr);
+                        //得到数据总量
+                        // layui.msg(count);
+                    }
+                });
+
+                //表格事件
+                table.on('tool(test)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        editItem(data, datasource.data);
+                    }
+                    else if (obj.event === 'del') {
+                        deleteItem(data);
+                    }
+                });
+
+            });
+        }
+
+        //预览客户资料信息
+        function getItem(arr, n, v) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i][n] == v) {
+                    $("#oddNum").val(v);
+                    $("#SRS007").val(arr[i]["srs007"]);
+                    $("#SRS005").val(arr[i]["srs005"]);
+                    $("#conDate").val(arr[i]["conDate"]);
+                    $("#SRS004").val(arr[i]["srs004"]);
+                    $("#SRS006").val(arr[i]["srs006"]);
+                    $("#id").val(arr[i]["id"]);
+                }
+            }
+        }
+
+        //保存资料
+        function save() {
+
+            // $("#myform").bootstrapValidator('validate');
+            // if ($("#myform").data('bootstrapValidator').isValid()==false) {
+            //     //获取验证结果，如果成功，执行下面代码
+            //     return;
+            // }
+            if (checkValue() != false) {
+                var url = 'mainsave?customId=' + $("#customId").val() + '&' +
+                    'oddNum=' + $("#oddNum").val() + '&' +
+                    'SRS007=' + $("#SRS007").val() + '&' +
+                    'SRS005=' + $("#SRS005").val() + '&' +
+                    'conDate=' + $("#conDate").val() + '&' +
+                    'SRS004=' + $("#SRS004").val() + '&' +
+                    'SRS006=' + $("#SRS006").val() + '&' +
+                    'id=' + $("#id").val() + '&' +
+                    'page=1&limit=10';
+                readDates(url);
+            }
+        }
+
+
+
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <style>
+        .form-inline {
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-top: 5px;
+        }
+
+        .form-group label {
+            margin-left: 10px;
+        }
+
+        .form-group input {
+            height: 30px;
+        }
+
+        .form-group select {
+            height: 30px;
+        }
+
+        .btn {
+            width: 50px; /* 宽度 */
+            height: 20px; /* 高度 */
+            margin-top: 2px;
+            margin-left: 15px;
+            border-width: 0px; /* 边框宽度 */
+            border-radius: 5px; /* 边框半径 */
+            background: #42C2CF; /* 背景颜色 */
+            cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+            outline: none; /* 不显示轮廓线 */
+            font-family: Microsoft YaHei; /* 设置字体 */
+            color: white;
+            font-size: 12px; /* 字体大小 */
+            line-height: 2px;
+            hover: #A5BED9;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="top">
+        <form class="form-inline" id="myform">
+            <div class="form-group">
+                <label>客户编号</label>
+                <input type="text" class="form-control" id="customId" th:value="${customId}" name="customId"
+                       readonly="readonly"
+                       style="width: 100px">
+            </div>
+            <div class="form-group">
+                <label>单号</label>
+                <input type="text" th:value="${uid}" class="form-control" id="oddNum" name="oddNum" readonly="readonly"
+                       style="width: 180px">
+            </div>
+            <div class="form-group">
+                <label>联系人</label>
+                <select class="form-control" id="SRS007" name="SRS007" style="width: 180px">
+                    <option></option>
+                    <option th:each="c:${allUse}" th:value="${c}" th:text="${c}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>沟通方式</label>
+                <select class="form-control" id="SRS005" name="SRS005" style="width: 180px">
+                    <option></option>
+                    <option>电话</option>
+                    <option>邮箱</option>
+                    <option>微信</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>联系日期</label>
+                <input type="text" readonly="readonly" class="form-control" id="conDate" name="conDate"
+                       th:value="${date}"
+                       onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'SRS004\')}'})"
+                       style="width: 250px;"
+                >
+            </div>
+            <div class="form-group">
+                <label>下次联系日期</label>
+                <input type="text" class="form-control" id="SRS004" name="SRS004"
+                       placeholder="下次联系日期"
+                       onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'conDate\')}'})"
+                       style="width: 250px;">
+            </div>
+            <div class="form-group">
+                <label style="margin-top: 5px">沟通内容</label>
+                <textarea class="form-control" id="SRS006" name="SRS006"
+                          style="margin-top: 5px;width: 780px;height: 80px" placeholder="沟通内容"></textarea>
+
+                <input type="button" value="新增" class="btn" style="margin-top: 40px;margin-left: 5px"
+                       onclick="addNew()">
+                <input type="button" value="保存" class="btn" style="margin-top: 40px;margin-left: 5px" onclick="save()">
+            </div>
+            <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
+        </form>
+    </div>
+    <br>
+    <div class="bottom" style="height: 250px;overflow: auto">
+
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+
+    </div>
+</div>
+
+</body>
+</html>

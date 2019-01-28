@@ -1,9 +1,11 @@
 package com.huotu.scrm.web.controller.custom;
 
+import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.Power.Authority;
 import com.huotu.scrm.service.entity.User.User;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.user.LoginService;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,7 @@ public class LoginController {
             for (Cookie cookie : cookies) {
                 if ("username".equals(cookie.getName())) {
                     username = cookie.getValue();
+                    Constant.userName=username;
                 }
                 if ("password".equals(cookie.getName())) {
                     password = cookie.getValue();
@@ -119,6 +122,9 @@ public class LoginController {
         } else {
             map.put("user", user);
             request.getSession().setAttribute("user", user);
+
+            Constant.userName=user.getUSE002();
+            System.out.println(Constant.userName);
 
             //记住密码
             if (!StringUtils.isEmpty(remeber)) {

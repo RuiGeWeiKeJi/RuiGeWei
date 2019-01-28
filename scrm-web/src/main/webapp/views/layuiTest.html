@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+</head>
+<body>
+
+<div>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">客户编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="cusnum" required  lay-verify="required" placeholder="客户编号" autocomplete="off"
+                class="layui-input">
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -16,6 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.Specifications.not;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
 
 @Service
 @Transactional
@@ -33,9 +36,11 @@ public class CustemInfoServiceImpl implements CustemInfoService {
      * @return
      */
     @Override
-    public Page<Custom> findAllByWhere(Specification specification, Pageable pageable) {
+    public Page<Custom> findAllByWhere(Specification specification,Specification specification1, Pageable pageable) {
+        //return custemInfoRepository.findAll(where(specification).or(specification1),pageable);
         return custemInfoRepository.findAll(specification,pageable);
     }
+
 
     /**
      * 根据条件查询客户资料

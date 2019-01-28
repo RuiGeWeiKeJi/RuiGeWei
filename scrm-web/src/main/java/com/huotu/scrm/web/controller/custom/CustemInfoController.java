@@ -1,5 +1,6 @@
 package com.huotu.scrm.web.controller.custom;
 
+import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import org.eclipse.persistence.internal.oxm.schema.model.Content;
@@ -79,21 +80,22 @@ public class CustemInfoController {
             @RequestParam("limit") Integer pageSize
     ) {
 
-        try {
-            URLDecoder.decode(CUS002,"UTF-8");
-            URLDecoder.decode(CUS004,"UTF-8");
-            URLDecoder.decode(industry,"UTF-8");
-            URLDecoder.decode(salesman,"UTF-8");
-            URLDecoder.decode(CUS013,"UTF-8");
-            URLDecoder.decode(CUS009start,"UTF-8");
-            URLDecoder.decode(CUS009end,"UTF-8");
-            URLDecoder.decode(CUS011start,"UTF-8");
-            URLDecoder.decode(CUS011end,"UTF-8");
-            URLDecoder.decode(other,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            URLDecoder.decode(CUS002,"UTF-8");
+//            URLDecoder.decode(CUS004,"UTF-8");
+//            URLDecoder.decode(industry,"UTF-8");
+//            URLDecoder.decode(salesman,"UTF-8");
+//            URLDecoder.decode(CUS013,"UTF-8");
+//            URLDecoder.decode(CUS009start,"UTF-8");
+//            URLDecoder.decode(CUS009end,"UTF-8");
+//            URLDecoder.decode(CUS011start,"UTF-8");
+//            URLDecoder.decode(CUS011end,"UTF-8");
+//            URLDecoder.decode(other,"UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
+        
         Specification<Custom> specification = new Specification<Custom>() {
             @Override
             public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
@@ -103,42 +105,59 @@ public class CustemInfoController {
                 //单表条件对象构建(定区编码和地区关键字在分区表中)
                 if (!StringUtils.isEmpty(CUS002)) {
                     Predicate p1 = cb.equal(root.get("CUS002"), CUS002);
-                    plist.add(cb.and(p1));
+                    plist.add(p1);
                 }
                 if (!StringUtils.isEmpty(CUS004)) {
                     Predicate p1 = cb.equal(root.get("CUS004"), CUS004);
-                    plist.add(cb.and(p1));
+                    plist.add(p1);
                 }
                 if (!StringUtils.isEmpty(industry)) {
                     Predicate p1 = cb.equal(root.get("industry"), industry);
-                    plist.add(cb.and(p1));
+                    plist.add(p1);
                 }
                 if (!StringUtils.isEmpty(salesman)) {
                     Predicate p1 = cb.equal(root.get("salesman"), salesman);
-                    plist.add(cb.and(p1));
+                    plist.add(p1);
                 }
                 if (!StringUtils.isEmpty(CUS013)) {
                     Predicate p1 = cb.equal(root.get("CUS013"), CUS013);
-                    plist.add(cb.and(p1));
+                    plist.add(p1);
                 }
                 if (!StringUtils.isEmpty(CUS009start)) {
                     Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS009").as(String.class), CUS009start);
-                    plist.add(cb.and(p2));
+                    plist.add(p2);
                 }
                 if (!StringUtils.isEmpty(CUS009end)) {
                     Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS009").as(String.class), CUS009end);
-                    plist.add(cb.and(p2));
+                    plist.add(p2);
                 }
                 if (!StringUtils.isEmpty(CUS011start)) {
                     Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS011").as(String.class), CUS011start);
-                    plist.add(cb.and(p2));
+                    plist.add(p2);
                 }
                 if (!StringUtils.isEmpty(CUS011end)) {
                     Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
-                    plist.add(cb.and(p2));
+                    plist.add(p2);
+                }
+                if(!StringUtils.isEmpty(Constant.userName) && !Constant.userName.equals("系统管理员")){
+                    Predicate p2 = cb.equal(root.get("salesman").as(String.class), Constant.userName);
+                    plist.add(p2);
                 }
 
-                if (plist.size()>0 && !StringUtils.isEmpty(other)) {
+                //pList转换为具体类型的数组
+                Predicate[] predicate = new Predicate[plist.size()];
+                //将条件进行汇总并返回
+                return cb.and(plist.toArray(predicate));
+            }
+        };
+
+        Specification<Custom> specification1=new Specification<Custom>() {
+            @Override
+            public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+
+                ///定义条件对象列表
+                List<Predicate> plist = new ArrayList<>();
+
                     CriteriaBuilder.In<Integer> in = cb.in(root.get("id"));
                     List<Integer> stringList = custemInfoService.findBy();
                     if (stringList != null && stringList.size() > 0) {
@@ -146,22 +165,19 @@ public class CustemInfoController {
                             if (s != null)
                                 in.value(s);
                         }
-                        plist.add(cb.or(in));
+                        plist.add(in);
                     }
-                }
-
-                //Predicate o = DynamicSpecifications.bySearchFilter(filters, Content.class).toPredicate(root, query, builder);
 
                 //pList转换为具体类型的数组
-                Predicate[] predicate = plist.toArray(new Predicate[0]);
+                Predicate[] predicate = new Predicate[plist.size()];
                 //将条件进行汇总并返回
-                return cb.and(predicate);
+                return cb.and(plist.toArray(predicate));
             }
         };
 
         Sort sort = new Sort(Sort.Direction.DESC, "CUS001");
         Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
-        Page<Custom> customPage = custemInfoService.findAllByWhere(specification, pageable);
+        Page<Custom> customPage = custemInfoService.findAllByWhere(  specification,specification1, pageable);
 
         Map<String, Object> datasource = new LinkedHashMap<String, Object>();
         datasource.put("code", 0);

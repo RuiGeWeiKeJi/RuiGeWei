@@ -2,10 +2,12 @@ package com.huotu.scrm.service.service.cutom;
 
 import com.huotu.scrm.service.entity.CustomBrs.CustomBRS;
 import com.huotu.scrm.service.entity.custom.Custom;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface CustomService {
@@ -41,5 +43,13 @@ public interface CustomService {
      * @return
      */
     boolean existsCustomInfo(String customId);
+
+    /**
+     * 是否存在同名称的客户
+     * @param customName
+     * @param customId
+     * @return
+     */
+    boolean existsCustomNameAndId(String customName,String customId);
 
 }

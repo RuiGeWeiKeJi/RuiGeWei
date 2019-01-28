@@ -17,7 +17,7 @@ public interface CustemInfoService {
      * @param specification
      * @return
      */
-    Page<Custom> findAllByWhere(Specification specification , Pageable pageable) ;
+    Page<Custom> findAllByWhere(Specification specification ,Specification specification1 , Pageable pageable) ;
 
     /**
      * 根据条件查询

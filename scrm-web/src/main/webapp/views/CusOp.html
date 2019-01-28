@@ -215,9 +215,13 @@
                 url: "addcustom",
                 data: data,
                 success: function (data) {
-                    layer.msg("保存成功");
-                    $("#saveBtn").hide();
-                    $("#cancelBtn").hide();
+                    if (data == "false") {
+                        layer.msg("保存成功");
+                        $("#saveBtn").hide();
+                        $("#cancelBtn").hide();
+                    } else {
+                        layer.msg("客户:" + $("#CUS002").val() + "已经存在,请核实");
+                    }
                 },
                 dataType: "text"
             })
@@ -232,8 +236,8 @@
             }
             $.ajax({
                 type: "post",
-                url:"existscustom",
-                data:{"customId":result},
+                url: "existscustom",
+                data: {"customId": result},
                 success: function (data) {
                     if (data == "true") {
 
@@ -289,7 +293,7 @@
                                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '20%'}
                                 ]
                             ],
-                            limits: [10]
+                            limits: [10, 20, 30, 40, 50]
                             ,
                             done: function (res, curr, count) {
                                 datasource = res;
@@ -302,7 +306,6 @@
                                 // layui.msg(count);
                             }
                         });
-
                         //表格事件
                         table.on('tool(test)', function (obj) {
                             var data = obj.data;
@@ -314,7 +317,6 @@
                                 getItem(resu, cus001, id);
                             }
                         });
-
                     });
                     layer.close(layer.index);
                 }
@@ -353,10 +355,10 @@
         //读取联系人
         function readCustomUser() {
             $.ajax({
-                async:false,
-                type:"post",
-                url:"readcustomuser",
-                success:function (data) {
+                async: false,
+                type: "post",
+                url: "readcustomuser",
+                success: function (data) {
                     var result = $("#salesman");
                     result.empty();
                     var otherResult = "<option></option>";
@@ -365,10 +367,10 @@
                     })
                     result.append(otherResult);
                 },
-                dataType:"json"
+                dataType: "json"
             })
         }
-        
+
         //读取客户联系记录的数据
         function readInfo(url) {
             url = encodeURI(url);
@@ -389,16 +391,16 @@
                     }
                     , cols: [
                         [
-                            {field: 'oddNum', width: '15%', title: '单号', sort: true}
-                            , {field: 'brs007', width: '10%', title: '联系人'}
+                            {field: 'oddNum', width: '10%', title: '单号', sort: true}
+                            , {field: 'brs007', width: '5%', title: '联系人'}
                             , {field: 'brs003', width: '15%', title: '联系日期', sort: true}
-                            , {field: 'brs004', width: '15%', title: '下次联系日期', sort: true}
-                            , {field: 'brs005', width: '10%', title: '沟通方式', sort: true}
-                            , {field: 'brs006', width: '33%', title: '沟通内容'}
+                            , {field: 'brs004', width: '10%', title: '下次联系日期', sort: true}
+                            , {field: 'brs005', width: '5%', title: '沟通方式', sort: true}
+                            , {field: 'brs006', width: '54%', title: '沟通内容'}
                             // , {fixed: 'right', title: '操作', toolbar: '#barCus', width: 120}
                         ]
                     ],
-                    limits: [2, 10, 20],
+                    limits: [10, 20,50,100],
                     done: function (res, curr, count) {
                         datasource = res;
                         //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -444,7 +446,7 @@
 
             });
         }
-        
+
         //联系人
         function con() {
             var cusId = $("#CUS001").val();
@@ -455,8 +457,8 @@
 
             $.ajax({
                 type: "post",
-                url:"existscustom",
-                data:{"customId":cusId},
+                url: "existscustom",
+                data: {"customId": cusId},
                 success: function (data) {
                     if (data == "true") {
                         layer.open({
@@ -489,8 +491,8 @@
 
             $.ajax({
                 type: "post",
-                url:"existscustom",
-                data:{"customId":cusId},
+                url: "existscustom",
+                data: {"customId": cusId},
                 success: function (data) {
                     if (data == "true") {
                         layer.open({
@@ -561,8 +563,8 @@
 
             $.ajax({
                 type: "post",
-                url:"existscustom",
-                data:{"customId":cusId},
+                url: "existscustom",
+                data: {"customId": cusId},
                 success: function (data) {
                     if (data == "true") {
                         layer.open({
@@ -585,7 +587,6 @@
             })
 
         }
-
 
     </script>
 
@@ -629,7 +630,7 @@
                                id="CUS001"
                                name="CUS001"
                                readonly="readonly"
-                               style="width: 60px"
+                               style="width: 80px"
                         >
                     </div>
                     <div class="form-group">
@@ -638,7 +639,7 @@
                                class="form-control"
                                id="CUS002"
                                name="CUS002"
-                               style="width:235px"
+                               style="width:230px"
                                placeholder="请录入客户名称">
                     </div>
                     <div class="form-group">
@@ -647,7 +648,7 @@
                                class="form-control"
                                id="CUS005"
                                name="CUS005"
-                               style="width:235px"
+                               style="width:225px"
                                placeholder="请录入客户地址">
                     </div>
                     <div class="form-group">
@@ -656,7 +657,7 @@
                                class="form-control"
                                id="CUS016"
                                name="CUS016"
-                               style="width:115px"
+                               style="width:110px"
                                placeholder="法人">
                     </div>
                     <div class="form-group">
@@ -678,7 +679,7 @@
                                 class="select form-control"
                                 style="height:30px;width:70px" id="CUS004"
                                 name="CUS004">
-                            <option></option>
+                            <option>无</option>
                             <option>A</option>
                             <option>B</option>
                             <option>C</option>
@@ -692,7 +693,7 @@
                         <label for="CUS013">来源</label> <select
                             class="select form-control" id="CUS013" name="CUS013"
                             style="height:30px;width:80px">
-                        <option></option>
+                        <option>无</option>
                         <option>鼎捷</option>
                         <option>网站</option>
                         <option>老客</option>
@@ -742,7 +743,8 @@
                     </div>
                     <div class="form-group">
                         <label for="CUS011" style="width:115px">预计下次联系时间</label>
-                        <input type="text" style="width: 100px" class="form-control" id="CUS011" name="CUS011"  disabled="true"
+                        <input type="text" style="width: 100px" class="form-control" id="CUS011" name="CUS011"
+                               disabled="true"
                                onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})">
                         <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})"-->
                     </div>
@@ -787,17 +789,17 @@
                 <table class="layui-hide" id="conInfo" lay-filter="conInfo"></table>
             </div>
         </div>
-    </div>
-    <!-- 右边 -->
-    <div class="right">
-        <div class="right-top">
-            <label style="text-align:left;margin-left:10px;font-weight: bold;color: #7F8F9C;line-height: 30px;font-size: 16px;">客户信息预览</label>
-            <input style="font-size: 12px" type="button" value="查询" onclick="queryInfo()" id="btn02"/>
-            <input style="font-size: 12px" type="button" value="新建" onclick="add()" id="addBtn"/>
-            <input style="font-size: 12px" type="button" value="编辑" onclick="update()" id="btn03"/>
-        </div>
-        <div class="right-bottom" style="height: 500px;overflow: auto">
-            <table class="layui-hide" id="test" lay-filter="test"></table>
+        <!-- 右边 -->
+        <div class="right">
+            <div class="right-top">
+                <label style="text-align:left;margin-left:10px;font-weight: bold;color: #7F8F9C;line-height: 30px;font-size: 16px;">客户信息预览</label>
+                <input style="font-size: 12px" type="button" value="查询" onclick="queryInfo()" id="btn02"/>
+                <input style="font-size: 12px" type="button" value="新建" onclick="add()" id="addBtn"/>
+                <input style="font-size: 12px" type="button" value="编辑" onclick="update()" id="btn03"/>
+            </div>
+            <div class="right-bottom" style="height: 240px;overflow: auto">
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+            </div>
         </div>
     </div>
 </div>

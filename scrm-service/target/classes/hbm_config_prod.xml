@@ -11,18 +11,29 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" profile="container"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--class="org.springframework.jndi.JndiObjectFactoryBean"-->
+    <!--<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >-->
+        <!--<property name="jndiName">-->
+            <!--<value>jdbc/huobanplus_scrm</value>-->
+        <!--</property>-->
+        <!--<property name="resourceRef">-->
+            <!--<value>true</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName">
-            <value>jdbc/huobanplus_scrm</value>
-        </property>
-        <property name="resourceRef">
-            <value>true</value>
-        </property>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!--<property name="url" value="jdbc:jtds:sqlserver://115.28.160.96:1433;DatabaseName=HotPdMall_Test"/>-->
+        <!--<property name="username" value="mall"/>-->
+        <!--<property name="password" value="root123"/>-->
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/rgw?zeroDateTimeBehavior=convertToNull"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1111"/>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"/>
         <property name="persistenceUnitName" value="entityManager" />
         <property name="packagesToScan">
             <array>
@@ -46,6 +57,6 @@
 
     <!--事务管理器配置 -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
+    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+</bean>
 </beans>

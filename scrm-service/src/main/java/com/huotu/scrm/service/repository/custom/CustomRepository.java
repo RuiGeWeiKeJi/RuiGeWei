@@ -42,4 +42,12 @@ public interface CustomRepository extends JpaRepository<Custom, Long>, JpaSpecif
     @Query(value = "select count(1) from rgwcus t where t.CUS001=?1 ",nativeQuery = true)
     Integer findByCode(String customId);
 
+    /**
+     * 是否存在该名称的客户
+     * @param customName
+     * @return
+     */
+    @Query(value = "select count(1) from rgwcus t where t.CUS002=?1 and t.CUS001!=?2",nativeQuery = true)
+    Integer findByName(String customName,String customId);
+
 }

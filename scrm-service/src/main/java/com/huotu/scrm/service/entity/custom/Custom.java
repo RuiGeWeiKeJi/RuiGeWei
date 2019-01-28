@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Description;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -126,5 +128,11 @@ public class Custom implements Serializable {
      */
     @Column(name = "CUS014",length = 225)
     private String CUS014;
+
+    /**
+     * 录入时间
+     */
+    @Column(name = "CUS018")
+    private String CUS018;
 
 }

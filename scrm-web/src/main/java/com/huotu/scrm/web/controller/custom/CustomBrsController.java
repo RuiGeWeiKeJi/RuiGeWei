@@ -67,7 +67,9 @@ public class CustomBrsController {
             @RequestParam("BRS003") String BRS003,
             @RequestParam("BRS004") String BRS004,
             @RequestParam("BRS006") String BRS006,
-            @RequestParam("id") Integer id
+            @RequestParam("id") Integer id,
+            @RequestParam("page") Integer pageIndex,
+            @RequestParam("limit") Integer pageSize
     ) {
         try {
             URLDecoder.decode(BRS007,"UTF-8");
@@ -97,7 +99,7 @@ public class CustomBrsController {
         Specification specification=  addCondition(customId);
 
         Sort sort = new Sort(Sort.Direction.DESC, "oddNum");
-        Pageable pageable = new PageRequest(0, 2, sort);
+        Pageable pageable = new PageRequest(pageIndex-1, pageSize, sort);
         Page<CustomBRS> customBRSPage = customBrsService.findByCustomId(specification, pageable);
         Map<String, Object> datasource = new LinkedHashMap<String, Object>();
         datasource.put("code", 0);

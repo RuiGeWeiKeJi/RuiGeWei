@@ -197,19 +197,19 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springside/springside-core -->
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <version>${springside}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springside</groupId>-->
+            <!--<artifactId>springside-core</artifactId>-->
+            <!--<version>${springside}</version>-->
+        <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springside/springside-modules -->
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-modules</artifactId>
-            <version>${springside}</version>
-            <type>pom</type>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springside</groupId>-->
+            <!--<artifactId>springside-modules</artifactId>-->
+            <!--<version>${springside}</version>-->
+            <!--<type>pom</type>-->
+        <!--</dependency>-->
 
 
     </dependencies>

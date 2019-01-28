@@ -47,7 +47,7 @@ public class CustomServiceImpl implements CustomService {
     @Override
     public String findOneByCode() {
         String uid = customRepository.findOneByCode()+"";
-        uid = GenerateUid.getUid(uid);
+        uid = GenerateUid.getUidForCus(uid);
         return uid;
     }
 
@@ -65,6 +65,18 @@ public class CustomServiceImpl implements CustomService {
     public boolean existsCustomInfo(String customId) {
         Integer count = customRepository.findByCode(customId);
         return  count>0?true:false;
+    }
+
+    /**
+     * 是否存在同名称的客户
+     * @param customName
+     * @param customId
+     * @return
+     */
+    @Override
+    public boolean existsCustomNameAndId(String customName, String customId) {
+        Integer result=customRepository.findByName(customName,customId);
+        return result>0?true:false;
     }
 
 }

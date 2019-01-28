@@ -2,9 +2,9 @@ package com.huotu.scrm.web.controller.custom;
 
 import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.bar.barService;
+import com.huotu.scrm.service.service.customBrs.CustomBrsService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.cutom.CustomService;
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +38,9 @@ public class CustomController {
 
     @Autowired
     private CustemInfoService custemInfoService;
+
+    @Autowired
+    private CustomBrsService customBrsService;
 
     /**
      * 分页获取客户资料
@@ -83,14 +86,17 @@ public class CustomController {
      */
     @RequestMapping(value = "/addcustom")
     @ResponseBody
-    public String insertCustom(Custom custom) {
-        if(custom.getCUS009()=="")
+    public boolean insertCustom(Custom custom) {
+        if (custom.getCUS009() == "")
             custom.setCUS009(null);
-        if(custom.getCUS011()=="")
+        if (custom.getCUS011() == "")
             custom.setCUS011(null);
-
-        customService.insertCustom(custom);
-        String result = "success";
+        
+        boolean result = customService.existsCustomNameAndId(custom.getCUS002(), custom.getCUS001());
+        if (result == false) {
+            custom.setCUS018(customBrsService.getDateNow().toString());
+            customService.insertCustom(custom);
+        }
         return result;
     }
 

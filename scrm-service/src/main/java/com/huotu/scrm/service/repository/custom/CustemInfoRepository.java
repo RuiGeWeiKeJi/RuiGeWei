@@ -16,8 +16,8 @@ public interface CustemInfoRepository extends JpaRepository<Custom, Long>, JpaSp
      * 查询超期客户
      * @return
      */
-    @Query(value = "select id from rgwcus where CUS011<NOW()",nativeQuery = true)
-    List<Integer> findBy();
+    @Query(value = "select * from rgwcus where CUS011<NOW()",nativeQuery = true)
+    List<Custom> findBy();
 
     /**
      * 依据客户编号查询该客户所有联系人
@@ -25,5 +25,7 @@ public interface CustemInfoRepository extends JpaRepository<Custom, Long>, JpaSp
      */
     @Query(value = "select t.USE002 from rgwuse t where t.USE004 in ('业务','业务经理') and t.USE002!='系统管理员'",nativeQuery = true)
     List<String> findAllBy();
+
+
 
 }

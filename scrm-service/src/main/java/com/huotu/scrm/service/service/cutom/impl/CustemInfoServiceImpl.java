@@ -36,7 +36,7 @@ public class CustemInfoServiceImpl implements CustemInfoService {
      * @return
      */
     @Override
-    public Page<Custom> findAllByWhere(Specification specification,Specification specification1, Pageable pageable) {
+    public Page<Custom> findAllByWhere(Specification specification, Pageable pageable) {
         //return custemInfoRepository.findAll(where(specification).or(specification1),pageable);
         return custemInfoRepository.findAll(specification,pageable);
     }
@@ -104,7 +104,7 @@ public class CustemInfoServiceImpl implements CustemInfoService {
      * @return
      */
     @Override
-    public List<Integer> findBy() {
+    public List<Custom> findBy() {
         return custemInfoRepository.findBy();
     }
 

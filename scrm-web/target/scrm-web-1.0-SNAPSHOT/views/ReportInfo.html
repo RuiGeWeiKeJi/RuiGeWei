@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>统计报表</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/report.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid-bootstrap-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+
+    <style>
+
+        #menu li a {
+            color: #6A818F;
+            text-decoration: none;
+            font-family: 微软雅黑;
+            font-size: 15px
+        }
+
+        #menu li a:hover {
+            color: white;
+        }
+
+    </style>
+
+    <script>
+        function btnOpenComRecord() {
+            layer.open({
+               type:2,
+               title:"最近通话记录查询",
+                area: ['800px', '300px'],
+                content: 'linkUp',
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    var res = $(layero).find("iframe")[0].contentWindow.formDate();
+                    var url = encodeURI(res.data);
+                   layui.use('table',function () {
+                       var table = layui.table;
+                       var datasource = null;
+                       table.render({
+                           elem: '#test',
+                           url: url,
+                           method: 'post',
+                           ContentType: 'application/json;charset=utf-8'
+                           , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                               layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                               //,curr: 5 //设定初始在第 5 页
+                               , groups: 5 //只显示 1 个连续页码
+                               , first: true //显示首页
+                               , last: true //显示尾页
+                           }
+                           , cols: [
+                               [
+                                   {field: 'cus001', width: '10%', title: '编号', sort: true}
+                                   , {field: 'cus002', width: '15%', title: '名称'}
+                                   , {fixed: 'cus004', title: '级别', width: '5%'}
+                                   , {fixed: 'brs005', title: '联系方式', width: '10%'}
+                                   , {fixed: 'brs006', title: '通话内容', width: '50%'}
+                                   , {fixed: 'brs007', title: '联系人', width: '10%'}
+                               ]
+                           ],
+                           limits: [10, 20, 30, 40, 50]
+                           ,
+                           done: function (res, curr, count) {
+                               datasource = res;
+                               //如果是异步请求数据方式，res即为你接口返回的信息。
+                               //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                               // layui.msg(res);
+                               //得到当前页码
+                               // layui.msg(curr);
+                               //得到数据总量
+                               // layui.msg(count);
+                           }
+                       });
+                   });
+                    layer.close(layer.index);
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div th:replace="index.html">
+    </div>
+    <div class="container">
+        <div class="left">
+        <div >
+            <input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">
+        </div>
+            <div>
+            <input id="levelCus" class="btnStyle" type="button" value="客户级别" >
+            </div>
+        </div>
+        <div class="right">
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+        </div>
+    </div>
+</body>
+</html>

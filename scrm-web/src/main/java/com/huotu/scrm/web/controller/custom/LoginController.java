@@ -3,9 +3,8 @@ package com.huotu.scrm.web.controller.custom;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.Power.Authority;
 import com.huotu.scrm.service.entity.User.User;
-import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.user.LoginService;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -44,23 +43,14 @@ public class LoginController {
 
         //获取cookie中的用户名和密码进行登录
         Cookie[] cookies = request.getCookies();
-        String username = null;
-        String password = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("username".equals(cookie.getName())) {
-                    username = cookie.getValue();
-                    Constant.userName=username;
-                }
-                if ("password".equals(cookie.getName())) {
-                    password = cookie.getValue();
-                }
-            }
-        }
+        String username = "";
+        String password = "";
+        GetUserLoginInfo.getUserLoginInfo(cookies,username,password);
+
         ModelAndView model = new ModelAndView();
         model.addObject("username", username);
         model.addObject("password", password);
-        if (password != null)
+        if (password != "")
             model.addObject("check", true);
         else
             model.addObject("check", false);

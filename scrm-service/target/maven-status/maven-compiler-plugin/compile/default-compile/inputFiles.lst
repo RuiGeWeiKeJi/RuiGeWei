@@ -1,3 +1,4 @@
+D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\ReportInfo\impl\ReportInfoServiceImpl.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\exception\ApiResultException.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\cutom\impl\CustomServiceImpl.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\customSrs\CustomSrsRepository.java
@@ -20,11 +21,14 @@ D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\r
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\cutom\CustemInfoService.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\user\LoginService.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\entity\Power\PowerRole.java
+D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\ReportInfo\ReportInfoRepository.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\cutom\CustomService.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\user\impl\UseServiceImpl.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\customUse\impl\CustomUseServiceImpl.java
+D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\ReportInfo\ReportInfoTransRepository.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\custom\CustemInfoRepository.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\bar\impl\barServiceImpl.java
+D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\model\customtrans.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\custom\CustomRepository.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\entity\Power\Authority.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\entity\custom\Custom.java
@@ -36,6 +40,7 @@ D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\r
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\exception\package-info.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\user\impl\LoginServiceImpl.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\repository\CustomBrs\CustomBrsRepository.java
+D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\ReportInfo\ReportInfoService.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\config\ServiceConfig.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\customSrs\CustomSrsService.java
 D:\ProjectData\RuiGeWei\scrm\scrm-service\src\main\java\com\huotu\scrm\service\service\customUse\CustomUseService.java

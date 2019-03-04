@@ -3,7 +3,6 @@ package com.huotu.scrm.web.controller.custom;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
-import org.eclipse.persistence.internal.oxm.schema.model.Content;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,12 +22,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import  org.springside.modules.persistence.DynamicSpecifications;
 
@@ -40,11 +34,12 @@ public class CustemInfoController {
     @Autowired
     private CustemInfoService custemInfoService;
 
+
     @RequestMapping("/main")
     @ResponseBody
     public ModelAndView findCustom() {
         //List<String> user=custemInfoService.findAllBy();
-        ModelAndView model=new ModelAndView();
+        ModelAndView model = new ModelAndView();
         model.setViewName("CusOp");
         //model.addObject("users",user);
         return model;
@@ -80,27 +75,12 @@ public class CustemInfoController {
             @RequestParam("limit") Integer pageSize
     ) {
 
-//        try {
-//            URLDecoder.decode(CUS002,"UTF-8");
-//            URLDecoder.decode(CUS004,"UTF-8");
-//            URLDecoder.decode(industry,"UTF-8");
-//            URLDecoder.decode(salesman,"UTF-8");
-//            URLDecoder.decode(CUS013,"UTF-8");
-//            URLDecoder.decode(CUS009start,"UTF-8");
-//            URLDecoder.decode(CUS009end,"UTF-8");
-//            URLDecoder.decode(CUS011start,"UTF-8");
-//            URLDecoder.decode(CUS011end,"UTF-8");
-//            URLDecoder.decode(other,"UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
 
-        
         Specification<Custom> specification = new Specification<Custom>() {
             @Override
             public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
-                ///定义条件对象列表
+                //定义条件对象列表
                 List<Predicate> plist = new ArrayList<>();
                 //单表条件对象构建(定区编码和地区关键字在分区表中)
                 if (!StringUtils.isEmpty(CUS002)) {
@@ -139,7 +119,7 @@ public class CustemInfoController {
                     Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
                     plist.add(p2);
                 }
-                if(!StringUtils.isEmpty(Constant.userName) && !Constant.userName.equals("系统管理员")){
+                if (!StringUtils.isEmpty(Constant.userName) && !Constant.userName.equals("系统管理员")) {
                     Predicate p2 = cb.equal(root.get("salesman").as(String.class), Constant.userName);
                     plist.add(p2);
                 }
@@ -149,40 +129,45 @@ public class CustemInfoController {
                 //将条件进行汇总并返回
                 return cb.and(plist.toArray(predicate));
             }
+
         };
 
-        Specification<Custom> specification1=new Specification<Custom>() {
-            @Override
-            public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
-
-                ///定义条件对象列表
-                List<Predicate> plist = new ArrayList<>();
-
-                    CriteriaBuilder.In<Integer> in = cb.in(root.get("id"));
-                    List<Integer> stringList = custemInfoService.findBy();
-                    if (stringList != null && stringList.size() > 0) {
-                        for (Integer s : stringList) {
-                            if (s != null)
-                                in.value(s);
-                        }
-                        plist.add(in);
-                    }
-
-                //pList转换为具体类型的数组
-                Predicate[] predicate = new Predicate[plist.size()];
-                //将条件进行汇总并返回
-                return cb.and(plist.toArray(predicate));
-            }
-        };
 
         Sort sort = new Sort(Sort.Direction.DESC, "CUS001");
         Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
-        Page<Custom> customPage = custemInfoService.findAllByWhere(  specification,specification1, pageable);
+
+        Page<Custom> customPage=null;
+
+        if (!StringUtils.isEmpty(CUS002) || !StringUtils.isEmpty(CUS004) || !StringUtils.isEmpty(industry) || !StringUtils.isEmpty(salesman) ||
+                !StringUtils.isEmpty(CUS013) || !StringUtils.isEmpty(CUS009start) || !StringUtils.isEmpty(CUS009end) || !StringUtils.isEmpty(CUS011start)
+                || !StringUtils.isEmpty(CUS011end))
+            customPage = custemInfoService.findAllByWhere(specification, pageable);
+
+        List<Custom> stringList =null;
+        if("1".equals(other))
+            stringList = custemInfoService.findBy();
+
+        long count=0;
+
+        if(customPage!=null){
+          count = customPage.getTotalElements();
+          if(stringList!=null)
+          {
+              count+=stringList.size();
+              stringList.addAll(customPage.getContent());
+              HashSet h = new HashSet(stringList);
+              stringList.clear();
+              stringList.addAll(h);
+          }else {
+              stringList=customPage.getContent();
+          }
+        }else if(stringList!=null)
+            count=stringList.size();
 
         Map<String, Object> datasource = new LinkedHashMap<String, Object>();
         datasource.put("code", 0);
-        datasource.put("count", customPage.getTotalElements());
-        datasource.put("data", customPage.getContent());
+        datasource.put("count", count);
+        datasource.put("data", stringList);
         return datasource;
     }
 

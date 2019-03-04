@@ -48,6 +48,7 @@
         <li id="user"><a th:href="@{/user}">人员信息</a></li>
         <li id="custom"><a th:href="@{/left}">客户信息</a></li>
         <li id="customInfo"><a th:href="@{/main}">客户资料</a></li>
+        <li id="reportInfo"><a th:href="@{/report}">统计报表</a></li>
     </ol>
 </div>
 </body>
@@ -64,10 +65,12 @@
             $("#user").attr("style", "display:none");
             $("#custom").attr("style", "display:none");
             $("#customInfo").attr("style", "display:none");
+            $("#reportInfo").attr("style", "display:none");
         } else {
             var result = "";
             var datare = "";
             var datare1 = "";
+            var datare2 = "";
             for (var i = 0; i < other.length; i++) {
                 if (other[i][2] == "人员信息")
                     result = "1";
@@ -75,6 +78,8 @@
                     datare = "1";
                 if (other[i][2] == "客户资料")
                     datare1 = "1";
+                if (other[i][2] == "统计报表")
+                    datare2 = "1";
             }
             if (result != "1")
                 $("#user").attr("style", "display:none");
@@ -82,6 +87,8 @@
                 $("#custom").attr("style", "display:none");
             if (datare1 != "1")
                 $("#customInfo").attr("style", "display:none");
+            if (datare2 != "1")
+                $("#reportInfo").attr("style", "display:none");
         }
     }
     /*]]>*/

@@ -17,7 +17,7 @@ public interface CustemInfoService {
      * @param specification
      * @return
      */
-    Page<Custom> findAllByWhere(Specification specification ,Specification specification1 , Pageable pageable) ;
+    Page<Custom> findAllByWhere(Specification specification  , Pageable pageable) ;
 
     /**
      * 根据条件查询
@@ -30,7 +30,7 @@ public interface CustemInfoService {
      * 查询超期客户
      * @return
      */
-    List<Integer> findBy();
+    List<Custom> findBy();
 
     /**
      * 依据客户编号查询该客户所有联系人

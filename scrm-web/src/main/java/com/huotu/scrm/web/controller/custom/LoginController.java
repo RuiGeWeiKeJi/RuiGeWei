@@ -153,9 +153,12 @@ public class LoginController {
             Integer count = loginService.findBy(uaserName);
             map.put("count", count);
             request.getSession().setAttribute("count", count);
+            if(user.getUSE004().contains("技术"))
+                map.put("page","maintain");
+            else
+                map.put("page","chart");
         }
         return map;
-
     }
 
 }

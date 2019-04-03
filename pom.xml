@@ -196,6 +196,14 @@
             <version>2.8.0</version>
         </dependency>
 
+        <!--交集  并集  合集-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.springside/springside-core -->
         <!--<dependency>-->
             <!--<groupId>org.springside</groupId>-->

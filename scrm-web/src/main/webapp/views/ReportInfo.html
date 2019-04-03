@@ -53,7 +53,7 @@
                        var table = layui.table;
                        var datasource = null;
                        table.render({
-                           elem: '#test',
+                           elem: '#reportext',
                            url: url,
                            method: 'post',
                            ContentType: 'application/json;charset=utf-8'
@@ -66,18 +66,18 @@
                            }
                            , cols: [
                                [
-                                   {field: 'cus001', width: '10%', title: '编号', sort: true}
-                                   , {field: 'cus002', width: '15%', title: '名称'}
-                                   , {fixed: 'cus004', title: '级别', width: '5%'}
-                                   , {fixed: 'brs005', title: '联系方式', width: '10%'}
-                                   , {fixed: 'brs006', title: '通话内容', width: '50%'}
-                                   , {fixed: 'brs007', title: '联系人', width: '10%'}
+                                    {field: 'cus001', title: '编号', width: '10%', sort: true}
+                                   ,{field: 'cus002', title: '名称', width: '15%', sort: true}
+                                   ,{field: 'cus004', title: '级别', width: '5%', sort: true}
+                                   ,{field: 'brs005', title: '联系方式', width: '10%', sort: true}
+                                   ,{field: 'brs006', title: '通话内容', width: '50%', sort: true}
+                                   ,{field: 'brs007', title: '联系人', width: '10%', sort: true}
                                ]
                            ],
-                           limits: [10, 20, 30, 40, 50]
-                           ,
+                           limits: [10, 20, 30, 40, 50],
                            done: function (res, curr, count) {
                                datasource = res;
+                               layer.msg(res);
                                //如果是异步请求数据方式，res即为你接口返回的信息。
                                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
                                // layui.msg(res);
@@ -107,8 +107,8 @@
             <input id="levelCus" class="btnStyle" type="button" value="客户级别" >
             </div>
         </div>
-        <div class="right">
-            <table class="layui-hide" id="test" lay-filter="test"></table>
+        <div class="right" style="height: 560px;overflow: auto">
+                <table class="layui-hide" id="reportext" lay-filter="reportext"></table>
         </div>
     </div>
 </body>

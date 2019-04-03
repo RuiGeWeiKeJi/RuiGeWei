@@ -55,6 +55,8 @@ public class CustomController {
         ModelAndView model = new ModelAndView();
         Pageable pageable = new PageRequest(pageNumber, 20);
         Page<Custom> custom = customService.findAllBy(pageable);
+
+
         model.addObject("total", custom.getTotalPages());
         model.addObject("totalCount", custom.getTotalElements());
         model.addObject("data", custom.getContent());
@@ -150,19 +152,16 @@ public class CustomController {
 
     /**
      * 是否存在该客户
-     * @param customId
+     * @param customName
      * @return
      */
     @RequestMapping(value = "/existscustom")
     @ResponseBody
     public Object existsCusInfo(
-            @RequestParam("customId") String customId
+            @RequestParam("customName") String customName
     ){
-        boolean result=customService.existsCustomInfo(customId);
-        if(result)
-            return "true";
-        else
-            return "false";
+        String customInfo=customService.existsCustomInfo(customName);
+        return customInfo;
     }
 
     Specification addCondition(String data) {

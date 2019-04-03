@@ -30,12 +30,20 @@ public interface CustemInfoService {
      * 查询超期客户
      * @return
      */
-    List<Custom> findBy();
+    List<Integer> findBy();
 
     /**
      * 依据客户编号查询该客户所有联系人
      * @return
      */
     List<String> findAllBy();
+
+    /**
+     * 分页获取数据列表
+     * @param strWhere
+     * @param pageable
+     * @return
+     */
+    Page<Custom> findAllByString(String strWhere, Pageable pageable);
 
 }

@@ -58,13 +58,12 @@ public class CustomServiceImpl implements CustomService {
 
     /**
      * 是否存在客户
-     * @param customId
+     * @param customName
      * @return
      */
     @Override
-    public boolean existsCustomInfo(String customId) {
-        Integer count = customRepository.findByCode(customId);
-        return  count>0?true:false;
+    public String existsCustomInfo(String customName) {
+        return customRepository.findByCode(customName);
     }
 
     /**

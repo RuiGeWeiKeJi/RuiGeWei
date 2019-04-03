@@ -27,7 +27,13 @@
             }
             var dtrans=$("#dtrans");
             if(dtrans.val()==""){
-                layer.msg("请选择联系日期");
+                layer.msg("请选择起始联系日期");
+                return false;
+            }
+
+            var dtrane=$("#dtrane");
+            if(dtrane.val()==""){
+                layer.msg("请选择起始联系日期");
                 return false;
             }
         }
@@ -35,7 +41,7 @@
         var formDate=function () {
             if(queryInfo()==false)
                 return;
-            var url='customtrans?CUS012='+$("#saleman").val()+'&'+'BRS003='+$("#dtrans").val()+'';
+            var url='customtrans?CUS012='+$("#saleman").val()+'&'+'BRS003='+$("#dtrans").val()+'&'+'BRS0031='+$("#dtrane").val()+'';
             var data={
                 data:url
             }
@@ -50,7 +56,7 @@
     <form class="form-inline" id="myform" method="post" style="margin-top: 20px">
 
         <div class="form-group" style="margin-top: 10px">
-            <label for="saleman">业务员</label>
+            <label for="saleman">业务员 </label>
             <select class="form-control" id="saleman" name="saleman" style="width: 200px">
                 <option></option>
                 <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
@@ -58,8 +64,14 @@
         </div>
 
         <div class="form-group" style="margin-top: 10px;margin-left: 20px">
-            <label for="dtrans">联系日期</label>
-            <input type="text" class="form-control" id="dtrans" name="dtrans" style="width: 200px"
+            <label for="dtrans">联系起始日期 </label>
+            <input type="text" class="form-control" id="dtrans" name="dtrans" style="width: 100px"
+                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;margin-left: 20px">
+            <label for="dtrans">结束日期 </label>
+            <input type="text" class="form-control" id="dtrane" name="dtrane" style="width: 100px"
                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
         </div>
 

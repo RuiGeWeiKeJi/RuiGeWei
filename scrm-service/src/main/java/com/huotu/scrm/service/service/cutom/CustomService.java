@@ -42,7 +42,7 @@ public interface CustomService {
      * @param customId
      * @return
      */
-    boolean existsCustomInfo(String customId);
+    String existsCustomInfo(String customName);
 
     /**
      * 是否存在同名称的客户

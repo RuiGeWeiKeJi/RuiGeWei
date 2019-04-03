@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>统计图表</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/chart.css}">
+    <script type="text/javascript" th:src="@{/resources/js/echarts.js}"></script>
+
+</head>
+
+<body>
+
+<div th:replace="index.html">
+</div>
+
+ <div class="container">
+        <div class="top">
+            <form class="form-inline" id="myform" method="post" style="margin-top: 10px">
+            <div >
+                <div class="form-group" style="margin-top: 10px;margin-left: 10px">
+                    <label for="saleman">业务员 </label>
+                    <select class="form-control" id="saleman" name="saleman" style="width: 100px">
+                        <option></option>
+                        <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
+                    </select>
+                    <input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="bottom" id="main" style="height: 500px;overflow: auto">
+        </div>
+    </div>
+
+</body>
+
+
+<script  th:inline="javascript" type="text/javascript" >
+
+    var transTotal=echarts.init(document.getElementById('main'));
+    var linevalue=0;
+    var name='';
+    //x轴
+    var xaxisdata=[];
+    //series的值
+    var seriestotal=[];
+    //y轴
+    var datacount=[];
+    //lengends
+    var lengends=[];
+
+   function btnOpenComRecord() {
+       xaxisdata=[];
+       seriestotal=[];
+       datacount=[];
+       lengends=[];
+       var username = $("#saleman").val();
+       $.ajax({
+           type: "post",
+           url: "chartuser",
+           data: {"username": username},
+           success: function (data) {
+               if(data.avg.length<1){
+                   linevalue=0;
+                   name=username;
+               }else{
+                   var avg = data.avg;
+                   linevalue = avg[0][1];
+                   name = avg[0][0];
+               }
+               lengends.push(name);
+               var item = new seriesquery(linevalue);
+               item.name = name;
+               var every = data.every;
+               for (var j = 0; j < every.length; j++) {
+                   xaxisdata.push(every[j][0]);
+                   datacount.push(every[j][1]);
+               }
+               item.data = datacount;
+               seriestotal.push(item);
+               option1.series = seriestotal;
+               option1.xAxis.data=xaxisdata;
+               option1.legend.data=lengends;
+               transTotal.setOption(option1, true);
+           }
+       });
+   }
+
+    var avg=[[${avg}]];
+    var every=[[${every}]];
+
+    var seriesquery=function (item) {
+        return{
+                name:'',
+                type: 'line',
+                //smooth:true,//平滑曲线
+                markLine: {
+                    silent: true,
+                    lineStyle: {
+                        normal: {
+                            color: '#ED0BEB'                   // 这儿设置安全基线颜色
+                        }
+                    },
+                    data: [{
+                        yAxis: item
+                    }],
+                    label: {
+                        normal: {
+                            formatter: '平均\n'+item        // 这儿设置安全基线
+                        }
+                    },
+                },
+            data:[]
+        }
+    }
+
+    var use = [[${session.user.getUSE002()}]];
+    if(avg.length<1)
+    {
+        linevalue=0;
+        name=use;
+    }else {
+        linevalue=avg[0][1];
+        name=avg[0][0];
+    }
+
+    var item=new seriesquery(linevalue);
+    item.name=name;
+    lengends.push(name);
+   for(var j=0;j<every.length;j++) {
+       xaxisdata.push(every[j][0]);
+       datacount.push(every[j][1]);
+   }
+   item.data=datacount;
+   seriestotal.push(item);
+
+    var option1 = {
+            grid: {
+                left: '10%',
+                right: '5%',
+                bottom: '1%',
+                top:'15%',
+                containLabel: true
+            },
+            legend:{
+                data:[]
+            },
+            xAxis: {
+                type: 'category',
+                name: '(日期)',
+                axisTick: {           //去掉坐标轴刻线
+                    show: true
+                },
+                axisLine:{
+                    lineStyle:{
+                        color:'rgba(30,130,190,0.7)'     //X轴的颜色
+                    },
+                },
+
+                // axisLabel:{
+                //     color:'#FFF',
+                //     interval: '0',
+                //     formatter:function(params){
+                //         var newParamsName = "";// 最终拼接成的字符串
+                //         var paramsNameNumber = params.length;// 实际标签的个数
+                //         var provideNumber = 7;// 每行能显示的字的个数
+                //         var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+                //         /**
+                //          * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+                //          */
+                //         // 条件等同于rowNumber>1
+                //         if (paramsNameNumber > provideNumber) {
+                //             /** 循环每一行,p表示行 */
+                //             for (var p = 0; p < rowNumber; p++) {
+                //                 var tempStr = "";// 表示每一次截取的字符串
+                //                 var start = p * provideNumber;// 开始截取的位置
+                //                 var end = start + provideNumber;// 结束截取的位置
+                //                 // 此处特殊处理最后一行的索引值
+                //                 if (p == rowNumber - 1) {
+                //                     // 最后一次不换行
+                //                     tempStr = params.substring(start, paramsNameNumber);
+                //                 } else {
+                //                     // 每一次拼接字符串并换行
+                //                     tempStr = params.substring(start, end) + "\n";
+                //                 }
+                //                 newParamsName += tempStr;// 最终拼成的字符串
+                //             }
+                //
+                //         } else {
+                //             // 将旧标签的值赋给新标签
+                //             newParamsName = params;
+                //         }
+                //         //将最终的字符串返回
+                //         return newParamsName
+                //     }
+                // },
+
+                data:xaxisdata,
+                //['张三','李四','王五','赵六','田七','粉八'],
+                splitLine:{show: false}//去除网格线
+            },
+            visualMap: {
+                show: false,//是否显示标线上下标识
+                pieces: [
+                    {
+                        gt: 0,
+                        lte: linevalue,          //这儿设置基线上下颜色区分 基线下面为绿色
+                        color: '#e91642'
+                    }, {
+                        gt: linevalue,          //这儿设置基线上下颜色区分 基线上面为红色
+                        color: '#16D86E'
+                    }]
+            },
+            yAxis: {
+                show:true,
+                type: 'value',
+                name: '(数量)',
+                nameTextStyle:{
+                    color:'#000'
+                },
+                axisTick: {//去掉坐标轴刻线
+                    show: true
+                },
+                axisLine:{
+                    lineStyle:{
+                        color:'rgba(30,130,190,0.7)'         //y轴的颜色
+                    },
+                },
+                axisLabel:{
+                    show:true,
+                    color:'rgba(30,130,190,0.7)'
+                },
+                splitLine:{show: true},//去除网格线
+            },
+            series: []
+        };
+
+    option1.series=seriestotal;
+    option1.xAxis.data=xaxisdata;
+    option1.legend.data=lengends;
+    transTotal.setOption(option1,true);
+
+</script>
+
+</html>

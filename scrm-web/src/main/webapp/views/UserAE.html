@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>人员信息</title>
 
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -61,7 +61,7 @@
                                 message: '请输入11位手机号码'
                             },
                             regexp: {
-                                regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                                regexp: /^1[3|5|8|7]{1}[0-9]{9}$/,
                                 message: '请输入正确的手机号码'
                             }
                         }
@@ -116,9 +116,9 @@
             <input type="text" class="form-control" id="USE002" name="USE002" placeholder="姓名">
         </div>
         <div class="form-group">
-            <label>性别</label>
-            <input type="radio" class="form-control" id="male" name="USE005" value="1">男
-            <input type="radio" class="form-control" id="female" name="USE005" value="0">女
+            <label class="radio-inline">性别</label>
+            <input type="radio" id="male" name="USE005" value="1">男
+            <input type="radio" id="female" name="USE005" value="0">女
         </div>
         <div class="form-group">
             <label for="USE003" style="width:60px">联系电话</label>

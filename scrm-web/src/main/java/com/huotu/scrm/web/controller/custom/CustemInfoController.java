@@ -1,5 +1,6 @@
 package com.huotu.scrm.web.controller.custom;
 
+import com.google.common.collect.Sets;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
@@ -123,6 +124,16 @@ public class CustemInfoController {
                     Predicate p2 = cb.equal(root.get("salesman").as(String.class), Constant.userName);
                     plist.add(p2);
                 }
+                if("1".equals(other)){
+                    List<Integer> stringList = custemInfoService.findBy();
+                    if(stringList!=null && stringList.size()>0){
+                      CriteriaBuilder.In<Integer> in=cb.in(root.get("id").as(Integer.class));
+                      for(Integer i :stringList){
+                          in.value(i);
+                      }
+                      plist.add(in);
+                    }
+                }
 
                 //pList转换为具体类型的数组
                 Predicate[] predicate = new Predicate[plist.size()];
@@ -132,42 +143,15 @@ public class CustemInfoController {
 
         };
 
-
         Sort sort = new Sort(Sort.Direction.DESC, "CUS001");
         Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
 
-        Page<Custom> customPage=null;
-
-        if (!StringUtils.isEmpty(CUS002) || !StringUtils.isEmpty(CUS004) || !StringUtils.isEmpty(industry) || !StringUtils.isEmpty(salesman) ||
-                !StringUtils.isEmpty(CUS013) || !StringUtils.isEmpty(CUS009start) || !StringUtils.isEmpty(CUS009end) || !StringUtils.isEmpty(CUS011start)
-                || !StringUtils.isEmpty(CUS011end))
-            customPage = custemInfoService.findAllByWhere(specification, pageable);
-
-        List<Custom> stringList =null;
-        if("1".equals(other))
-            stringList = custemInfoService.findBy();
-
-        long count=0;
-
-        if(customPage!=null){
-          count = customPage.getTotalElements();
-          if(stringList!=null)
-          {
-              count+=stringList.size();
-              stringList.addAll(customPage.getContent());
-              HashSet h = new HashSet(stringList);
-              stringList.clear();
-              stringList.addAll(h);
-          }else {
-              stringList=customPage.getContent();
-          }
-        }else if(stringList!=null)
-            count=stringList.size();
+        Page<Custom> customPage=custemInfoService.findAllByWhere(specification, pageable);
 
         Map<String, Object> datasource = new LinkedHashMap<String, Object>();
         datasource.put("code", 0);
-        datasource.put("count", count);
-        datasource.put("data", stringList);
+        datasource.put("count", customPage.getTotalElements());
+        datasource.put("data", customPage.getContent());
         return datasource;
     }
 

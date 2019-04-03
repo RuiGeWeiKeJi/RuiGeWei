@@ -135,4 +135,5 @@ public class Custom implements Serializable {
     @Column(name = "CUS018")
     private String CUS018;
 
+
 }

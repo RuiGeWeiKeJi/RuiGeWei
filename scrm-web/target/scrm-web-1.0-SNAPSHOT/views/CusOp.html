@@ -37,84 +37,6 @@
             <!--隐藏保存和取消按钮-->
             $("#saveBtn").hide();
             $("#cancelBtn").hide();
-
-            // $('#customForm').bootstrapValidator({
-            //     //live: 'disabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
-            //     //excluded: [':disabled', ':hidden', ':not(:visible)'],//排除无需验证的控件，比如被禁用的或者被隐藏的
-            //     //message: 'This value is not valid',
-            //     feedbackIcons: {
-            //         //根据验证结果显示的各种图标
-            //         valid: 'glyphicon glyphicon-ok',
-            //         invalid: 'glyphicon glyphicon-remove',
-            //         validating: 'glyphicon glyphicon-refresh'
-            //     },
-            //     fields: {
-            //         CUS002: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '名称不能为空'
-            //                 }
-            //             }
-            //         },
-            //         CUS003: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '联系人不能为空'
-            //                 }
-            //             }
-            //         },
-            //         CUS004: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择级别'
-            //                 }
-            //             }
-            //         },
-            //         CUS005: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '地址不能为空'
-            //                 }
-            //             }
-            //         },
-            //         CUS009: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择最近联系时间'
-            //                 }
-            //             }
-            //         },
-            //         CUS011: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择下次联系时间'
-            //                 }
-            //             }
-            //         },
-            //         CUS013: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择来源'
-            //                 }
-            //             }
-            //         },
-            //         salesman: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择业务员'
-            //                 }
-            //             }
-            //         },
-            //         industry: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '行业不能为空'
-            //                 }
-            //             }
-            //         }
-            //     }
-            // });
-
         });
 
         //检查输入结果
@@ -449,28 +371,28 @@
 
         //联系人
         function con() {
-            var cusId = $("#CUS001").val();
-            if (cusId == "") {
+            var customId = $("#CUS001").val();
+            var customName = $("#CUS002").val();
+            if (customName == "") {
                 layer.msg("请选择客户");
                 return;
             }
-
             $.ajax({
                 type: "post",
                 url: "existscustom",
-                data: {"customId": cusId},
+                data: {"customName": customName},
                 success: function (data) {
-                    if (data == "true") {
+                    if (data != "") {
                         layer.open({
                             type: 2,
                             title: '客户联系人',
                             maxmin: true,
                             shadeClose: true, //点击遮罩关闭层
                             area: ['1157px', '600px'],
-                            content: 'findContacts?customId=' + cusId + '',
+                            content: 'findContacts?customId=' + customId + '',
                             success: function (layero, index) {
                                 var body = layer.getChildFrame('body', index);
-                                body.find("#customId").val(cusId);
+                                body.find("#customId").val(customId);
                             }
                         });
                     } else {

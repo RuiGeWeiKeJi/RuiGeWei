@@ -1,3 +1,4 @@
 com\huotu\scrm\common\utils\Constant.class
 com\huotu\scrm\common\utils\GenerateUid.class
 com\huotu\scrm\common\SysConstant.class
+com\huotu\scrm\common\utils\EntityUtils.class

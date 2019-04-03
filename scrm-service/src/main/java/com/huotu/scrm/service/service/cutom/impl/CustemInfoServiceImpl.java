@@ -104,7 +104,7 @@ public class CustemInfoServiceImpl implements CustemInfoService {
      * @return
      */
     @Override
-    public List<Custom> findBy() {
+    public List<Integer> findBy() {
         return custemInfoRepository.findBy();
     }
 
@@ -115,6 +115,17 @@ public class CustemInfoServiceImpl implements CustemInfoService {
     @Override
     public List<String> findAllBy() {
         return custemInfoRepository.findAllBy();
+    }
+
+    /**
+     * 分页获取数据列表
+     * @param strWhere
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<Custom> findAllByString(String strWhere, Pageable pageable) {
+        return custemInfoRepository.findAllByString(strWhere,pageable);
     }
 
 

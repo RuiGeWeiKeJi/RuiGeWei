@@ -2,6 +2,7 @@ package com.huotu.scrm.service.repository.custom;
 
 import com.huotu.scrm.service.entity.custom.Custom;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,8 +17,8 @@ public interface CustemInfoRepository extends JpaRepository<Custom, Long>, JpaSp
      * 查询超期客户
      * @return
      */
-    @Query(value = "select * from rgwcus where CUS011<NOW()",nativeQuery = true)
-    List<Custom> findBy();
+    @Query(value = "select id from rgwcus where CUS011<NOW()",nativeQuery = true)
+    List<Integer> findBy();
 
     /**
      * 依据客户编号查询该客户所有联系人
@@ -27,5 +28,13 @@ public interface CustemInfoRepository extends JpaRepository<Custom, Long>, JpaSp
     List<String> findAllBy();
 
 
+    /**
+     * 分页获取数据列表
+     * @param strWhere
+     * @param pageable
+     * @return
+     */
+    @Query(value = "SELECT t FROM rgwcus t where ?1 order by ?#{#pageable}",nativeQuery = true)
+    Page<Custom> findAllByString(String strWhere, Pageable pageable);
 
 }

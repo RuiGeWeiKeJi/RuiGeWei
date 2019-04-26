@@ -1,15 +1,20 @@
 package com.huotu.scrm.web.controller.custom;
 
+import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.custom.Custom;
+import com.huotu.scrm.service.repository.ReportInfo.ReportInfoRepository;
+import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import com.huotu.scrm.service.service.bar.barService;
 import com.huotu.scrm.service.service.customBrs.CustomBrsService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.cutom.CustomService;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +24,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -41,6 +44,9 @@ public class CustomController {
 
     @Autowired
     private CustomBrsService customBrsService;
+
+    @Autowired
+    private ReportInfoService reportInfoService;
 
     /**
      * 分页获取客户资料
@@ -70,9 +76,18 @@ public class CustomController {
      * @return
      */
     @RequestMapping(value = "/custemQuery")
-    public ModelAndView findCustemQuery() {
+    public ModelAndView findCustemQuery(
+            HttpServletRequest request
+    ) {
         List<String> industrylist = barService.findAllindustry();
-        List<String> salesmanlist = barService.dindAllsalesman();
+
+        List<String> salesmanlist = new ArrayList<>();
+        Constant.Position = "业务";
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService))
+            salesmanlist = barService.dindAllsalesman();
+        else
+            salesmanlist.add(userName);
         ModelAndView model = new ModelAndView();
         model.addObject("industry", industrylist);
         model.addObject("salesman", salesmanlist);
@@ -112,7 +127,9 @@ public class CustomController {
     public Object findOneByCode() {
         Map<String,Object> map=new LinkedHashMap<>();
         String uid = customService.findOneByCode();
+        Date date=customBrsService.getDateNow();
         map.put("uid",uid);
+        map.put("date",date);
 //        List<String> user=custemInfoService.findAllBy();
 //        map.put("user",user);
         return map;
@@ -124,9 +141,18 @@ public class CustomController {
      */
     @RequestMapping(value = "/readcustomuser")
     @ResponseBody
-    public Object readCustomUser(){
-        List<String> user=custemInfoService.findAllBy();
-        return user;
+    public Object readCustomUser(
+            HttpServletRequest request
+    ){
+//        List<String> user=custemInfoService.findAllBy();
+        List<String> salesmanlist = new ArrayList<>();
+        Constant.Position = "业务";
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService))
+            salesmanlist = barService.dindAllsalesman();
+        else
+            salesmanlist.add(userName);
+        return salesmanlist;
     }
 
     /**
@@ -138,14 +164,15 @@ public class CustomController {
     @RequestMapping(value = "/findlike")
     @ResponseBody
     public Object findLike(
-            @RequestParam("data") String data
+            @RequestParam("data") String data,
+            @RequestParam("condition") String condition
     ) {
         try {
             URLDecoder.decode(data, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Specification specification = addCondition(data);
+        Specification specification = addCondition(data,condition);
         List<Custom> names = customService.findName(specification);
         return names;
     }
@@ -161,10 +188,15 @@ public class CustomController {
             @RequestParam("customName") String customName
     ){
         String customInfo=customService.existsCustomInfo(customName);
-        return customInfo;
+        Date date=customBrsService.getDateNow();
+        Map<Object,Object> map=new LinkedHashMap<>();
+        map.put("custominfo",customInfo);
+        map.put("date",date);
+        return map;
     }
 
-    Specification addCondition(String data) {
+    Specification addCondition(String data,String condition) {
+
         Specification<Custom> specification = new Specification<Custom>() {
             @Override
             public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
@@ -174,6 +206,10 @@ public class CustomController {
                 //单表条件对象构建(定区编码和地区关键字在分区表中)
                 if (!StringUtils.isEmpty(data)) {
                     Predicate p1 = cb.like(root.get("CUS002"), "%" + data + "%");
+                    plist.add(p1);
+                }
+                if (!StringUtils.isEmpty(condition)) {
+                    Predicate p1 = cb.equal(root.get("CUS004"), condition);
                     plist.add(p1);
                 }
 

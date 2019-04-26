@@ -3,7 +3,9 @@ package com.huotu.scrm.web.controller.custom;
 import com.google.common.collect.Sets;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.custom.Custom;
+import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 //import  org.springside.modules.persistence.DynamicSpecifications;
@@ -35,6 +38,10 @@ public class CustemInfoController {
     @Autowired
     private CustemInfoService custemInfoService;
 
+    @Autowired
+    private ReportInfoService reportInfoService;
+
+    Boolean roleUser=false;
 
     @RequestMapping("/main")
     @ResponseBody
@@ -73,9 +80,15 @@ public class CustemInfoController {
             @RequestParam("CUS011end") String CUS011end,
             @RequestParam("other") String other,
             @RequestParam("page") Integer pageIndex,
-            @RequestParam("limit") Integer pageSize
+            @RequestParam("limit") Integer pageSize,
+            HttpServletRequest request
     ) {
 
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        roleUser=false;
+        Constant.Position = "业务";
+        if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService))
+            roleUser=true;
 
         Specification<Custom> specification = new Specification<Custom>() {
             @Override
@@ -120,8 +133,8 @@ public class CustemInfoController {
                     Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
                     plist.add(p2);
                 }
-                if (!StringUtils.isEmpty(Constant.userName) && !Constant.userName.equals("系统管理员")) {
-                    Predicate p2 = cb.equal(root.get("salesman").as(String.class), Constant.userName);
+                if (!StringUtils.isEmpty(userName) && !userName.equals("系统管理员") && roleUser==false) {
+                    Predicate p2 = cb.equal(root.get("salesman").as(String.class), userName);
                     plist.add(p2);
                 }
                 if("1".equals(other)){

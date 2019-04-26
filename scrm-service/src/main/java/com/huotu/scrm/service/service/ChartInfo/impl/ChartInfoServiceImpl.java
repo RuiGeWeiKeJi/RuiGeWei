@@ -2,6 +2,7 @@ package com.huotu.scrm.service.service.ChartInfo.impl;
 
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
+import com.huotu.scrm.service.model.increasebrs;
 import com.huotu.scrm.service.repository.ChartInfo.ChartInfoRepository;
 import com.huotu.scrm.service.service.ChartInfo.ChartInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,15 @@ public class ChartInfoServiceImpl implements ChartInfoService {
     @Override
     public List<everybrs> getCountEveryDay(Date date,String username) {
         return chartInfoRepository.getCountEveryDay(date,username);
+    }
+
+    /**
+     * 获取本期级别增长或减少数量
+     * @return
+     */
+    @Override
+    public List<Object> getincreasebrs() {
+        return chartInfoRepository. getincreasebrs();
     }
 
 }

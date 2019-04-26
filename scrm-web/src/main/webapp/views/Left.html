@@ -49,6 +49,7 @@
         <li id="custom"><a th:href="@{/left}">客户信息</a></li>
         <li id="customInfo"><a th:href="@{/main}">客户资料</a></li>
         <li id="mainInfo"><a th:href="@{/maintain}">客户运维</a></li>
+        <li id="signInfo"><a th:href="@{/findContract}">合同签订</a></li>
         <li id="reportInfo"><a th:href="@{/report}">统计报表</a></li>
         <li id="chartInfo"><a th:href="@{/chart}">统计图表</a></li>
     </ol>
@@ -75,6 +76,7 @@
             var datare2 = "";
             var datare3 = "";
             var datare4 = "";
+            var datare5 = "";
             for (var i = 0; i < other.length; i++) {
                 if (other[i][2] == "人员信息")
                     result = "1";
@@ -88,6 +90,8 @@
                     datare3 = "1";
                 if (other[i][2] == "统计图表")
                     datare4 = "1";
+                if (other[i][2] == "合同签订")
+                    datare5 = "1";
             }
             if (result != "1")
                 $("#user").attr("style", "display:none");
@@ -101,6 +105,8 @@
                 $("#mainInfo").attr("style", "display:none");
             if (datare4 != "1")
                 $("#chartInfo").attr("style", "display:none");
+            if (datare5 != "1")
+                $("#signInfo").attr("style", "display:none");
         }
     }
     /*]]>*/

@@ -31,7 +31,7 @@ public interface CustomRepository extends JpaRepository<Custom, Long>, JpaSpecif
      *获取最大ID
      * @return
      */
-    @Query(value = "select CUS001 from rgwcus where id=(select max(id) from rgwcus)",nativeQuery=true)
+    @Query(value = "select MAX(CUS001) CUS001 from rgwcus ",nativeQuery=true)
     String findOneByCode();
 
     /**

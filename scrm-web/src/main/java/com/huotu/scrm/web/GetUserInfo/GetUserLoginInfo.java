@@ -1,6 +1,7 @@
 package com.huotu.scrm.web.GetUserInfo;
 
 import com.huotu.scrm.common.utils.Constant;
+import com.huotu.scrm.service.entity.User.User;
 import com.huotu.scrm.service.service.Maintain.MaintainService;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class GetUserLoginInfo {
             for (Cookie cookie : cookies) {
                 if ("username".equals(cookie.getName())) {
                     username = cookie.getValue();
-                    Constant.userName=username;
                 }
                 if ("password".equals(cookie.getName())) {
                     password = cookie.getValue();
@@ -93,6 +94,16 @@ public class GetUserLoginInfo {
                 mainList.add(username);
         }
         return mainList;
+    }
+
+    /**
+     * 获取用户名等信息从session中
+     * @param request
+     * @return
+     */
+    public static User getUserInfo( HttpServletRequest request ){
+        User user=(User)request.getSession().getAttribute("user");
+        return user;
     }
 
 }

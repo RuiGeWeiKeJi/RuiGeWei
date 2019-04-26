@@ -7,4 +7,5 @@ public class Constant {
     public static String userName="";
     //业务  技术
     public static  String Position="";
+
 }

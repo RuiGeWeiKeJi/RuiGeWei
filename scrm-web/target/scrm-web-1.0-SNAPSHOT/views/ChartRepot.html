@@ -12,7 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/chart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/echarts.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
 
 </head>
 
@@ -22,26 +28,30 @@
 </div>
 
  <div class="container">
-        <div class="top">
-            <form class="form-inline" id="myform" method="post" style="margin-top: 10px">
-            <div >
-                <div class="form-group" style="margin-top: 10px;margin-left: 10px">
-                    <label for="saleman">业务员 </label>
-                    <select class="form-control" id="saleman" name="saleman" style="width: 100px">
-                        <option></option>
-                        <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
-                    </select>
-                    <input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">
-                </div>
-            </div>
-            </form>
+        <div class="top" style="height: 290px;overflow: auto">
+            <!--<form class="form-inline" id="myform" method="post" style="margin-top: 10px">-->
+            <!--<div >-->
+                <!--<div class="form-group" style="margin-top: 10px;margin-left: 10px">-->
+                    <!--<label for="saleman">业务员 </label>-->
+                    <!--<select class="form-control" id="saleman" name="saleman" style="width: 100px">-->
+                        <!--<option></option>-->
+                        <!--<option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>-->
+                    <!--</select>-->
+                    <!--<input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--</form>-->
+            <table class="layui-hide" id="reportext" lay-filter="reportext"></table>
         </div>
-        <div class="bottom" id="main" style="height: 500px;overflow: auto">
+        <div class="bottom" id="main" style="height: 300px;overflow: auto">
         </div>
     </div>
 
 </body>
 
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">图表数据</a>
+</script>
 
 <script  th:inline="javascript" type="text/javascript" >
 
@@ -56,13 +66,71 @@
     var datacount=[];
     //lengends
     var lengends=[];
+    //visualMap
+    var visualVal=[];
+    //登录用户名
+    var use = [[${session.user.getUSE002()}]];
 
-   function btnOpenComRecord() {
+    $(function () {
+        var url='chartuser?username='+use+'';
+        layui.use('table',function () {
+            var table = layui.table;
+            var datasource = null;
+            table.render({
+                elem: '#reportext',
+                url:encodeURI(url),
+                method: 'post',
+                ContentType: 'application/json;charset=utf-8'
+                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                    //,curr: 5 //设定初始在第 5 页
+                    , groups: 5 //只显示 1 个连续页码
+                    , first: true //显示首页
+                    , last: true //显示尾页
+                }
+                , cols: [
+                    [
+                        {field: 'username', title: '业务员', width: '10%', sort: true}
+                        ,{field: 'lev', title: '级别', width: '10%', sort: true}
+                        ,{field: 'premonth', title: '上月数量', width: '10%', sort: true}
+                        ,{field: 'monthadd', title: '本月增长', width: '10%', sort: true}
+                        ,{field: 'preweek', title: '上周数量', width: '10%', sort: true}
+                        ,{field: 'weekadd', title: '本周增长', width: '10%', sort: true}
+                        ,{field: 'preday', title: '昨天数量', width: '10%', sort: true}
+                        ,{field: 'dayadd', title: '今日增长', width: '10%', sort: true}
+                        ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width:'20%'}
+                    ]
+                ],
+                limits: [10, 20, 30, 40, 50],
+                done: function (res, curr, count) {
+                    datasource = res;
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    // layui.msg(res);
+                    //得到当前页码
+                    // layui.msg(curr);
+                    //得到数据总量
+                    // layui.msg(count);
+                }
+            });
+            //表格事件
+            table.on('tool(reportext)', function (obj) {
+                var data = obj.data;
+                var username = data.username;
+                if (obj.event === 'edit') {
+                    btnOpenComRecord(username);
+                }
+            });
+        });
+    })
+
+   function btnOpenComRecord(username) {
        xaxisdata=[];
        seriestotal=[];
        datacount=[];
        lengends=[];
-       var username = $("#saleman").val();
+       visualVal=[];
+
        $.ajax({
            type: "post",
            url: "chartuser",
@@ -78,6 +146,11 @@
                }
                lengends.push(name);
                var item = new seriesquery(linevalue);
+               var item1=new visualMapQuery(linevalue);
+               var item2=new visualMapQueryOther(linevalue);
+
+               visualVal.push(item1);
+               visualVal.push(item2);
                item.name = name;
                var every = data.every;
                for (var j = 0; j < every.length; j++) {
@@ -89,6 +162,7 @@
                option1.series = seriestotal;
                option1.xAxis.data=xaxisdata;
                option1.legend.data=lengends;
+               option1.visualMap.pieces=visualVal;
                transTotal.setOption(option1, true);
            }
        });
@@ -122,7 +196,21 @@
         }
     }
 
-    var use = [[${session.user.getUSE002()}]];
+    var visualMapQuery=function (item) {
+        return {
+                    gt: 0,
+                    lte: item,          //这儿设置基线上下颜色区分 基线下面为绿色
+                    color: '#e91642'
+            };
+    }
+
+    var visualMapQueryOther=function (item) {
+        return {
+            gt: item,          //这儿设置基线上下颜色区分 基线上面为红色
+            color: '#16D86E'
+        };
+    }
+
     if(avg.length<1)
     {
         linevalue=0;
@@ -133,6 +221,12 @@
     }
 
     var item=new seriesquery(linevalue);
+    var item1=new visualMapQuery(linevalue);
+    var item2=new visualMapQueryOther(linevalue);
+
+    visualVal.push(item1);
+    visualVal.push(item2);
+
     item.name=name;
     lengends.push(name);
    for(var j=0;j<every.length;j++) {
@@ -165,59 +259,13 @@
                     },
                 },
 
-                // axisLabel:{
-                //     color:'#FFF',
-                //     interval: '0',
-                //     formatter:function(params){
-                //         var newParamsName = "";// 最终拼接成的字符串
-                //         var paramsNameNumber = params.length;// 实际标签的个数
-                //         var provideNumber = 7;// 每行能显示的字的个数
-                //         var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
-                //         /**
-                //          * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
-                //          */
-                //         // 条件等同于rowNumber>1
-                //         if (paramsNameNumber > provideNumber) {
-                //             /** 循环每一行,p表示行 */
-                //             for (var p = 0; p < rowNumber; p++) {
-                //                 var tempStr = "";// 表示每一次截取的字符串
-                //                 var start = p * provideNumber;// 开始截取的位置
-                //                 var end = start + provideNumber;// 结束截取的位置
-                //                 // 此处特殊处理最后一行的索引值
-                //                 if (p == rowNumber - 1) {
-                //                     // 最后一次不换行
-                //                     tempStr = params.substring(start, paramsNameNumber);
-                //                 } else {
-                //                     // 每一次拼接字符串并换行
-                //                     tempStr = params.substring(start, end) + "\n";
-                //                 }
-                //                 newParamsName += tempStr;// 最终拼成的字符串
-                //             }
-                //
-                //         } else {
-                //             // 将旧标签的值赋给新标签
-                //             newParamsName = params;
-                //         }
-                //         //将最终的字符串返回
-                //         return newParamsName
-                //     }
-                // },
-
                 data:xaxisdata,
                 //['张三','李四','王五','赵六','田七','粉八'],
                 splitLine:{show: false}//去除网格线
             },
             visualMap: {
                 show: false,//是否显示标线上下标识
-                pieces: [
-                    {
-                        gt: 0,
-                        lte: linevalue,          //这儿设置基线上下颜色区分 基线下面为绿色
-                        color: '#e91642'
-                    }, {
-                        gt: linevalue,          //这儿设置基线上下颜色区分 基线上面为红色
-                        color: '#16D86E'
-                    }]
+                pieces: []
             },
             yAxis: {
                 show:true,
@@ -246,6 +294,7 @@
     option1.series=seriestotal;
     option1.xAxis.data=xaxisdata;
     option1.legend.data=lengends;
+    option1.visualMap.pieces=visualVal;
     transTotal.setOption(option1,true);
 
 </script>

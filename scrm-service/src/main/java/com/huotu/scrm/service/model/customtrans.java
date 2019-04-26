@@ -48,6 +48,11 @@ public class customtrans implements Serializable {
     private String CUS004;
 
     /**
+     * 联系单编号
+     */
+    private String BRS001;
+
+    /**
      * 沟通方式
      */
     private String BRS005;

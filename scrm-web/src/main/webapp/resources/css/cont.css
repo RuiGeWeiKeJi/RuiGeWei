@@ -1,19 +1,16 @@
 @CHARSET "UTF-8";
 
-.top{
-    margin-left: 10px;
-}
+/*.top{*/
+    /*margin-left: 10px;*/
+/*}*/
 
 .form-group label{
-    width:46px;
     height:25px;
-    margin-left:10px;
     text-align:right;
 }
 
 .form-group input{
     height:30px;
-    margin-left:10px;
 }
 
 .top-btn {

@@ -3,6 +3,7 @@ package com.huotu.scrm.web.controller.custom;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.model.customtrans;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -42,15 +44,15 @@ public class ReportInfoController {
     @RequestMapping(value = "/linkUp")
     @ResponseBody
     public ModelAndView getListForBus(
+            HttpServletRequest request
     ){
-        //获取cookie中的用户名和密码进行登录
-        String username = Constant.userName;
-Constant.Position="业务";
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        Constant.Position="业务";
         ModelAndView modelAndView=new ModelAndView();
 
         List<String> getSales=new ArrayList<>();
 
-        modelAndView= queryRoleForUser(username,modelAndView,getSales,reportInfoService);
+        modelAndView= queryRoleForUser(userName,modelAndView,getSales,reportInfoService);
         modelAndView.setViewName("ReportInfoQuery");
         return modelAndView;
 }
@@ -93,9 +95,10 @@ Constant.Position="业务";
             cus.setCUS001(objects[0].toString());
             cus.setCUS002(objects[1].toString());
             cus.setCUS004(objects[2].toString());
-            cus.setBRS005(objects[3].toString());
-            cus.setBRS006(objects[4].toString());
-            cus.setBRS007(objects[5].toString());
+            cus.setBRS001(objects[3].toString());
+            cus.setBRS005(objects[4].toString());
+            cus.setBRS006(objects[5].toString());
+            cus.setBRS007(objects[6].toString());
             customtransList.add(cus);
         }
 

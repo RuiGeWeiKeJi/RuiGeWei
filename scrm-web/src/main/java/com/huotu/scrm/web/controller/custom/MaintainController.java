@@ -28,6 +28,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -57,25 +58,21 @@ public class MaintainController {
 
     /**
      * 自动查询待处理事项
-     *
-     * @return
      */
     @RequestMapping(value = "/readMaintain")
     @ResponseBody
-    public Object readQuestion() {
+    public Object readQuestion(HttpServletRequest request) {
         Map<Object, Object> map = new LinkedHashMap<>();
-        readDate(map, 1, 10);
+        readDate(map, 1, 10,request);
         return map;
     }
 
     /**
      * 新增事项
-     *
-     * @return
      */
     @RequestMapping(value = "/addMaintain")
     @ResponseBody
-    public ModelAndView addQuestion() {
+    public ModelAndView addQuestion(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("MaintainAdd");
         String uid = maintainService.getMaxMAI001();
@@ -84,7 +81,8 @@ public class MaintainController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String datenow = dateFormat.format(date);
         Constant.Position="技术";
-        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(Constant.userName, modelAndView, reportInfoService, maintainService);
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(userName, modelAndView, reportInfoService, maintainService);
         modelAndView.addObject("uid", uid);
         modelAndView.addObject("datenow", datenow);
         modelAndView.addObject("mainList", mainList);
@@ -93,8 +91,6 @@ public class MaintainController {
 
     /**
      * 依据客户名称获取联系人
-     *
-     * @return
      */
     @RequestMapping(value = "/findUserForCus")
     @ResponseBody
@@ -131,7 +127,8 @@ public class MaintainController {
             @RequestParam("MAI012") String MAI012,
             @RequestParam("id") Integer id,
             @RequestParam("pageIndex") Integer pageIndex,
-            @RequestParam("pageSize") Integer pageSize
+            @RequestParam("pageSize") Integer pageSize,
+            HttpServletRequest request
     ) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -156,25 +153,26 @@ public class MaintainController {
 
         maintainService.saveAndRefresh(maintain);
         Map<Object, Object> map = new LinkedHashMap<>();
-        readDate(map, pageIndex, pageSize);
+        readDate(map, pageIndex, pageSize,request);
         return map;
     }
 
     /**
      * 编辑问题
-     *
-     * @return
      */
     @RequestMapping("/editMaintain")
     @ResponseBody
-    public ModelAndView editpow(   @RequestParam("data") String data) {
+    public ModelAndView editpow(   @RequestParam("data") String data,
+                                   HttpServletRequest request
+    ) {
         try {
             URLDecoder.decode(data, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         ModelAndView modelAndView=new ModelAndView();
-        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(Constant.userName, modelAndView, reportInfoService, maintainService);
+        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(userName, modelAndView, reportInfoService, maintainService);
         modelAndView.setViewName("MaintainAdd");
         modelAndView.addObject("mainList", mainList);
         List<String> getUserInfo = maintainService.getUserInfo(data);
@@ -184,21 +182,20 @@ public class MaintainController {
 
     /**
      * 查询问题
-     * @return
      */
     @RequestMapping("/queryMain")
     @ResponseBody
-    public ModelAndView queryMain(){
+    public ModelAndView queryMain(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainQuery");
-        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(Constant.userName, modelAndView, reportInfoService, maintainService);
+       String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(userName, modelAndView, reportInfoService, maintainService);
         modelAndView.addObject("mainList", mainList);
         return modelAndView;
     }
 
     /**
      * 查询
-     * @return
      */
     @RequestMapping("/findMain")
     @ResponseBody
@@ -291,11 +288,21 @@ public class MaintainController {
 
     /**
      * 跳转到新页面
-     * @return
      */
     @RequestMapping(value = "/findContract")
     @ResponseBody
     public ModelAndView findContract(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("SignContract");
+        return modelAndView;
+    }
+
+    /**
+     * 跳转到合同签订页面
+     */
+    @RequestMapping(value = "/signadd")
+    @ResponseBody
+    public ModelAndView singAdd(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainContract");
         return modelAndView;
@@ -303,8 +310,6 @@ public class MaintainController {
 
     /**
      * 根据供应商名称，获取历史签合同明细
-     * @param data
-     * @return
      */
     @RequestMapping(value = "/queryContract")
     @ResponseBody
@@ -317,12 +322,6 @@ public class MaintainController {
 
     /**
      * 保存签订合同等信息
-     * @param con002
-     * @param con003
-     * @param con004
-     * @param con005
-     * @param id
-     * @return
      */
     @RequestMapping(value = "/saveAndEditCon")
     @ResponseBody
@@ -331,7 +330,9 @@ public class MaintainController {
             @RequestParam("CON003") String con003,
             @RequestParam("CON004") String con004,
             @RequestParam("CON005") String con005,
-            @RequestParam("id") Integer id
+            @RequestParam("id") Integer id,
+            @RequestParam("pageIndex") Integer pageIndex,
+            @RequestParam("pageSize") Integer pageSize
     ){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         CustomCon customCon=new CustomCon();
@@ -345,13 +346,29 @@ public class MaintainController {
         customCon.setCON005(con005);
         customCon.setId(id);
         maintainService.saveAndRefresh(customCon);
-        List<CustomCon> customConList=maintainService.findAllByCON001(con002);
-        return  customConList.get(0).getId();
+        Map<Object,Object> map=new LinkedHashMap<>();
+        readDateForSign(map,pageIndex,pageSize,con002);
+        return  map;
+    }
+
+    /**
+     * 查询签订合同等信息
+     */
+    @RequestMapping(value = "/queryCon")
+    @ResponseBody
+    public Object findAllSignBycon002(
+            @RequestParam("CON002") String con002
+    ){
+        Map<Object,Object> map=new LinkedHashMap<>();
+        Integer pageIndex=1;
+        Integer pageSize=50;
+        readDateForSign(map,pageIndex,pageSize,con002);
+        return  map;
     }
 
 
-    void readDate(Map<Object, Object> map, Integer pageIndex, Integer pageSize) {
-        String username = Constant.userName;
+    void readDate(Map<Object, Object> map, Integer pageIndex, Integer pageSize,HttpServletRequest request) {
+        String username = GetUserLoginInfo.getUserInfo(request).getUSE002();
         boolean result = GetUserLoginInfo.getUserListForRole(username, reportInfoService);
         Specification<Maintain> specification = new Specification<Maintain>() {
             @Override
@@ -381,6 +398,30 @@ public class MaintainController {
         map.put("count", maintainPage.getTotalElements());
         map.put("data", maintainPage.getContent());
     }
+
+    void readDateForSign(Map<Object, Object> map, Integer pageIndex, Integer pageSize,String con002){
+        Specification<CustomCon> specification=new Specification<CustomCon>() {
+            @Override
+            public Predicate toPredicate(Root<CustomCon> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+                List<Predicate> plist = new ArrayList<>();
+                if (!StringUtils.isEmpty(con002)) {
+                    Predicate p1 = cb.equal(root.get("CON002"), con002);
+                    plist.add(p1);
+                }
+                //pList转换为具体类型的数组
+                Predicate[] predicate = plist.toArray(new Predicate[0]);
+                //将条件进行汇总并返回
+                return cb.and(predicate);
+            }
+        };
+        Sort sort = new Sort(Sort.Direction.DESC, "CON002", "CON003");
+        Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
+        Page<CustomCon> customConList=maintainService.findAll(specification,pageable);
+        map.put("code",0);
+        map.put("count", customConList.getTotalElements());
+        map.put("data", customConList.getContent());
+    }
+
 }
 
 

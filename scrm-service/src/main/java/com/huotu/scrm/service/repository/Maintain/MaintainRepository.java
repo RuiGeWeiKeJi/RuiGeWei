@@ -25,7 +25,7 @@ public interface MaintainRepository extends JpaRepository<Maintain, Long>, JpaSp
      * @param data
      * @return
      */
-    @Query(value = "select a.CUR002 from rgwcur a inner join rgwcus b on a.CUR001=b.CUS001 where CUS002=?1",nativeQuery = true)
+    @Query(value = "select a.CUR002 from rgwcur a inner join rgwcus b on a.CUR010=b.CUS001 where CUS002=?1",nativeQuery = true)
     List<String> getUserInfo(String data);
 
     /**

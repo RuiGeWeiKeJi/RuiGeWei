@@ -111,10 +111,7 @@ public class LoginController {
             map.put("fail", "fail");
         } else {
             map.put("user", user);
-            request.getSession().setAttribute("user", user);
-
-            Constant.userName=user.getUSE002();
-            System.out.println(Constant.userName);
+            request.getSession(true).setAttribute("user", user);
 
             //记住密码
             if (!StringUtils.isEmpty(remeber)) {

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>合同签订</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/maintain.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script>
+        //新增内容
+        function btnAdd() {
+            layer.open({
+                type: 2,
+                title: '客户合同签订',
+                maxmin: true,
+                shadeClose: true,
+                content:'signadd',
+                btn:["确定","取消"],
+                area: ['800px', '300px'],
+                success: function (layero, index) {
+
+                },
+                yes: function (index, layero) {
+                    var res = $(layero).find("iframe")[0].contentWindow.formDateMainContract();
+                    readDataMain(res.data);
+                    layer.close(layer.index);
+                }
+            });
+        }
+
+        //查询数据
+        function btnQuery() {
+            var url='queryCon';
+            var con002=$("#con002").val();
+            url=url+'?CON002='+con002+'';
+            readDataMain(url);
+        }
+        
+        function readDataMain(url) {
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#test',
+                    url: encodeURI(url),
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    , cols: [
+                        [
+                             {field: 'con002', title: '名称', width: '20%',sort:true}
+                            , {field: 'con003', title: '签订日期', width: '10%',sort:true,templet:function(row) {return createTime(row.con003); }}
+                            , {field: 'con004', title: '到期日期', width: '10%',sort:true,templet:function(row) {return createTime(row.con004); }}
+                            , {field: 'con005', title: '现有模块', width: '53%',sort:true},
+                            {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '7%'}
+                        ]
+                    ],
+                    limits: [50,100,200],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        // layui.msg(res);
+                        //得到当前页码
+                        // layui.msg(curr);
+                        //得到数据总量
+                        // layui.msg(count);
+                    }
+                });
+
+                //表格事件
+                table.on('tool(test)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        editItem(data);
+                    }
+                });
+
+            });
+        }
+
+        //编辑内容
+        function editItem(obj) {
+            layer.open({
+                type: 2,
+                title: '客户合同签订',
+                maxmin: true,
+                shadeClose: true,
+                content:'signadd',
+                btn:["确定","取消"],
+                area: ['800px', '240px'],
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find("#id").val(obj['id']);
+                    body.find("#MAI002").val(obj['con002']);
+                    body.find("#MAI006").val(createTime(obj['con003']));
+                    body.find("#MAI010").val(createTime(obj['con004']));
+                    body.find("#MAI007").val(obj['con005']);
+                },
+                yes: function (index, layero) {
+                    var res = $(layero).find("iframe")[0].contentWindow.formDateMainContract();
+                    readDataMain(res.data);
+                    layer.close(layer.index);
+                }
+            });
+        }
+        //完成异步搜索功能
+        function searchName(obj) {
+            var content = "";
+            var datas = $(obj).val();
+            if(datas=="")
+                return;
+            $.ajax({
+                type: "post",
+                url: "findlike",
+                data: {"data": datas,"condition":"Y"},
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            content += "<div style='padding: 5px;cursor:pointer;color: #42C2CF' onmouseover='overFn(this)' onmouseout='outFn(this)' onclick='clickFn(this)'>" + data[i].cus002 + "</div>";
+                        }
+                        $("#result").html(content);
+                        $("#result").css("display", "block");
+                    }
+                },
+                dataType: "json"
+            })
+        }
+
+        function overFn(obj) {
+            $(obj).css("background", "white");
+        }
+
+        function outFn(obj) {
+            $(obj).css("background", "#42C2CF");
+        }
+
+        function clickFn(obj) {
+            $("#con002").val($(obj).html());
+            $("#result").css("display","none");
+        }
+
+        //时间转换
+        function createTime(v){
+            if(v==null)
+                return '';
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            // d = d<10?("0"+d):d;
+            // var h = date.getHours();
+            // h = h<10?("0"+h):h;
+            // var M = date.getMinutes();
+            // M = M<10?("0"+M):M;
+            // var str = y+"-"+m+"-"+d+" "+h+":"+M;
+            var str = y+"-"+m+"-"+d;
+            return str;
+        }
+
+    </script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    </script>
+</head>
+<body>
+<div class="index">
+    <div th:include="index::html"></div>
+</div>
+
+<div class="container">
+    <div class="top" style="height: 45px">
+        <ol class="list-inline">
+            <li id="topOne">
+                <label style="margin-left: 10px">客户名称：</label>
+                <input type="text" id="con002" style="margin-left: 5px;top: 2px;width: 200px;height: 25px;color: black;background-color: white" onkeyup="searchName(this)">
+                <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
+                     id="result">
+
+                </div>
+            </li>
+            <li id="topFor">
+                <input type="button" value="查询" onclick="btnQuery()">
+            </li>
+            <li id="topTre">
+                <input type="button" value="新增" onclick="btnAdd()">
+            </li>
+        </ol>
+    </div>
+    <div class="buttom" style="margin-left: 2%;width: 107.8%;margin-top:0%;background: #FDFBFC">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+</div>
+
+</body>
+</html>

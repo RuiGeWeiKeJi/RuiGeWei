@@ -1,6 +1,7 @@
 package com.huotu.scrm.service.service.Maintain.impl;
 
 import com.huotu.scrm.service.entity.Maintain.Maintain;
+import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.entity.custom.CustomCon;
 import com.huotu.scrm.service.repository.Maintain.MaintainRepository;
 import com.huotu.scrm.service.repository.customCon.CustomConRepository;
@@ -89,6 +90,17 @@ public class MaintainServiceImpl implements MaintainService {
     @Override
     public void saveAndRefresh(CustomCon customCon) {
         customConRepository.saveAndFlush(customCon);
+    }
+
+    /**
+     * 依据合同条件  签订所有合同
+     * @param specification
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<CustomCon> findAll(Specification specification, Pageable pageable) {
+        return customConRepository.findAll(specification,pageable);
     }
 
 

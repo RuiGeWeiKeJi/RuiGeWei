@@ -1,6 +1,7 @@
 package com.huotu.scrm.service.service.Maintain;
 
 import com.huotu.scrm.service.entity.Maintain.Maintain;
+import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.entity.custom.CustomCon;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,5 +56,13 @@ public interface MaintainService {
      * @param customCon
      */
     void saveAndRefresh(CustomCon customCon);
+
+    /**
+     * 依据条件获取所有签订合同信息
+     * @param specification
+     * @param pageable
+     * @return
+     */
+    Page<CustomCon> findAll(Specification specification,Pageable pageable);
 
 }

@@ -218,6 +218,22 @@
             //window.onload.
         }
 
+        //联系人
+        function btnUser() {
+            layer.open({
+                type: 2,
+                title: '客户联系人',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['1157px', '600px'],
+                content: 'findContacts?customId=......',
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find("#customId").val('......');
+                }
+            });
+        }
+
     </script>
 
     <script type="text/html" id="barDemo">
@@ -232,9 +248,9 @@
 <div class="container">
     <div class="top">
         <ol class="list-inline">
-            <li id="topOne">
-            <input type="button" value="合同签订" onclick="btnContract()">
-            </li>
+            <!--<li id="topOne">-->
+            <!--<input type="button" value="合同签订" onclick="btnContract()">-->
+            <!--</li>-->
             <li id="topTwo">
                 <a th:href="@{/findOrderMaintain}"><input type="button" value="服务记录单" onclick="btnOrder()"></a>
             </li>
@@ -243,6 +259,9 @@
             </li>
             <li id="topFor">
                 <input type="button" value="查询" onclick="btnQuery()">
+            </li>
+            <li id="topFiv">
+                <input type="button" value="联系人" onclick="btnUser()">
             </li>
         </ol>
     </div>

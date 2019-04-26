@@ -97,6 +97,8 @@
                 success: function (data) {
                     var textId = $("#CUS001");
                     textId.val(data.uid);
+                    var dateNow=$("#CUS018");
+                    dateNow.val(data.date);
                     readCustomUser();
                     <!--显示隐藏和取消按钮-->
                     $("#saveBtn").show();
@@ -152,6 +154,7 @@
         //编辑客户资料
         function update() {
             var result = $("#CUS001").val();
+            var customName=$("#CUS002").val();
             if (result == "") {
                 layer.msg("请选择客户");
                 return;
@@ -159,12 +162,12 @@
             $.ajax({
                 type: "post",
                 url: "existscustom",
-                data: {"customId": result},
+                data: {"customName": customName},
                 success: function (data) {
-                    if (data == "true") {
-
+                    if (data.custominfo != "") {
                         $("#saveBtn").show();
                         $("#cancelBtn").show();
+                        $("#CUS018").val(data.date);
                     } else {
                         layer.msg("该客户不存在,请核实");
                     }
@@ -393,6 +396,8 @@
                             success: function (layero, index) {
                                 var body = layer.getChildFrame('body', index);
                                 body.find("#customId").val(customId);
+                                body.find("#customName").val(customName);
+
                             }
                         });
                     } else {
@@ -406,17 +411,17 @@
         //客户联系记录单新增
         function contAdd() {
             var cusId = $("#CUS001").val();
+            var cusName = $("#CUS002").val();
             if (cusId == "") {
                 layer.msg("请选择客户");
                 return;
             }
-
             $.ajax({
                 type: "post",
                 url: "existscustom",
-                data: {"customId": cusId},
+                data: {"customName": cusName},
                 success: function (data) {
-                    if (data == "true") {
+                    if (data != "") {
                         layer.open({
                             type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
                             title: '客户联系记录单',
@@ -534,8 +539,8 @@
             <div class="top-top">
                 <ol class="list-inline">
                     <li id="top1">客户资料</li>
-                    <li id="top2"><input style="font-size: 12px" type="button" value="联系单" onclick="maintain()"/>
-                    </li>
+                    <!--<li id="top2"><input style="font-size: 12px" type="button" value="联系单" onclick="maintain()"/>-->
+                    <!--</li>-->
                     <li id="top3"><input style="font-size: 12px" type="button" value="联系人" onclick="con()"/>
                     </li>
                 </ol>
@@ -682,6 +687,7 @@
                                   style="width:767px;margin-top: 5px" placeholder="其它备注信息"></textarea>
                     </div>
                     <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
+                    <div hidden="hidden"><input hidden="hidden" id="CUS018" name="CUS018"></div>
                     <div class="top-top-btn">
                         <ol class="list-inline">
                             <li id="top01">

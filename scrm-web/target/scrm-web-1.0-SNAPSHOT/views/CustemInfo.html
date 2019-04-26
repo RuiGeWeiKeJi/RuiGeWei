@@ -90,7 +90,7 @@
             $.ajax({
                 type: "post",
                 url: "findlike",
-                data: {"data": datas},
+                data: {"data": datas,"condition":""},
                 success: function (data) {
                     if (data.length > 0) {
                         for (var i = 0; i < data.length; i++) {

@@ -30,61 +30,11 @@
 
         $(function () {
             var url = 'Contacts?customId=' + $("#customId").val() + '&page=1&limit=10';
+            var res=$("#customId").val();
+            if(res!='......')
+                $("#customName").attr('readonly','readonly');
+
             tableRequest(url);
-
-            // $('#myform').bootstrapValidator({
-            //     feedbackIcons: {
-            //         //根据验证结果显示的各种图标
-            //         valid: 'glyphicon glyphicon-ok',
-            //         invalid: 'glyphicon glyphicon-remove',
-            //         validating: 'glyphicon glyphicon-refresh'
-            //     },
-            //     fields: {
-            //         CUR002: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '联系人不可为空'
-            //                 }
-            //             }
-            //         },
-            //         CUR007: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择性别'
-            //                 }
-            //             }
-            //         },
-            //         CUR008: {
-            //             validators: {
-            //                 regexp: {//正则验证
-            //                     regexp: /^[0-9]+$/,
-            //                     message: '请输入数字'
-            //                 }
-            //             }
-            //         },
-            //         CUR004: {
-            //             validators: {
-            //                 stringLength: {
-            //                     min: 11,
-            //                     max: 11,
-            //                     message: '请输入11位手机号码'
-            //                 },
-            //                 regexp: {
-            //                     regexp: /^1[3|5|8]{1}[0-9]{9}$/,
-            //                     message: '请输入正确的手机号码'
-            //                 }
-            //             }
-            //         },
-            //         CUR005: {
-            //             validators: {
-            //                 emailAddress: {
-            //                     message: '请输入正确的邮件地址如：123@qq.com'
-            //                 }
-            //             }
-            //         }
-            //     }
-            // });
-
         })
 
         //检查数据
@@ -136,7 +86,7 @@
                     textId.val(data);
                     var items = $("#myform").find("input");
                     $.each(items, function (i, n) {
-                        if ($(n).attr("type") == "text" & $(n).attr("id") != "customId" & $(n).attr("id") != "userId") {
+                        if ($(n).attr("type") == "text" & $(n).attr("id") != "customId" & $(n).attr("id") != "userId" & $(n).attr("id") != "customName") {
                             $(n).val("");
                         }
                     });
@@ -154,11 +104,6 @@
 
         function save() {
 
-            // $("#myform").bootstrapValidator('validate');
-            // if ($("#myform").data('bootstrapValidator').isValid() == false) {
-            //     //获取验证结果，如果成功，执行下面代码
-            //     return;
-            // }
             checkValue();
             if(flag==false)
                 return;
@@ -298,6 +243,56 @@
             }
         }
 
+        //完成异步搜索功能
+        function searchName(obj) {
+            var content = "";
+            var datas = $(obj).val();
+            if(datas=="")
+                return;
+            $.ajax({
+                type: "post",
+                url: "findlike",
+                data: {"data": datas,"condition":""},
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            content += "<div style='padding: 5px;cursor:pointer;color: #42C2CF' onmouseover='overFn(this)' onmouseout='outFn(this)' onclick='clickFn(this)'>" + data[i].cus002 + "</div>";
+                        }
+                        $("#result").html(content);
+                        $("#result").css("display", "block");
+                    }
+                },
+                dataType: "json"
+            })
+        }
+
+        function overFn(obj) {
+            $(obj).css("background", "white");
+        }
+
+        function outFn(obj) {
+            $(obj).css("background", "#42C2CF");
+        }
+
+        function clickFn(obj) {
+            $("#customName").val($(obj).html());
+            $("#result").css("display","none");
+            var customName=$("#customName").val();
+            $.ajax({
+                type:'post',
+                url:'existscustom',
+                data: {"customName": customName},
+                success:function (data) {
+                    if(data!=""){
+                        var url= 'Contacts?customId=' + data + '&page=1&limit=10';
+                        $("#customId").val(data);
+                        tableRequest(url);
+                    }
+                },
+                dataType:'text'
+            });
+        }
+
     </script>
 
     <script type="text/html" id="barCus">
@@ -311,12 +306,24 @@
 <div class="container">
 
     <div class="top">
-        <!--method="post" th:action="@{/customUseSave}" enctype="multipart/form-data"-->
         <form class="form-inline" style="margin-top:15px" id="myform">
             <div class="form-group">
-                <label style="width: 60px;">客户编号</label>
+                <label style="width: 60px">客户名称</label>
+                <input type="text" class="form-control" id="customName" name="customName"
+                       style="width: 250px"  onkeyup="searchName(this)">
+
+                <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
+                     id="result">
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label style="width: 60px">客户编号</label>
                 <input type="text" class="form-control" readonly="readonly" id="customId" name="customId"
                        style="width: 100px" th:value="${customId}">
+
+
             </div>
             <div class="form-group">
                 <label style="width: 70px">联系人编号</label>
@@ -328,41 +335,41 @@
                 <input type="text" class="form-control" id="CUR002" name="CUR002" placeholder="联系人"
                        style="width: 100px">
             </div>
-            <div class="form-group">
+            <br />
+            <div class="form-group" style="margin-left: 32px">
                 <label>性别</label>
                 <input type="radio" value="男" class="form-control" id="male" name="CUR007">男
                 <input type="radio" value="女" class="form-control" id="female" name="CUR007">女
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 43px">
                 <label>年龄</label>
-                <input type="text" class="form-control" id="CUR008" name="CUR008" placeholder="年龄" style="width: 100px"
-                       onkeyup="value=value.replace(/[^\d]/g,'')"
-                >
+                <input type="text" class="form-control" id="CUR008" name="CUR008" placeholder="年龄" style="width: 113px"
+                       onkeyup="value=value.replace(/[^\d]/g,'')">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 33px">
                 <label>职位</label>
-                <input type="text" class="form-control" id="CUR003" name="CUR003" placeholder="职位" style="width: 115px">
+                <input type="text" class="form-control" id="CUR003" name="CUR003" placeholder="职位" style="width: 100px">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 27px">
                 <label>手机号</label>
-                <input type="text" class="form-control" id="CUR004" name="CUR004" placeholder="电话" style="width: 160px">
+                <input type="text" class="form-control" id="CUR004" name="CUR004" placeholder="电话" style="width: 252px">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 35px">
                 <label>邮箱</label>
-                <input type="text" class="form-control" id="CUR005" name="CUR005" placeholder="邮箱" style="width: 160px">
+                <input type="text" class="form-control" id="CUR005" name="CUR005" placeholder="邮箱" style="width: 415px">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 42px">
                 <label>座机</label>
-                <input type="text" class="form-control" id="CUR006" name="CUR006" placeholder="微信" style="width: 160px">
+                <input type="text" class="form-control" id="CUR006" name="CUR006" placeholder="座机" style="width: 252px">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 35px">
                 <label>备注</label>
                 <textarea class="form-control" id="CUR009" name="CUR009" placeholder="备注"
-                          style="width: 830px"></textarea>
+                          style="width: 745px"></textarea>
             </div>
             <div hidden="hidden"><input type="hidden" id="id" name="id"></div>
             <div>
-                <input type="button" value="新增" class="top-btn" onclick="add()" style="margin-left: 80%">
+                <input type="button" value="新增" class="top-btn" onclick="add()" style="margin-left: 73%">
                 <input type="button" value="保存" class="top-btn" onclick="save()">
             </div>
         </form>

@@ -3,8 +3,10 @@ package com.huotu.scrm.web.controller.custom;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
+import com.huotu.scrm.service.model.increasebrs;
 import com.huotu.scrm.service.service.ChartInfo.ChartInfoService;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo.queryRoleForUser;
@@ -29,11 +32,11 @@ public class ChartReportController {
 
     @RequestMapping(value = "/chart")
     @ResponseBody
-    public ModelAndView findChartInfo() {
+    public ModelAndView findChartInfo(HttpServletRequest request) {
 
         ModelAndView model = new ModelAndView();
         //获取cookie中的用户名和密码进行登录
-        String username = Constant.userName;
+        String username = GetUserLoginInfo.getUserInfo(request).getUSE002();
         Constant.Position="业务";
         List<String> getSales = new ArrayList<>();
 
@@ -68,10 +71,31 @@ public class ChartReportController {
         Date date = chartInfoService.getDate();
         List<avgbrs> getCount = chartInfoService.getCount(date,username);
         List<everybrs> getCountEvery = chartInfoService.getCountEveryDay(date,username);
+        List<Object> getIncreasebrs=chartInfoService.getincreasebrs();
+
+        List<increasebrs> increasebrs=new ArrayList<>();
+        for(int i=0;i<getIncreasebrs.size();i++) {
+            increasebrs increasebrs1 = new increasebrs();
+            Object[] objects = (Object[]) getIncreasebrs.get(i);
+            increasebrs1.setUsername(objects[0].toString());
+            increasebrs1.setLev(objects[1].toString());
+            increasebrs1.setPremonth(Integer.parseInt(objects[2].toString()));
+            increasebrs1.setMonthadd(Integer.parseInt(objects[3].toString()));
+            increasebrs1.setPreweek(Integer.parseInt(objects[4].toString()));
+            increasebrs1.setWeekadd(Integer.parseInt(objects[5].toString()));
+            increasebrs1.setPreday(Integer.parseInt(objects[6].toString()));
+            increasebrs1.setDayadd(Integer.parseInt(objects[7].toString()));
+            increasebrs.add(increasebrs1);
+        }
+
         map.put("avg",getCount);
         map.put("every",getCountEvery);
+        map.put("code",0);
+        map.put("count",increasebrs.size());
+        map.put("data",increasebrs);
         model.addObject("avg", getCount);
         model.addObject("every", getCountEvery);
+        model.addObject("increase", getIncreasebrs);
         return map;
     }
 

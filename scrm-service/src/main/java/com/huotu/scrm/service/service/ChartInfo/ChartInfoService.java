@@ -2,6 +2,7 @@ package com.huotu.scrm.service.service.ChartInfo;
 
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
+import com.huotu.scrm.service.model.increasebrs;
 
 import java.util.Date;
 import java.util.List;
@@ -33,5 +34,11 @@ public interface ChartInfoService {
      * @return
      */
     List<everybrs> getCountEveryDay(Date date,String username);
+
+    /**
+     * 获取本期级别增长或减少数量
+     * @return
+     */
+    List<Object> getincreasebrs();
 
 }

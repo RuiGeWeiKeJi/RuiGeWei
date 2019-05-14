@@ -28,4 +28,10 @@ public interface LoginService {
      */
     Integer findBy(String username);
 
+    /**
+     * 查询所有超期客户数量
+     * @return
+     */
+    Integer findAllBy();
+
 }

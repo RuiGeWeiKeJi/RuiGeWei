@@ -201,6 +201,7 @@
                         var datasource = null;
                         table.render({
                             elem: '#test',
+                            height:220,
                             url: url,
                             method: 'post',
                             ContentType: 'application/json;charset=utf-8'
@@ -284,13 +285,23 @@
                 type: "post",
                 url: "readcustomuser",
                 success: function (data) {
+
                     var result = $("#salesman");
                     result.empty();
                     var otherResult = "<option></option>";
-                    $.each(data, function (x, y) {
+                    $.each(data.salesman, function (x, y) {
                         otherResult += "<option>" + y + "</option>";
                     })
                     result.append(otherResult);
+
+                    result = $("#industry");
+                    result.empty();
+                    otherResult = "<option></option>";
+                    $.each(data.industry, function (x, y) {
+                        otherResult += "<option>" + y + "</option>";
+                    })
+                    result.append(otherResult);
+
                 },
                 dataType: "json"
             })
@@ -304,6 +315,7 @@
                 var datasource = null;
                 table.render({
                     elem: '#conInfo',
+                    height:250,
                     url: url,
                     method: 'post',
                     ContentType: 'application/json;charset=utf-8'
@@ -618,10 +630,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="CUS013">来源</label> <select
+                        <label for="CUS013">来源</label>
+                        <select
                             class="select form-control" id="CUS013" name="CUS013"
                             style="height:30px;width:80px">
                         <option>无</option>
+                        <option>天眼</option>
                         <option>鼎捷</option>
                         <option>网站</option>
                         <option>老客</option>
@@ -643,9 +657,9 @@
                     </div>
                     <div class="form-group">
                         <label for="industry">行业</label>
-                        <input type="text"
-                               class="form-control" id="industry" name="industry"
-                               style="width:93px" placeholder="客户行业">
+                        <select class="select form-control" id="industry" name="industry"
+                                style="height:30px;width:93px" placeholder="客户行业">
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="salesman">业务员</label>

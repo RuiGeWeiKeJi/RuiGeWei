@@ -1,6 +1,6 @@
 package com.huotu.scrm.web.controller.custom;
 
-import com.huotu.scrm.common.utils.Constant;
+
 import com.huotu.scrm.service.entity.Power.Authority;
 import com.huotu.scrm.service.entity.User.User;
 import com.huotu.scrm.service.service.user.LoginService;
@@ -43,20 +43,15 @@ public class LoginController {
 
         //获取cookie中的用户名和密码进行登录
         Cookie[] cookies = request.getCookies();
-        String username = "";
-        String password = "";
-        GetUserLoginInfo.getUserLoginInfo(cookies,username,password);
-
         ModelAndView model = new ModelAndView();
-        model.addObject("username", username);
-        model.addObject("password", password);
+       String password = GetUserLoginInfo.getUserLoginInfo(cookies,model);
+
         if (password != "")
             model.addObject("check", true);
         else
             model.addObject("check", false);
         model.setViewName("Login");
         return model;
-        //return "Login";
     }
 
     @RequestMapping(value = "/cusop")

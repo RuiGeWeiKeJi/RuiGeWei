@@ -10,6 +10,22 @@
       </list>
     </option>
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-am_ET.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-ar_AR.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-bg_BG.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-cs_CZ.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-da_DK.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-de_DE.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-en_US.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-es_CL.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-es_ES.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-et_EE.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-eu.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-fa_IR.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-fi_FI.js" />
+    <file url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/i18n/defaults-fr_FR.js" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>

@@ -13,7 +13,7 @@ public interface BarRepository extends JpaRepository<Custom, Long>, JpaSpecifica
      * 查询所有行业
      * @return
      */
-    @Query(value = "select distinct CUS010 from rgwcus",nativeQuery = true)
+    @Query(value = "select BAS002 from rgwbas where BAS001='类别'",nativeQuery = true)
     List<String> findAllindustry();
 
     /**

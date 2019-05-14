@@ -12,21 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/maintain.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
 
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
-    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
     <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
-
 
     <script>
 
@@ -40,11 +33,13 @@
             layui.use('table', function () {
                 var table = layui.table;
                 var datasource = null;
-                var util=layui.util;
+                var util = layui.util;
                 table.render({
                     elem: '#test',
+                    height: 600,
                     url: encodeURI(url),
                     method: 'post',
+                    toolbar: '#toolbarDemo',
                     ContentType: 'application/json;charset=utf-8'
                     , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                         layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
@@ -55,24 +50,33 @@
                     }
                     , cols: [
                         [
-
                             {fixed: 'left', title: '操作', toolbar: '#barDemo', width: '5%'},
-                            {fixed:'left',field: 'mai002', width: '20%', title: '名称', sort: true},
+                            {fixed: 'left', field: 'mai002', width: '20%', title: '名称', sort: true},
                             , {field: 'mai003', width: '6%', title: '姓名'}
                             , {field: 'mai005', width: '5%', title: '提问方式'}
                             , {field: 'mai004', width: '10%', title: '联系方式'}
-                            , {field: 'mai006', width: '10%', title: '提出时间',templet:function(row) {return createTime(row.mai006); } , sort: true}
+                            , {
+                            field: 'mai006', width: '10%', title: '提出时间', templet: function (row) {
+                                return createTime(row.mai006);
+                            }, sort: true
+                        }
                             , {field: 'mai007', width: '20%', title: '问题描述'}
                             , {field: 'mai012', width: '15%', title: '处理方案'}
                             , {field: 'mai008', width: '6%', title: '处理人'}
                             , {field: 'mai009', width: '10%', title: '处理进度'}
-                            , {field: 'mai010', width: '10%', title: '预计完成时间',templet:function(row) {return createTime(row.mai010); } }
-                            , {field: 'mai011', width: '10%', title: '实际完成时间',templet:function (row) {
+                            , {
+                            field: 'mai010', width: '10%', title: '预计完成时间', templet: function (row) {
+                                return createTime(row.mai010);
+                            }
+                        }
+                            , {
+                            field: 'mai011', width: '10%', title: '实际完成时间', templet: function (row) {
                                 return createTime(row.mai011);
-                            } }
+                            }
+                        }
                         ]
                     ],
-                    limits: [10, 20,50,100,200],
+                    limits: [10, 20, 50, 100, 200],
                     done: function (res, curr, count) {
                         datasource = res;
                         //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -92,7 +96,22 @@
                         editItem(data);
                     }
                 });
-
+                //头部工具栏事件
+                table.on('toolbar(test)', function (obj) {
+                    //var checkStatus = table.checkStatus(obj.config.id);
+                    switch (obj.event) {
+                        case 'btnAdd':
+                            btnAdd();
+                            break;
+                        case 'btnQuery':
+                            btnQuery();
+                            break;
+                        case 'btnUser':
+                            btnUser();
+                            break;
+                    }
+                    ;
+                })
             });
         }
 
@@ -193,31 +212,6 @@
             });
         }
 
-        //合同签订
-        function btnContract() {
-            layer.open({
-                type: 2,
-                title: '客户合同签订',
-                maxmin: true,
-                shadeClose: true,
-                content:'findContract',
-                area: ['800px', '240px'],
-                success: function (layero, index) {
-
-                },
-                yes: function (index, layero) {
-                    var res = $(layero).find("iframe")[0].contentWindow.formDateMainQuery();
-                    readDataMain(res.data);
-                    layer.close(layer.index);
-                }
-            });
-        }
-
-        //服务记录单
-        function btnOrder() {
-            //window.onload.
-        }
-
         //联系人
         function btnUser() {
             layer.open({
@@ -240,34 +234,21 @@
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </script>
 
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="btnAdd">新增</button>
+            <button class="layui-btn layui-btn-sm" lay-event="btnQuery">查询</button>
+            <button class="layui-btn layui-btn-sm" lay-event="btnUser">联系人</button>
+        </div>
+    </script>
+
 </head>
 <body>
 <div class="index">
     <div th:include="index::html"></div>
 </div>
-<div class="container">
-    <div class="top">
-        <ol class="list-inline">
-            <!--<li id="topOne">-->
-            <!--<input type="button" value="合同签订" onclick="btnContract()">-->
-            <!--</li>-->
-            <li id="topTwo">
-                <a th:href="@{/findOrderMaintain}"><input type="button" value="服务记录单" onclick="btnOrder()"></a>
-            </li>
-            <li id="topTre">
-                <input type="button" value="新增" onclick="btnAdd()">
-            </li>
-            <li id="topFor">
-                <input type="button" value="查询" onclick="btnQuery()">
-            </li>
-            <li id="topFiv">
-                <input type="button" value="联系人" onclick="btnUser()">
-            </li>
-        </ol>
-    </div>
-    <div class="buttom" style="margin-left: 2%;width: 107.8%;margin-top:0%">
+<div class="buttom">
         <table class="layui-hide" id="test" lay-filter="test"></table>
-    </div>
 </div>
 
 </body>

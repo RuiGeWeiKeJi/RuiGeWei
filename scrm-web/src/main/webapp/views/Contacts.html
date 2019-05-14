@@ -284,12 +284,12 @@
                 data: {"customName": customName},
                 success:function (data) {
                     if(data!=""){
-                        var url= 'Contacts?customId=' + data + '&page=1&limit=10';
-                        $("#customId").val(data);
+                        var url= 'Contacts?customId=' + data.custominfo + '&page=1&limit=10';
+                        $("#customId").val(data.custominfo);
                         tableRequest(url);
                     }
                 },
-                dataType:'text'
+                dataType:'json'
             });
         }
 

@@ -28,22 +28,26 @@
 </div>
 
  <div class="container">
-        <div class="top" style="height: 290px;overflow: auto">
-            <!--<form class="form-inline" id="myform" method="post" style="margin-top: 10px">-->
-            <!--<div >-->
-                <!--<div class="form-group" style="margin-top: 10px;margin-left: 10px">-->
-                    <!--<label for="saleman">业务员 </label>-->
-                    <!--<select class="form-control" id="saleman" name="saleman" style="width: 100px">-->
-                        <!--<option></option>-->
-                        <!--<option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>-->
-                    <!--</select>-->
+        <div class="top" style="height: 90px;overflow: auto">
+            <form class="form-inline" id="myform" method="post" style="margin-top: 10px">
+            <div>
+                <div class="form-group" style="margin-top: 0px;margin-left: 10px;width: 90%">
+                    <label for="saleman">业务员 </label>
+                    <select class="form-control" id="saleman" name="saleman" style="width: 100px" onchange="btnOpenComRecord()">
+                        <option>全体</option>
+                        <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
+                    </select>
+                    <label style="color:green;margin-left: 2%" id="aLive"></label>
+                    <label style="color:green;margin-left: 2%" id="bLive"></label>
+                    <label style="color:green;margin-left: 2%" id="cLive"></label>
+                    <label style="color:red;margin-left: 2%;font-size: 20px" id="warncount"> 超期:45</label>
                     <!--<input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--</form>-->
-            <table class="layui-hide" id="reportext" lay-filter="reportext"></table>
+                </div>
+            </div>
+            </form>
+            <!--<table class="layui-hide" id="reportext" lay-filter="reportext"></table>-->
         </div>
-        <div class="bottom" id="main" style="height: 300px;overflow: auto">
+        <div class="bottom" id="main" style="height: 540px;overflow: auto">
         </div>
     </div>
 
@@ -56,195 +60,214 @@
 <script  th:inline="javascript" type="text/javascript" >
 
     var transTotal=echarts.init(document.getElementById('main'));
-    var linevalue=0;
-    var name='';
+
     //x轴
     var xaxisdata=[];
-    //series的值
+    //series的值 电话数
     var seriestotal=[];
-    //y轴
+    //y轴 电话数
     var datacount=[];
+    //y轴 30天平均数
+    var datacount1=[];
+    //y轴 60天平均数
+    var datacount2=[];
+    //y轴 90天平均数
+    var datacount3=[];
+    //y轴 合格数
+    var datacount4=[];
     //lengends
     var lengends=[];
-    //visualMap
-    var visualVal=[];
     //登录用户名
-    var use = [[${session.user.getUSE002()}]];
+    var use = [[${username}]];
 
-    $(function () {
-        var url='chartuser?username='+use+'';
-        layui.use('table',function () {
-            var table = layui.table;
-            var datasource = null;
-            table.render({
-                elem: '#reportext',
-                url:encodeURI(url),
-                method: 'post',
-                ContentType: 'application/json;charset=utf-8'
-                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-                    //,curr: 5 //设定初始在第 5 页
-                    , groups: 5 //只显示 1 个连续页码
-                    , first: true //显示首页
-                    , last: true //显示尾页
-                }
-                , cols: [
-                    [
-                        {field: 'username', title: '业务员', width: '10%', sort: true}
-                        ,{field: 'lev', title: '级别', width: '10%', sort: true}
-                        ,{field: 'premonth', title: '上月数量', width: '10%', sort: true}
-                        ,{field: 'monthadd', title: '本月增长', width: '10%', sort: true}
-                        ,{field: 'preweek', title: '上周数量', width: '10%', sort: true}
-                        ,{field: 'weekadd', title: '本周增长', width: '10%', sort: true}
-                        ,{field: 'preday', title: '昨天数量', width: '10%', sort: true}
-                        ,{field: 'dayadd', title: '今日增长', width: '10%', sort: true}
-                        ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width:'20%'}
-                    ]
-                ],
-                limits: [10, 20, 30, 40, 50],
-                done: function (res, curr, count) {
-                    datasource = res;
-                    //如果是异步请求数据方式，res即为你接口返回的信息。
-                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                    // layui.msg(res);
-                    //得到当前页码
-                    // layui.msg(curr);
-                    //得到数据总量
-                    // layui.msg(count);
-                }
-            });
-            //表格事件
-            table.on('tool(reportext)', function (obj) {
-                var data = obj.data;
-                var username = data.username;
-                if (obj.event === 'edit') {
-                    btnOpenComRecord(username);
-                }
-            });
-        });
-    })
+    var seriesquery=function ( ) {
+        return {
+            name: '',
+            type: 'bar',
+            stack:'two',
+            //smooth:true,//平滑曲线
+            data: []
+        }
+    }
 
-   function btnOpenComRecord(username) {
+    var seriesquery1=function (color) {
+        return {
+            name: '',
+            type: 'line',
+            color:color,
+            // lineStyle: {
+            //     normal: {
+            //         color: color,
+            //         width: 1,
+            //         //type: 'line'
+            //         type: 'dashed'
+            //     }
+            // },
+            //smooth:true,//平滑曲线
+            data: []
+        }
+    }
+
+    var styleForLabel=function (objAlev,objBlev,objClev,objDlev) {
+        if (objAlev.indexOf("-") != -1)
+            $("#aLive").attr("style", "color:red;margin-left: 2%");
+        else
+            $("#aLive").attr("style", "color:green;margin-left: 2%");
+        if (objBlev.indexOf('-') != -1)
+            $("#bLive").attr("style", "color:red;margin-left: 2%");
+        else
+            $("#bLive").attr("style", "color:green;margin-left: 2%");
+        if (objClev.indexOf('-') != -1)
+            $("#cLive").attr("style", "color:red;margin-left: 2%");
+        else
+            $("#cLive").attr("style", "color:green;margin-left: 2%");
+        var result=objDlev.split(":");
+        if (parseInt(result[1])<1)
+            $("#warncount").attr("style", "color:green;margin-left: 2%;font-size: 20px");
+        else
+            $("#warncount").attr("style", "color:red;margin-left: 2%;font-size: 20px");
+    }
+
+   function btnOpenComRecord() {
        xaxisdata=[];
        seriestotal=[];
        datacount=[];
+       datacount1=[];
+       datacount2=[];
+       datacount3=[];
+       datacount4=[];
        lengends=[];
-       visualVal=[];
 
+        var username=$("#saleman").val();
+       //var username="全体";
        $.ajax({
            type: "post",
            url: "chartuser",
            data: {"username": username},
            success: function (data) {
-               if(data.avg.length<1){
-                   linevalue=0;
-                   name=username;
-               }else{
-                   var avg = data.avg;
-                   linevalue = avg[0][1];
-                   name = avg[0][0];
-               }
-               lengends.push(name);
-               var item = new seriesquery(linevalue);
-               var item1=new visualMapQuery(linevalue);
-               var item2=new visualMapQueryOther(linevalue);
+               $("#aLive").text(data.ALev);
+               $("#bLive").text(data.BLev);
+               $("#cLive").text(data.CLev);
+               $("#warncount").text(data.count);
+               styleForLabel(data.ALev,data.BLev,data.CLev,data.count);
+               lengends.push(username);
+               var item = new seriesquery();
+               var item1=new seriesquery1('black');
+               var item2=new seriesquery1('blue');
+               var item3=new seriesquery1('blue');
+               var item4=new seriesquery('green');
 
-               visualVal.push(item1);
-               visualVal.push(item2);
-               item.name = name;
-               var every = data.every;
+               item.name = username;
+               var every = data.chartAvgs;
                for (var j = 0; j < every.length; j++) {
-                   xaxisdata.push(every[j][0]);
-                   datacount.push(every[j][1]);
+                   if(every[j].avg004=="10") {
+                       xaxisdata.push(every[j].avg003);
+                       datacount.push(every[j].avg002);
+                   }else if(every[j].avg004=="20") {
+                       item4.name="达标数";
+                       datacount4.push(every[j].avg002);
+                   }else if(every[j].avg004=="30") {
+                       item1.name="30天平均值";
+                       datacount1.push(every[j].avg002);
+                   }else if(every[j].avg004=="90") {
+                       item3.name="90天平均值";
+                       datacount3.push(every[j].avg002);
+                   }
                }
                item.data = datacount;
+               item1.data=datacount1;
+               item2.data=datacount2;
+               item3.data=datacount3;
+               item4.data=datacount4;
                seriestotal.push(item);
+               seriestotal.push(item1);
+               //seriestotal.push(item2);
+               seriestotal.push(item3);
+               seriestotal.push(item4);
+               lengends.push(item1.name);
+               //lengends.push(item2.name);
+               lengends.push(item3.name);
+               lengends.push(item4.name);
+
                option1.series = seriestotal;
                option1.xAxis.data=xaxisdata;
                option1.legend.data=lengends;
-               option1.visualMap.pieces=visualVal;
                transTotal.setOption(option1, true);
            }
        });
    }
 
-    var avg=[[${avg}]];
-    var every=[[${every}]];
+    var every=[[${chartAvgs}]];
 
-    var seriesquery=function (item) {
-        return{
-                name:'',
-                type: 'line',
-                //smooth:true,//平滑曲线
-                markLine: {
-                    silent: true,
-                    lineStyle: {
-                        normal: {
-                            color: '#ED0BEB'                   // 这儿设置安全基线颜色
-                        }
-                    },
-                    data: [{
-                        yAxis: item
-                    }],
-                    label: {
-                        normal: {
-                            formatter: '平均\n'+item        // 这儿设置安全基线
-                        }
-                    },
-                },
-            data:[]
-        }
-    }
+    $("#aLive").text([[${ALev}]]);
+    $("#bLive").text([[${BLev}]]);
+    $("#cLive").text([[${CLev}]]);
+    $("#warncount").text([[${count}]]);
 
-    var visualMapQuery=function (item) {
-        return {
-                    gt: 0,
-                    lte: item,          //这儿设置基线上下颜色区分 基线下面为绿色
-                    color: '#e91642'
-            };
-    }
+    styleForLabel([[${ALev}]],[[${BLev}]],[[${CLev}]],[[${count}]]);
 
-    var visualMapQueryOther=function (item) {
-        return {
-            gt: item,          //这儿设置基线上下颜色区分 基线上面为红色
-            color: '#16D86E'
-        };
-    }
+    var item=new seriesquery();
+    var item1=new seriesquery1('black');
+    var item2=new seriesquery1('blue');
+    var item3=new seriesquery1('blue');
+    var item4=new seriesquery('green');
 
-    if(avg.length<1)
-    {
-        linevalue=0;
-        name=use;
-    }else {
-        linevalue=avg[0][1];
-        name=avg[0][0];
-    }
-
-    var item=new seriesquery(linevalue);
-    var item1=new visualMapQuery(linevalue);
-    var item2=new visualMapQueryOther(linevalue);
-
-    visualVal.push(item1);
-    visualVal.push(item2);
-
-    item.name=name;
-    lengends.push(name);
+    item.name=use;
+    lengends.push(use);
    for(var j=0;j<every.length;j++) {
-       xaxisdata.push(every[j][0]);
-       datacount.push(every[j][1]);
+       if(every[j].avg004=="10") {
+           xaxisdata.push(every[j].avg003);
+           datacount.push(every[j].avg002);
+       }
+       else if(every[j].avg004=="20") {
+           item4.name="达标数";
+           datacount4.push(every[j].avg002);
+       }
+       else if(every[j].avg004=="30") {
+           item1.name="30天平均值";
+           datacount1.push(every[j].avg002);
+       }else if(every[j].avg004=="60") {
+           item2.name="60天平均值";
+           datacount2.push(every[j].avg002);
+       }else if(every[j].avg004=="90") {
+           item3.name="90天平均值";
+           datacount3.push(every[j].avg002);
+       }
    }
    item.data=datacount;
+   item1.data=datacount1;
+   item2.data=datacount2;
+   item3.data=datacount3;
+    item4.data=datacount4;
+   lengends.push(item1.name);
+   //lengends.push(item2.name);
+   lengends.push(item3.name);
+   lengends.push(item4.name);
    seriestotal.push(item);
-
+    seriestotal.push(item1);
+    //seriestotal.push(item2);
+    seriestotal.push(item3);
+    seriestotal.push(item4);
     var option1 = {
+            tooltip:{
+                trigger:'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
             grid: {
-                left: '10%',
-                right: '5%',
+                left: '3%',
+                right: '4%',
                 bottom: '1%',
-                top:'15%',
+                // top:'15%',
                 containLabel: true
             },
             legend:{
+                // orient: 'vertical',
+                // x:'right',
                 data:[]
             },
             xAxis: {
@@ -262,10 +285,6 @@
                 data:xaxisdata,
                 //['张三','李四','王五','赵六','田七','粉八'],
                 splitLine:{show: false}//去除网格线
-            },
-            visualMap: {
-                show: false,//是否显示标线上下标识
-                pieces: []
             },
             yAxis: {
                 show:true,
@@ -294,7 +313,6 @@
     option1.series=seriestotal;
     option1.xAxis.data=xaxisdata;
     option1.legend.data=lengends;
-    option1.visualMap.pieces=visualVal;
     transTotal.setOption(option1,true);
 
 </script>

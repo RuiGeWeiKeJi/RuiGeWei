@@ -85,7 +85,6 @@
                 //获取验证结果，如果成功，执行下面代码
                 return;
             }
-
             var data = $('#myform').serialize();
             var url = 'userSave?userId=' + $("#userId").val() + '&' +
                 'USE002=' + $("#USE002").val() + '&' +
@@ -106,6 +105,7 @@
 <body>
 
 <div class="container">
+
     <form class="form-inline" style="left:5px;margin-top:10px" id="myform">
         <div class="form-group">
             <label for="userId" style="margin-left: 25px">编号</label>
@@ -137,6 +137,7 @@
         </div>
         <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
     </form>
+
 </div>
 
 </body>

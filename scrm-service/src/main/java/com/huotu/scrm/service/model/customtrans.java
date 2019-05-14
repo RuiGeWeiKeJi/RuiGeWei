@@ -1,9 +1,11 @@
 package com.huotu.scrm.service.model;
 
 
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -12,19 +14,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 //@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class customtrans implements Serializable {
-
-//    public customtrans(String CUS001,String CUS002, String CUS004,String BRS005,String BRS006,String BRS007){
-//
-//        super();
-//
-//        this.CUS001=CUS001;
-//        this.CUS002=CUS002;
-//        this.CUS004=CUS004;
-//        this.BRS005=BRS005;
-//        this.BRS006=BRS006;
-//        this.BRS007=BRS007;
-//    }
 
     public customtrans(){
 
@@ -48,6 +39,16 @@ public class customtrans implements Serializable {
     private String CUS004;
 
     /**
+     * 行业
+     */
+    private String CUS010;
+
+    /**
+     * 业务员
+     */
+    private String CUS012;
+
+    /**
      * 联系单编号
      */
     private String BRS001;
@@ -67,5 +68,10 @@ public class customtrans implements Serializable {
      */
     private String BRS007;
 
+
+    /**
+     * 联系人
+     */
+    private DateTime BRS003;
 
 }

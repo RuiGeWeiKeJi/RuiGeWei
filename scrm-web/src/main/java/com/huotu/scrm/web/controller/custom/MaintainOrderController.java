@@ -21,8 +21,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -35,6 +33,7 @@ public class MaintainOrderController {
     private CustomBrsRepository customBrsRepository;
 
     @RequestMapping(value = "/findOrderMaintain")
+    @ResponseBody
     public ModelAndView findOrder(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("MaintainOrder");

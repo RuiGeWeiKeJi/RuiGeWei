@@ -45,3 +45,33 @@
     line-height: 2px;
     hover: #A5BED9;
 }
+
+.setproperty{
+    height: 45px;
+    top:0;
+    left: 0;
+    width: 100%;
+    background-color: #F7F5F6;
+    font-weight: bold;
+    color: #7F8F9C;
+    line-height: 30px;
+    font-size: 16px;
+    position: absolute;
+}
+
+.setproperty li select {
+    width: 70px; /* 宽度 */
+    height: 20px; /* 高度 */
+    margin-top: 8px;
+    margin-left: 30px;
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 5px; /* 边框半径 */
+    background: #42C2CF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 16px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}

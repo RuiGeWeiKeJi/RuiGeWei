@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+.left{
+    margin-left: 10%;
+    position: absolute;
+    top: 8%;
+    bottom: 0%;
+    left: 0px;
+    width: 10%;
+    background-color: white;
+    color: black;
+    border-style: solid;
+    border-left-width: 0px;
+    border-right-width: 2.5px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-color: #B4BBC1;
+}
+
+
+.right{
+    margin-left: 20%;
+    position: absolute;
+    top: 8%;
+    bottom: 0;
+    left: 0px;
+    width: 80%;
+    background-color: white;
+    color: black;
+}
+
+.top {
+    top:0;
+    left: 0;
+    width: 100%;
+    background-color: #F7F5F6;
+    height: 40px;
+    font-weight: bold;
+    color: #7F8F9C;
+    line-height: 30px;
+    font-size: 16px;
+    position: absolute;
+}
+
+.top li input {
+    width: 70px; /* 宽度 */
+    height: 20px; /* 高度 */
+    margin-top: 8px;
+    margin-left: 30px;
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 5px; /* 边框半径 */
+    background: #42C2CF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 16px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}
+
+.btnStyle{
+    width: 90px; /* 宽度 */
+    height: 30px; /* 高度 */
+    margin-top: 10px;
+    margin-left: 20px;
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 5px; /* 边框半径 */
+    background: #42C2CF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 14px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}

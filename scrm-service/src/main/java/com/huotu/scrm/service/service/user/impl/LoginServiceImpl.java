@@ -32,4 +32,9 @@ public class LoginServiceImpl implements LoginService {
     public Integer findBy(String username) {
         return loginRepository.findBy(username);
     }
+
+    @Override
+    public Integer findAllBy() {
+        return loginRepository.findAllBy();
+    }
 }

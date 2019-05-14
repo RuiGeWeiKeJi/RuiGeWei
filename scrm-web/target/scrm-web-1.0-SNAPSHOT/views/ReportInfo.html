@@ -9,17 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/report.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid-bootstrap-ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/basedata.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
 
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
-    <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
     <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
 
 
@@ -39,11 +41,19 @@
     </style>
 
     <script>
+        
+        $(function () {
+            $("#setproperty").attr("style", "display:none");
+        })
+        
         function btnOpenComRecord() {
+            $("#setproperty").attr("style", "display:none");
+            $("#table").attr("style", "display:block");
+
             layer.open({
                type:2,
                title:"最近通话记录查询",
-                area: ['800px', '300px'],
+                area: ['800px', '450px'],
                 content: 'linkUp',
                 btn: ['确定', '取消'],
                 yes: function (index, layero) {
@@ -54,12 +64,14 @@
                        var datasource = null;
                        table.render({
                            elem: '#reportext',
+                           height:580,
                            url: url,
                            method: 'post',
                            ContentType: 'application/json;charset=utf-8'
                            , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
                                //,curr: 5 //设定初始在第 5 页
+                               ,limit:50
                                , groups: 5 //只显示 1 个连续页码
                                , first: true //显示首页
                                , last: true //显示尾页
@@ -69,21 +81,16 @@
                                     {field: 'brs001', title: '单号', width: '11%', sort: true}
                                    ,{field: 'cus002', title: '名称', width: '23%', sort: true}
                                    ,{field: 'brs006', title: '通话内容', width: '50%', sort: true}
-                                   ,{field: 'cus004', title: '级别', width: '5%', sort: true}
+                                   ,{field: 'cus004', title: '级别', width: '7%', sort: true}
+                                   ,{field: 'cus010', title: '行业', width: '7%', sort: true}
+                                   ,{field: 'cus012', title: '业务员', width: '10%', sort: true}
                                    ,{field: 'brs005', title: '联系方式', width: '10%', sort: true}
                                    ,{field: 'brs007', title: '联系人', width: '10%', sort: true}
                                ]
                            ],
-                           limits: [10, 20, 30, 40, 50],
+                           limits: [50,100,200,500],
                            done: function (res, curr, count) {
                                datasource = res;
-                               //如果是异步请求数据方式，res即为你接口返回的信息。
-                               //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                               // layui.msg(res);
-                               //得到当前页码
-                               // layui.msg(curr);
-                               //得到数据总量
-                               // layui.msg(count);
                            }
                        });
                    });
@@ -91,6 +98,171 @@
                 }
             });
         }
+
+        function effective() {
+
+            $("#table").attr("style", "display:none");
+            $("#setproperty").attr("style", "display:block");
+            $("#liOne").show();
+            $("#litwo").hide();
+
+            tableQuery();
+        }
+
+        function tableQuery() {
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                var url='findquery';
+                table.render({
+                    elem: '#reportextx  ',
+                    url: encodeURI(url),
+                    height:530,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        ,limit:50
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'flt001', title: '条件', width: '20%',sort:true},
+                            {field: 'flt002', title: '操作关系', width: '20%',sort:true},
+                            {field: 'flt003', title: '值', width: '20%',sort:true},
+                            {field: 'flt004', title: '关系', width: '20%',sort:true},
+                            {fixed: 'right', title: '操作', toolbar: '#barDemox', width: '40%'}
+                        ]
+                    ],
+                    limits: [50,100,200],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        // layui.msg(res);
+                        //得到当前页码
+                        // layui.msg(curr);
+                        //得到数据总量
+                        // layui.msg(count);
+                    }
+                });
+
+                //表格事件
+                table.on('tool(reportextx)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'editx') {
+                        editItemx(data);
+                    }else if (obj.event === 'deletex') {
+                        deleteItemx(data);
+                    }
+                });
+
+            });
+        }
+        
+        function election() {
+            var selector = $("#content").val();
+            if(selector=="级别"){
+                $("#liOne").show();
+                $("#litwo").hide();
+            }else
+            {
+                $("#liOne").hide();
+                $("#litwo").show();
+            }
+        }
+        
+        function btnSave() {
+            var id = $("#id").val();
+            var flt001 = $("#content").val();
+            var flt002 = $("#refal").val();
+            var flt004 = $("#cap").val();
+            var flt003 = "";
+            if (flt001 == "级别") {
+                flt003 = $("#valueOne").val();
+            } else
+                flt003 = $("#valueTwo").val();
+
+            if (flt003 == "") {
+                layer.msg("请选择或录入值");
+                return;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: 'savequery',
+                data: {
+                    "id": id,
+                    "flt001": flt001,
+                    "flt002": flt002,
+                    "flt003": flt003,
+                    "flt004": flt004
+                },
+                success: function (data) {
+                    if (data == true) {
+                        tableQuery();
+                    } else {
+                        layer.msg("已经存在条件:" + flt001 + ' 关系:' + flt002 + '  值:' + flt003 + '');
+                    }
+                },
+                dataType: 'json'
+            });
+
+        }
+
+        function editItemx(obj) {
+            $("#id").val(obj.id);
+            $("#content").val(obj.flt001);
+            $("#refal").val(obj.flt002);
+            $("#cap").val(obj.flt004);
+            if(obj.flt001=="级别"){
+                $("#liOne").show();
+                $("#litwo").hide();
+                $("#valueOne").val(obj.flt003);
+            }else {
+                $("#liOne").hide();
+                $("#litwo").show();
+                $("#valueTwo").val(obj.flt003);
+            }
+        }
+
+        function deleteItemx(obj) {
+            layer.confirm('确认删除?',{
+                ben:['确定','取消']
+            },function (index) {
+                layer.close(index);
+                $.ajax({
+                    type:'post',
+                    url:'deletequery',
+                    data:{"id":obj.id},
+                    success:function (data) {
+                        tableQuery();
+                    }
+                });
+            })
+        }
+
+        function btnAdd() {
+            $("#content").val('级别');
+
+            $("#liOne").show();
+            $("#litwo").hide();
+
+            $("#refal").val('等于');
+            $("#cap").val('且');
+            $("#valueOne").val('');
+            $("#valueTwo").val('');
+            $("#id").val('');
+        }
+        
+    </script>
+
+    <script type="text/html" id="barDemox">
+        <a class="layui-btn layui-btn-xs" lay-event="editx">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="deletex">删除</a>
     </script>
 
 </head>
@@ -98,17 +270,133 @@
     <div th:replace="index.html">
     </div>
     <div class="container">
+
         <div class="left">
-        <div >
+        <div>
             <input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">
         </div>
             <div>
-            <input id="levelCus" class="btnStyle" type="button" value="客户级别" >
+            <input id="levelCus" class="btnStyle" type="button" value="有效通话" onclick="effective()" style="display: block" >
             </div>
         </div>
-        <div class="right" style="height: 560px;overflow: auto">
+
+        <div class="right" style="height: 580px;overflow: auto" id="other">
+
+            <div id="table">
                 <table class="layui-hide" id="reportext" lay-filter="reportext"></table>
+            </div>
+
+            <div id="setproperty">
+
+                <div id="top" style="height: 45px;top:0;left: 0;width: 100%;background-color: #F7F5F6;font-weight: bold;color: #F7F5F6;line-height: 30px;font-size: 16px;position: absolute;">
+
+                <ol class="list-inline">
+
+                    <li>
+                        <label style="color: black;margin-left: 5px;color: #7F8F9C">条件</label>
+                        <select class="selectCss" style="width: 150px;height: 25px;margin-top: 8px;color: black;border-width: 0px;font-size: 14px" onchange="election()" id="content">
+                            <option>级别</option>
+                            <option>通话内容</option>
+                            <option>通话内容数量</option>
+                        </select>
+                    </li>
+
+                    <li>
+                        <label  style="color: black;margin-left: 5px;color: #7F8F9C">操作</label>
+                        <select class="selectCss" style="width: 100px;height: 25px;margin-top: 8px;color: black;border-width: 0px;font-size: 14px" id="refal">
+                            <option>等于</option>
+                            <option>不等于</option>
+                            <option>大于等于</option>
+                            <option>小于等于</option>
+                            <option>相似于</option>
+                        </select>
+                    </li>
+
+                    <li id="liOne">
+                        <label  style="color: black;margin-left: 5px;color: #7F8F9C">值</label>
+                        <select id="valueOne" style="width: 100px;height: 25px;margin-top: 8px;color: black;border-width: 0px;font-size: 14px">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>E</option>
+                            <option>X</option>
+                            <option>Y</option>
+                            <option>无</option>
+                        </select>
+
+                    </li>
+
+                    <li id="litwo">
+                        <label  style="color: black;margin-left: 5px;color: #7F8F9C">值</label>
+                        <input type="text" id="valueTwo" style="width: 200px;height: 25px;margin-top: 8px;color: black;border-width: 0px;font-size: 14px">
+                    </li>
+
+                    <li>
+                        <label  style="color: black;margin-left: 5px;color: #7F8F9C">关系</label>
+                        <select class="selectCss" style="width: 100px;height: 25px;margin-top: 8px;color: black;border-width: 0px;font-size: 14px" id="cap">
+                            <option>且</option>
+                            <option>或</option>
+                        </select>
+                    </li>
+
+                    <li>
+
+                        <input type="button" value="新增" onclick="btnAdd()" style="   width: 70px; /* 宽度 */
+                                                                    height: 20px; /* 高度 */
+                                                                    margin-top: 12px;
+                                                                    margin-left: 10px;
+                                                                    border-width: 0px; /* 边框宽度 */
+                                                                    border-radius: 5px; /* 边框半径 */
+                                                                    background: #42C2CF; /* 背景颜色 */
+                                                                    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+                                                                    outline: none; /* 不显示轮廓线 */
+                                                                    font-family: Microsoft YaHei; /* 设置字体 */
+                                                                    color: white;
+                                                                    font-size: 16px; /* 字体大小 */
+                                                                    line-height: 2px;
+                                                                    hover: #A5BED9;">
+
+                        <input type="button" value="保存" onclick="btnSave()" style="   width: 70px; /* 宽度 */
+                                                                    height: 20px; /* 高度 */
+                                                                    margin-top: 12px;
+                                                                    margin-left: 10px;
+                                                                    border-width: 0px; /* 边框宽度 */
+                                                                    border-radius: 5px; /* 边框半径 */
+                                                                    background: #42C2CF; /* 背景颜色 */
+                                                                    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+                                                                    outline: none; /* 不显示轮廓线 */
+                                                                    font-family: Microsoft YaHei; /* 设置字体 */
+                                                                    color: white;
+                                                                    font-size: 16px; /* 字体大小 */
+                                                                    line-height: 2px;
+                                                                    hover: #A5BED9;">
+                    </li>
+
+                    <li hidden="hidden"><input hidden="hidden" id="id"></li>
+
+                </ol>
+
+                </div>
+
+                <div class="bottom" style="margin-top: 45px;width: 100%">
+                    <table class="layui-hide" id="reportextx" lay-filter="reportextx"></table>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 </body>
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    var use = [[${session.user.getUSE002()}]];
+    if(use!="系统管理员") {
+        $("#levelCus").attr("style", "display:none");
+    }
+    /*]]>*/
+</script>
+
 </html>

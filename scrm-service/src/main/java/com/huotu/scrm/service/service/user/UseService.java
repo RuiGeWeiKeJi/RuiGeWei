@@ -37,4 +37,18 @@ public interface UseService {
      */
     User findOneByUserId(String userId);
 
+    /**
+     * 获取所有员工
+     * @return
+     */
+    List<String> getAllBy();
+
+    /**
+     * 修改密码
+     * @param username
+     * @param password
+     * @return
+     */
+    int updateUserPass(String username,String password);
+
 }

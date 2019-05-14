@@ -61,4 +61,14 @@ public class UseServiceImpl implements UseService {
         return useRepository.findOneByUserId(userId);
     }
 
+    @Override
+    public List<String> getAllBy() {
+        return useRepository.getAllBy();
+    }
+
+    @Override
+    public int updateUserPass(String username, String password) {
+        return useRepository.updateUserPass(username,password);
+    }
+
 }

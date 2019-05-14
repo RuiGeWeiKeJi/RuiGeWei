@@ -211,7 +211,9 @@ public class MaintainController {
             @RequestParam("mai011") String mai011,
             @RequestParam("mai0111") String mai0111,
             @RequestParam("mai007") String mai007,
-            @RequestParam("mai012") String mai012
+            @RequestParam("mai012") String mai012,
+            @RequestParam("limit") Integer pageSize,
+            @RequestParam("page") Integer pageIndex
     ){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Specification<Maintain> specification=new Specification<Maintain>() {
@@ -277,7 +279,7 @@ public class MaintainController {
             }
         };
         Sort sort = new Sort(Sort.Direction.DESC, "MAI002", "MAI006");
-        Pageable pageable = new PageRequest(0, 10, sort);
+        Pageable pageable = new PageRequest(pageIndex-1, pageSize, sort);
         Page<Maintain> maintainPage = maintainService.getAllBy(specification, pageable);
         Map<Object, Object> map=new LinkedHashMap<>();
         map.put("code", 0);

@@ -18,22 +18,22 @@ public class GetUserLoginInfo {
     /**
      * 从cookies中获取登录用户名和密码
      * @param cookies
-     * @param username
-     * @param password
      */
-    public static void getUserLoginInfo( Cookie[] cookies,String username,String password){
+    public static String getUserLoginInfo( Cookie[] cookies,ModelAndView model) {
 
+        String pass = "";
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("username".equals(cookie.getName())) {
-                    username = cookie.getValue();
+                    model.addObject("username", cookie.getValue());
                 }
                 if ("password".equals(cookie.getName())) {
-                    password = cookie.getValue();
+                    pass = cookie.getValue();
+                    model.addObject("password", pass);
                 }
             }
         }
-
+        return pass;
     }
 
     /**

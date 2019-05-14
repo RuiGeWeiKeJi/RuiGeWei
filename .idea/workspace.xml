@@ -5,9 +5,6 @@
       <artifact name="scrm-web:war exploded" />
     </artifacts-to-build>
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Contacts.html" line="286" mnemonic="7" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="2b23ed6a-286f-4fc5-9672-4ad765a223b3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/scrm-web/target/" />
@@ -43,120 +40,123 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/CusOp.html">
+        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ChartReportController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="196" column="77" selection-start-line="196" selection-start-column="77" selection-end-line="196" selection-end-column="77" />
+            <state relative-caret-position="382">
+              <caret line="46" column="64" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="64" />
               <folding>
-                <element signature="e#1934#2044#0" />
-                <element signature="e#2096#3575#0" />
-                <element signature="e#2173#2256#0" />
-                <element signature="e#2332#2413#0" />
-                <element signature="e#2489#2571#0" />
-                <element signature="e#2647#2728#0" />
-                <element signature="e#2742#2777#0" />
-                <element signature="e#3157#3238#0" />
-                <element signature="e#3320#3402#0" />
-                <element signature="e#3484#3565#0" />
-                <element signature="e#9898#11166#0" />
-                <element signature="e#11218#11794#0" />
-                <element signature="e#11849#15200#0" />
-                <element signature="e#15239#16538#0" />
-                <element signature="e#16587#18234#0" />
-                <element signature="e#18287#19570#0" />
-                <element signature="e#19618#20830#0" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#ol#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#3;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#3;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#5;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#5;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#6;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#select#0;n#div#6;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#7;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#select#0;n#div#7;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#1;n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#9;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#9;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#10;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#select#0;n#div#10;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#11;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#11;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#12;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#12;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#13;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#13;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#14;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#input#0;n#div#14;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#15;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#textarea#0;n#div#15;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#ol#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#li#1;n#ol#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#0;n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#script#0;n#html#0;n#!!top" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#getFlt#0;class#ChartReportController#0" />
+                <element signature="method#getFlt#1;class#ChartReportController#0" />
+                <element signature="method#getFlt1#0;class#ChartReportController#0" />
+                <element signature="method#getFlt2#0;class#ChartReportController#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/custemQuery.html">
+        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/SetPw.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="46" column="34" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="34" />
+            <state relative-caret-position="262">
+              <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Left.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="149" column="76" selection-start-line="149" selection-start-column="76" selection-end-line="149" selection-end-column="76" />
+              <folding>
+                <element signature="n#script#1;n#html#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="59" column="72" selection-start-line="59" selection-start-column="72" selection-end-line="59" selection-end-column="72" />
+              <folding>
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+                <element signature="e#1794#1866#0" />
+                <element signature="e#4548#4768#0" />
+                <element signature="e#4800#7075#0" />
+                <element signature="e#7113#7394#0" />
+                <element signature="e#7431#8543#0" />
+                <element signature="e#8577#9053#0" />
+                <element signature="e#9089#9515#0" />
+                <element signature="e#9543#9826#0" />
+                <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#select#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#label#0;n#li#1;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#li#1;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#li#2;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#li#2;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#li#3;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#li#3;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#li#4;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#li#4;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustemInfoController.java">
+        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/SetpwController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-551">
-              <caret line="57" column="6" lean-forward="true" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="47" selection-start-line="47" selection-end-line="48" selection-end-column="48" />
+            <state relative-caret-position="203">
+              <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
               <folding>
-                <element signature="method#addCondition#0;class#CustomController#0" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/GetUserLoginInfo.java">
+        <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/user/UseRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+            <state relative-caret-position="446">
+              <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/UseService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/impl/UseServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="54" column="12" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
               <folding>
-                <element signature="method#getUserLoginInfo#0;class#GetUserLoginInfo#0" />
-                <element signature="method#queryRoleForUser#0;class#GetUserLoginInfo#0" />
-                <element signature="method#queryRoleForMainList#0;class#GetUserLoginInfo#0" />
+                <element signature="e#1431#1432#0" expanded="true" />
+                <element signature="e#1458#1459#0" expanded="true" />
+                <element signature="e#1559#1560#0" expanded="true" />
+                <element signature="e#1583#1584#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,6 +168,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="CSS File" />
         <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
@@ -176,36 +177,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Contacts</find>
-      <find>existsCustomInfo</find>
-      <find>addMaintain</find>
-      <find>findName</find>
-      <find>findUserForCus</find>
-      <find>dindAllsalesman</find>
-      <find>CusOp</find>
-      <find>readcustomuser</find>
-      <find>customtrans</find>
-      <find>ChartRepot</find>
-      <find>avg</find>
-      <find>saveAndEditCon</find>
-      <find>pro</find>
-      <find>findAllByCON001</find>
-      <find>select CUR001 from rgwcur where id = (select max(id) from rgwcur)</find>
-      <find>addCondition</find>
-      <find>findlike</find>
-      <find>custemfindByCode</find>
       <find>getOddNum</find>
-      <find>existscustom</find>
-      <find>addcustom</find>
+      <find>btnStyle</find>
+      <find>topFor</find>
+      <find>savebasedata</find>
+      <find>findAllindustry</find>
+      <find>salesman</find>
+      <find>readcustomuser</find>
+      <find>readCustomUser</find>
+      <find>customtrans</find>
+      <find>findAllByAVG001AndAVG003BetweenAAndAVG003</find>
+      <find>entity</find>
+      <find>ChartInfoService</find>
+      <find>findquery</find>
+      <find>getAllBy</find>
       <find>chart</find>
-      <find>getSalesManForUser</find>
-      <find>getCount</find>
-      <find>userSales</find>
       <find>loginuser</find>
-      <find>readDate</find>
-      <find>Constant.userName</find>
-      <find>custemQuery</find>
-      <find>querycustom</find>
+      <find>select * from levthisresult</find>
+      <find>getincreasebrs</find>
+      <find>chartuser</find>
+      <find>savepow</find>
+      <find>report</find>
+      <find>linkUp</find>
+      <find>main</find>
+      <find>th:each</find>
+      <find>th:each=</find>
+      <find>layer.open</find>
+      <find>powerrolefind</find>
+      <find>ajax</find>
+      <find>formDate</find>
+      <find>editpw</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -221,57 +222,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/maintainorder.css" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/Maintain/MaintainOrderRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/Maintain/MaintainOrderService.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/Maintain/impl/MaintainOrderImplService.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/js/fileinput.min.js" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/MaintainOrderController.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/UserAE.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/cutom/CustomService.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/cutom/impl/CustomServiceImpl.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/cont.css" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/Maintain/MaintainRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/BaseData/BaseDataRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/basedata/impl/BaseDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/basedata/BaseDataRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/custom/Custom.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/BaseData.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/BaseSet.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/baseset/BasedataRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomSrsController.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/basedata.css" />
         <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/model/customtrans.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ReportInfo/ReportInfoRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/PowAdd.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/custom/CustomRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/RoleAdd.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/customCon/CustomConRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/Maintain/MaintainService.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/Maintain/impl/MaintainServiceImpl.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainContract.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Maintain.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/customUser/CustomUseRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/SignContract.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/custemQuery.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/DateFormat.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/report.css" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ReportInfo/impl/ReportQueryServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ReportInfo/ReportQueryService.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ReportInfo/ReportQueryRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/baseset/basedataService.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/baseset/impl/basedataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/BaseDataController.java" />
         <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/CustemInfo.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Contacts.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainOrder.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainAdd.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/customBrs/CustomBrsService.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/customBrs/impl/CustomBrsServiceImpl.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/CusOp.html" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/bar/BarRepository.java" />
         <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomController.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/model/increasebrs.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportInfoController.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfo.html" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartInfoRepository.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/ChartInfoService.java" />
-        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/impl/ChartInfoServiceImpl.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ChartReportController.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Login.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Power.html" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/chart.css" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/ChartRepot.html" />
-        <option value="$PROJECT_DIR$/scrm-common/src/main/java/com/huotu/scrm/common/utils/Constant.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/GetUserLoginInfo.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/MaintainController.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/LoginController.java" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Left.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/CusOp.html" />
         <option value="$PROJECT_DIR$/scrm-service/src/main/resources/hbm_config_development.xml" />
         <option value="$PROJECT_DIR$/scrm-service/src/main/resources/hbm_config_prod.xml" />
-        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustemInfoController.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartAvgRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/StringSplitAndCom.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/QueryCondition.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfo.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportQueryController.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/Reachflt.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/baseset/ReachfltRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/GetUserLoginInfo.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/ChartRepot.html" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/user/LoginRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/LoginService.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/impl/LoginServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/ChartInfoService.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/impl/ChartInfoServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartInfoRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ChartReportController.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/BaseData.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfoQuery.html" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ReportInfo/ReportInfoRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportInfoController.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/PowAdd.html" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/UseService.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/user/UseRepository.java" />
+        <option value="$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/impl/UseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/Left.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/webapp/views/SetPw.html" />
+        <option value="$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/SetpwController.java" />
       </list>
     </option>
   </component>
@@ -291,23 +292,14 @@
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
+        <option name="downloadSourcesAutomatically" value="true" />
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="scrm-web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="scrm-web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
@@ -490,19 +482,6 @@
               <item name="huotu" type="462c0819:PsiDirectoryNode" />
               <item name="scrm" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="scrm" type="462c0819:PsiDirectoryNode" />
-              <item name="scrm-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="huotu" type="462c0819:PsiDirectoryNode" />
-              <item name="scrm" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -516,6 +495,20 @@
               <item name="huotu" type="462c0819:PsiDirectoryNode" />
               <item name="scrm" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="scrm" type="462c0819:PsiDirectoryNode" />
+              <item name="scrm-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="huotu" type="462c0819:PsiDirectoryNode" />
+              <item name="scrm" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -530,7 +523,7 @@
               <item name="scrm" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="ChartInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
@@ -544,21 +537,8 @@
               <item name="scrm" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="ChartInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="scrm" type="462c0819:PsiDirectoryNode" />
-              <item name="scrm-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="huotu" type="462c0819:PsiDirectoryNode" />
-              <item name="scrm" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
@@ -669,12 +649,7 @@
               <item name="scrm-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="huotu" type="462c0819:PsiDirectoryNode" />
-              <item name="scrm" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="GetUserInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="scrm" type="b2602c69:ProjectViewProjectNode" />
@@ -712,25 +687,26 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/ProjectData/RuiGeWei/scrm/scrm-web/src/main/webapp/views/Maintain.html" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555917071440" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557811365236" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../scrm" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="project.structure.side.proportion" value="0.2413793" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\css" />
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\js" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources" />
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\js\language" />
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\images" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\js" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\css" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\views" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.huotu.scrm.service.entity.customSRS" />
@@ -739,11 +715,12 @@
       <recent name="com.huotu.scrm.service.entity.customUse" />
       <recent name="com.huotu.scrm.service.repository.custom" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\js" />
       <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\css" />
-      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\views" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\font" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources" />
+      <recent name="D:\ProjectData\RuiGeWei\scrm\scrm-web\src\main\webapp\resources\images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1001,11 +978,37 @@
       <workItem from="1555895093540" duration="13066000" />
       <workItem from="1556153451300" duration="596000" />
       <workItem from="1556177153459" duration="7224000" />
+      <workItem from="1556265249649" duration="1944000" />
+      <workItem from="1556421440493" duration="13393000" />
+      <workItem from="1556497451231" duration="10354000" />
+      <workItem from="1556515163397" duration="13074000" />
+      <workItem from="1556531147752" duration="3695000" />
+      <workItem from="1556584060763" duration="17985000" />
+      <workItem from="1556929778313" duration="27595000" />
+      <workItem from="1557020219586" duration="1158000" />
+      <workItem from="1557023797694" duration="1522000" />
+      <workItem from="1557036172671" duration="830000" />
+      <workItem from="1557038419288" duration="1547000" />
+      <workItem from="1557042349588" duration="254000" />
+      <workItem from="1557043920211" duration="922000" />
+      <workItem from="1557110852740" duration="18990000" />
+      <workItem from="1557188032056" duration="15771000" />
+      <workItem from="1557216570223" duration="1536000" />
+      <workItem from="1557274589637" duration="37000" />
+      <workItem from="1557368298363" duration="3313000" />
+      <workItem from="1557378478117" duration="3307000" />
+      <workItem from="1557385625334" duration="8045000" />
+      <workItem from="1557446642727" duration="28399000" />
+      <workItem from="1557534344843" duration="11008000" />
+      <workItem from="1557553240471" duration="12011000" />
+      <workItem from="1557717159752" duration="4270000" />
+      <workItem from="1557729831203" duration="11333000" />
+      <workItem from="1557793818639" duration="12450000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="774554000" />
+    <option name="totallyTimeSpent" value="999297000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1018,30 +1021,31 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49836066" visible="true" weight="0.31164902" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4935484" weight="0.24962178" />
+      <window_info id="Structure" order="1" sideWeight="0.5064516" side_tool="true" weight="0.19667171" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" sideWeight="0.50163937" side_tool="true" weight="0.17473525" />
+      <window_info id="Favorites" order="5" sideWeight="0.5064516" side_tool="true" weight="0.19667171" />
       <window_info id="Capture Tool" order="6" />
-      <window_info id="Web" order="7" sideWeight="0.5008183" side_tool="true" weight="0.23146747" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.3180328" />
+      <window_info id="Web" order="7" sideWeight="0.5036765" side_tool="true" weight="0.25189108" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49924356" weight="0.3180328" />
       <window_info anchor="bottom" id="Application Servers" order="1" weight="0.53770494" />
       <window_info anchor="bottom" id="Message" order="2" />
-      <window_info anchor="bottom" id="Find" order="3" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.49546143" weight="0.4262295" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.43114755" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="3" weight="0.3295082" />
+      <window_info anchor="bottom" id="Debug" order="4" visible="true" weight="0.24262296" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49394855" weight="0.4918033" />
       <window_info anchor="bottom" id="Spring" order="8" weight="0.32786885" />
-      <window_info anchor="bottom" id="Java Enterprise" order="9" weight="0.3289689" />
+      <window_info anchor="bottom" id="Java Enterprise" order="9" weight="0.32786885" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32786885" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3289689" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5045386" side_tool="true" weight="0.4262295" />
-      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5060514" side_tool="true" weight="0.4918033" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="14" weight="0.32786885" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1078,429 +1082,465 @@
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="setValue">
+      <expression>
+        <expression-string>&quot;(CUS004 != '无') and ((BRS006 like '用友') or (BRS006 like '金蝶') or (BRS006 like '管家婆'))&quot;</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Contacts.html">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/BaseDataController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="253" column="30" selection-start-line="253" selection-start-column="22" selection-end-line="253" selection-end-column="30" />
+        <state relative-caret-position="1795">
+          <caret line="99" column="5" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/CustemInfo.html">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomBrsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2727">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-912">
+          <caret line="168" column="25" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/persistence/javax.persistence/2.1.0/javax.persistence-2.1.0.jar!/javax/persistence/Query.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/BaseSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="15" selection-start-line="15" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Programe/JDK/src.zip!/java/util/function/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
-          <caret line="91" column="30" selection-start-line="91" selection-start-column="22" selection-end-line="91" selection-end-column="30" />
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainContract.html">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1316">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="87">
+          <caret line="493" selection-start-line="493" selection-end-line="493" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/custom/Custom.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1725">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainOrder.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="416" column="22" lean-forward="true" selection-start-line="416" selection-start-column="22" selection-end-line="416" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/SignContract.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="141" column="30" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/MaintainAdd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="104" column="25" lean-forward="true" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-common/src/main/java/com/huotu/scrm/common/utils/GenerateUid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/customBrs/CustomBrsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/customBrs/impl/CustomBrsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="845">
-          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/cutom/impl/CustomServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/custom/CustomRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/model/everybrs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/model/avgbrs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/MaintainOrderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1929">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="532" selection-start-line="532" selection-end-line="532" />
+        <state relative-caret-position="105">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="464" selection-start-line="464" selection-end-line="464" />
+        <state relative-caret-position="106">
+          <caret line="406" selection-start-line="406" selection-end-line="406" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfoQuery.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar://D:/Programe/JDK/src.zip!/java/util/List.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="543" column="6" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
+        <state relative-caret-position="105">
+          <caret line="532" selection-start-line="532" selection-end-line="532" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartInfoRepository.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+        <state relative-caret-position="200">
+          <caret line="123" selection-start-line="123" selection-end-line="123" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/ChartInfoService.java">
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ReportInfo/ReportInfoService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="41" column="15" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
+        <state relative-caret-position="95">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/impl/ChartInfoServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartAvgRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="66" column="22" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
+        <state relative-caret-position="408">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/resources/hbm_config_test.xml">
+    <entry file="jar://D:/Programe/JDK/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+        <state relative-caret-position="49">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/model/increasebrs.java">
+    <entry file="jar://D:/Programe/JDK/jre/lib/rt.jar!/sun/reflect/DelegatingMethodAccessorImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="54" column="27" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="27" />
+        <state relative-caret-position="66">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportInfoController.java">
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/QueryCondition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="63" column="41" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/cont.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/custemInfo.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/chart.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="50" column="39" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/CusOp.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ChartRepot.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="172" selection-start-line="172" selection-end-line="172" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/Utils/EntityUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Power.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="831">
-          <caret line="146" column="18" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
+        <state relative-caret-position="104">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding>
-            <element signature="e#1524#4219#0" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-common/src/main/java/com/huotu/scrm/common/utils/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/MaintainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1330">
-          <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-          <folding>
-            <element signature="class#8140:11064" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/bar/barService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/User/User.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/1.9.4.RELEASE/spring-data-jpa-1.9.4.RELEASE.jar!/org/springframework/data/jpa/repository/JpaSpecificationExecutor.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
-          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/entity/baseset/Reachflt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="72" column="27" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="27" />
+        <state relative-caret-position="186">
+          <caret line="75" column="27" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ChartReportController.java">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/GetUserLoginInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/4.3.9.RELEASE/spring-expression-4.3.9.RELEASE.jar!/org/springframework/expression/spel/ast/MethodReference.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
+        <state relative-caret-position="31">
+          <caret line="44" column="63" selection-start-line="44" selection-start-column="63" selection-end-line="44" selection-end-column="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+        <state relative-caret-position="386">
+          <caret line="144" column="53" lean-forward="true" selection-start-line="144" selection-start-column="53" selection-end-line="144" selection-end-column="53" />
           <folding>
-            <element signature="class#2573:3432" />
+            <element signature="method#toPredicate#0;class#2354:3213" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Left.html">
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/baseset/ReachfltRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="14" column="194" selection-start-line="14" selection-start-column="194" selection-end-line="14" selection-end-column="194" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/LoginService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/user/LoginRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/impl/LoginServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/ChartInfoService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
-          <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+          <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportQueryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-361">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ChartInfo/impl/ChartInfoServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="81" column="51" selection-start-line="81" selection-start-column="51" selection-end-line="81" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ChartRepot.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ChartInfo/ChartInfoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="63" column="48" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/PowerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1212">
+          <caret line="320" column="24" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/ReportInfo/ReportInfoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/ReportInfo/impl/ReportInfoServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="47" column="40" lean-forward="true" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ReportInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
+          <folding>
+            <element signature="method#findPage#0;class#ReportInfoController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/BaseData.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Maintain.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-827">
+          <folding>
+            <element signature="e#1324#5175#0" />
+            <element signature="e#5222#5765#0" />
+            <element signature="e#5813#7406#0" />
+            <element signature="e#7453#8061#0" />
+            <element signature="e#8104#8715#0" />
+            <element signature="e#8758#9236#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustemInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="50" column="29" lean-forward="true" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/CusOp.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="196" column="77" selection-start-line="196" selection-start-column="77" selection-end-line="196" selection-end-column="77" />
+        <state relative-caret-position="-2243">
           <folding>
-            <element signature="e#1934#2044#0" />
-            <element signature="e#2096#3575#0" />
-            <element signature="e#2173#2256#0" />
-            <element signature="e#2332#2413#0" />
-            <element signature="e#2489#2571#0" />
-            <element signature="e#2647#2728#0" />
-            <element signature="e#2742#2777#0" />
-            <element signature="e#3157#3238#0" />
-            <element signature="e#3320#3402#0" />
-            <element signature="e#3484#3565#0" />
-            <element signature="e#9898#11166#0" />
-            <element signature="e#11218#11794#0" />
-            <element signature="e#11849#15200#0" />
-            <element signature="e#15239#16538#0" />
-            <element signature="e#16587#18234#0" />
-            <element signature="e#18287#19570#0" />
-            <element signature="e#19618#20830#0" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#ol#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#li#1;n#ol#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#script#10;n#head#0;n#html#0;n#!!top" />
             <element signature="n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#3;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#3;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#5;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#5;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#6;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#select#0;n#div#6;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#7;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#select#0;n#div#7;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#1;n#div#8;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#9;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#9;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#10;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#select#0;n#div#10;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#11;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#11;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#12;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#12;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#13;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#13;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#14;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#input#0;n#div#14;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#15;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#textarea#0;n#div#15;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#ol#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#li#1;n#ol#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#0;n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#script#0;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/custemQuery.html">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/ChartReportController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="34" />
+        <state relative-caret-position="382">
+          <caret line="46" column="64" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getFlt#0;class#ChartReportController#0" />
+            <element signature="method#getFlt#1;class#ChartReportController#0" />
+            <element signature="method#getFlt1#0;class#ChartReportController#0" />
+            <element signature="method#getFlt2#0;class#ChartReportController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/resources/css/modules/layer/default/layer.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/PowAdd.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="39" column="24" lean-forward="true" selection-start-line="36" selection-start-column="10" selection-end-line="39" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Power.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#1265#3278#0" />
+            <element signature="e#4060#6711#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/UseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/repository/user/UseRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/java/com/huotu/scrm/service/service/user/impl/UseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="54" column="12" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+          <folding>
+            <element signature="e#1431#1432#0" expanded="true" />
+            <element signature="e#1458#1459#0" expanded="true" />
+            <element signature="e#1559#1560#0" expanded="true" />
+            <element signature="e#1583#1584#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfoQuery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="42" column="20" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/GetUserInfo/GetUserLoginInfo.java">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/ReportInfo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
+        <state relative-caret-position="226">
+          <caret line="59" column="72" selection-start-line="59" selection-start-column="72" selection-end-line="59" selection-end-column="72" />
           <folding>
-            <element signature="method#getUserLoginInfo#0;class#GetUserLoginInfo#0" />
-            <element signature="method#queryRoleForUser#0;class#GetUserLoginInfo#0" />
-            <element signature="method#queryRoleForMainList#0;class#GetUserLoginInfo#0" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+            <element signature="e#1794#1866#0" />
+            <element signature="e#4548#4768#0" />
+            <element signature="e#4800#7075#0" />
+            <element signature="e#7113#7394#0" />
+            <element signature="e#7431#8543#0" />
+            <element signature="e#8577#9053#0" />
+            <element signature="e#9089#9515#0" />
+            <element signature="e#9543#9826#0" />
+            <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#select#0;n#li#0;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#label#0;n#li#1;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#li#1;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#2;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#li#2;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#3;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#li#3;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#li#4;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#li#4;n#ol#0;n#div#0;n#div#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustomController.java">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/Left.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="47" selection-start-line="47" selection-end-line="48" selection-end-column="48" />
+        <state relative-caret-position="199">
+          <caret line="149" column="76" selection-start-line="149" selection-start-column="76" selection-end-line="149" selection-end-column="76" />
           <folding>
-            <element signature="method#addCondition#0;class#CustomController#0" />
+            <element signature="n#script#1;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/resources/hbm_config_prod.xml">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/webapp/views/SetPw.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="262">
+          <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-service/src/main/resources/hbm_config_development.xml">
+    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/SetpwController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="20" column="61" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrm-web/src/main/java/com/huotu/scrm/web/controller/custom/CustemInfoController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-551">
-          <caret line="57" column="6" lean-forward="true" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        <state relative-caret-position="203">
+          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1558,11 +1598,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>scrm</last-edited>
+          <last-edited>scrm-service</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.2413793" />
                 <option value="0.6" />
               </list>
             </option>
@@ -1583,11 +1623,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: cglib:cglib-nodep:2.1_3</last-edited>
+          <last-edited>Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.2413793" />
               </list>
             </option>
           </splitter-proportions>

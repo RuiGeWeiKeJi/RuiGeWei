@@ -4,24 +4,18 @@
     margin-left: 10%;
     position: absolute;
     top: 8%;
-    bottom: 20%;
+    /*bottom: 85%;*/
     left: 0px;
     width: 90%;
     background-color: white;
     color: black;
-    border-style: solid;
-    border-left-width: 0px;
-    border-right-width: 2.5px;
-    border-top-width: 0px;
-    border-bottom-width: 0px;
-    border-color: #B4BBC1;
 }
 
 
 .bottom{
     margin-left: 10%;
     position: absolute;
-    top: 51%;
+    top: 15%;
     bottom: 0;
     left: 0px;
     width: 90%;

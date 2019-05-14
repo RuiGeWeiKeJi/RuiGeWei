@@ -1,12 +1,14 @@
 @CHARSET "UTF-8";
 
 body{
-    background: url(../images/login.jpg) no-repeat 0px 0px;
+    height: 100%;
+    width: 100%;
+    background: url(../images/login2.jpg) no-repeat 0px 0px;
 }
 
 body h3{
     margin-top: 10%;
-    margin-left: 42%;
+    margin-left: 43%;
 }
 
 .form-group{
@@ -19,10 +21,33 @@ body h3{
     border-color: #42C2CF;
 }
 
+/*#mydiv{*/
+    /*background: url(../images/back.jpg) no-repeat 0px 0px;*/
+/*}*/
+
 #login{
-    width: 250px; /* 宽度 */
-    height: 40px; /* 高度 */
-    margin-top: 5px;
+    width: 100px; /* 宽度 */
+    height: 30px; /* 高度 */
+    margin-top: 1px;
+    margin-left: 5px;
+    /*border-width: 0px; !* 边框宽度 *!*/
+    border-radius: 5px; /* 边框半径 */
+    /*background: #42C2CF; !* 背景颜色 *!*/
+    border-color: #42C2CF;
+    background: transparent; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white;
+    font-size: 18px; /* 字体大小 */
+    line-height: 2px;
+    hover: #A5BED9;
+}
+
+#reset{
+    width: 100px; /* 宽度 */
+    height: 30px; /* 高度 */
+    margin-top: 1px;
     margin-left: 5px;
     /*border-width: 0px; !* 边框宽度 *!*/
     border-radius: 5px; /* 边框半径 */

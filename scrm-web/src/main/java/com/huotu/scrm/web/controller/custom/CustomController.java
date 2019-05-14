@@ -108,7 +108,18 @@ public class CustomController {
             custom.setCUS009(null);
         if (custom.getCUS011() == "")
             custom.setCUS011(null);
-        
+        custom.setCUS001(custom.getCUS001().trim());
+        custom.setCUS002(custom.getCUS002().trim());
+        custom.setCUS003(custom.getCUS003().trim());
+        custom.setCUS004(custom.getCUS004().trim());
+        custom.setCUS005(custom.getCUS005().trim());
+        custom.setSalesman(custom.getSalesman().trim());
+        custom.setIndustry(custom.getIndustry().trim());
+        custom.setCUS013(custom.getCUS013().trim());
+        custom.setCUS014(custom.getCUS014().trim());
+        custom.setCUS016(custom.getCUS016().trim());
+        custom.setCUS017(custom.getCUS017().trim());
+        custom.setCUS018(custom.getCUS018().trim());
         boolean result = customService.existsCustomNameAndId(custom.getCUS002(), custom.getCUS001());
         if (result == false) {
             custom.setCUS018(customBrsService.getDateNow().toString());
@@ -143,16 +154,20 @@ public class CustomController {
     @ResponseBody
     public Object readCustomUser(
             HttpServletRequest request
-    ){
+    ) {
 //        List<String> user=custemInfoService.findAllBy();
         List<String> salesmanlist = new ArrayList<>();
         Constant.Position = "业务";
-        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
+        String userName = GetUserLoginInfo.getUserInfo(request).getUSE002();
         if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService))
             salesmanlist = barService.dindAllsalesman();
         else
             salesmanlist.add(userName);
-        return salesmanlist;
+        Map<Object, Object> map = new LinkedHashMap<>();
+        map.put("salesman", salesmanlist);
+        List<String> industrylist=barService.findAllindustry();
+        map.put("industry",industrylist);
+        return map;
     }
 
     /**

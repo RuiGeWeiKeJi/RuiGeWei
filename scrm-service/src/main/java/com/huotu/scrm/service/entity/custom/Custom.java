@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Description;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Setter
@@ -95,38 +93,38 @@ public class Custom implements Serializable {
     /**
      * 业务员
      */
-    @Column(name = "CUS012",nullable = false,length = 20)
+    @Column(name = "CUS012", nullable = false, length = 20)
     private String salesman;
 
     /**
      * 来源
      */
-    @Column(name = "CUS013",nullable = false,length = 20)
+    @Column(name = "CUS013", nullable = false, length = 20)
     private String CUS013;
 
 
     /**
      * 人数
      */
-    @Column(name = "CUS015",length = 10)
+    @Column(name = "CUS015", length = 10)
     private Integer CUS015;
 
     /**
      * 法人
      */
-    @Column(name = "CUS016",length = 20)
+    @Column(name = "CUS016", length = 20)
     private String CUS016;
 
     /**
      * 购买模块
      */
-    @Column(name = "CUS017",length = 225)
+    @Column(name = "CUS017", length = 225)
     private String CUS017;
 
     /**
      * 备注
      */
-    @Column(name = "CUS014",length = 225)
+    @Column(name = "CUS014", length = 225)
     private String CUS014;
 
     /**
@@ -134,6 +132,10 @@ public class Custom implements Serializable {
      */
     @Column(name = "CUS018")
     private String CUS018;
-
+//
+//    @OneToMany(mappedBy="rgwbrs",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "BRS002")
+    //@JoinTable(name = "rgwbrs",joinColumns = {@JoinColumn(name = "BRS002")},inverseJoinColumns = {@JoinColumn(name = "CUS001")})
+//    private List<CustomBRS> custombrs=new ArrayList<>();
 
 }

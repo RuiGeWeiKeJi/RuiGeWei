@@ -1,9 +1,12 @@
 package com.huotu.scrm.service.service.ChartInfo.impl;
 
+import com.huotu.scrm.service.entity.Chart.ChartAvg;
+import com.huotu.scrm.service.entity.baseset.Reachflt;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
-import com.huotu.scrm.service.model.increasebrs;
+import com.huotu.scrm.service.repository.ChartInfo.ChartAvgRepository;
 import com.huotu.scrm.service.repository.ChartInfo.ChartInfoRepository;
+import com.huotu.scrm.service.repository.baseset.ReachfltRepository;
 import com.huotu.scrm.service.service.ChartInfo.ChartInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,12 @@ public class ChartInfoServiceImpl implements ChartInfoService {
 
     @Autowired
     ChartInfoRepository chartInfoRepository;
+
+    @Autowired
+    ChartAvgRepository chartAvgRepository;
+
+    @Autowired
+    ReachfltRepository reachfltRepository;
 
 
     /**
@@ -64,8 +73,30 @@ public class ChartInfoServiceImpl implements ChartInfoService {
      * @return
      */
     @Override
+    public List<Object> getincreasebrs(String username) {
+        return chartInfoRepository. getincreasebrs(username);
+    }
+
+    @Override
     public List<Object> getincreasebrs() {
-        return chartInfoRepository. getincreasebrs();
+        return chartInfoRepository.getincreasebrs();
+    }
+
+    /**
+     * 获取某人某段时间内的所有数据
+     * @param username
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    @Override
+    public List<ChartAvg> findAllByAVG001AndAVG003BetweenAAndAVG003(String username, Date dateStart, Date dateEnd,Integer days) {
+        return chartAvgRepository.findAllByAVG001AndAVG003BetweenAAndAVG003(username,dateStart,dateEnd,days);
+    }
+
+    @Override
+    public List<Reachflt> getAllBy() {
+        return reachfltRepository.getAllBy();
     }
 
 }

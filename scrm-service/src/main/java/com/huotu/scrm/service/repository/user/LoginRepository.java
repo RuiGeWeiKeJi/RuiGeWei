@@ -28,4 +28,11 @@ public interface LoginRepository  extends JpaRepository<User, Long>, JpaSpecific
     @Query(value = "select count(1) from rgwcus where CUS011<NOW() and CUS012=?1",nativeQuery = true)
     Integer findBy(String username);
 
+    /**
+     * 查询所有人超期客户
+     * @return
+     */
+    @Query(value = "select count(1) from rgwcus where CUS011<NOW()",nativeQuery = true)
+    Integer findAllBy();
+
 }

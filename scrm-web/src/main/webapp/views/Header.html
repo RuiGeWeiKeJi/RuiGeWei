@@ -14,6 +14,12 @@
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
 
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
     <style>
 
         #login li {
@@ -21,11 +27,13 @@
             font-family: 楷体;
             font-size: 20px;
         }
+
     </style>
 
 </head>
 <body>
-<div id="header">
+
+
     <div class="logo">
         <p>瑞阁微CRM</p>
     </div>
@@ -36,7 +44,6 @@
         </ol>
     </div>
 
-</div>
 </body>
 
 <script th:inline="javascript" type="text/javascript">

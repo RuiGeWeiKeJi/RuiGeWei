@@ -9,52 +9,64 @@
     <meta name="viewport" content="with=device-with,initial-scale=1">
 
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/left.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid-bootstrap-ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ui.jqgrid.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
 
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
-    <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
-    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
     <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
 
-    <style>
-
-        #menu li a {
-            color: #6A818F;
-            text-decoration: none;
-            font-family: 微软雅黑;
-            font-size: 15px
-        }
-
-        #menu li a:hover {
-            color: white;
-        }
-
-    </style>
+    <!--设置图标:<i class="layui-icon layui-icon-app" style="color: #c12e2a"></i>-->
 
 </head>
 <body>
 <div id="left">
-    <ol style="margin-left: 20px" class="list-unstyled" id="menu">
-        <li id="power"><a th:href="@{/power}">权限分配</a></li>
-        <li id="user"><a th:href="@{/user}">人员信息</a></li>
-        <li id="custom"><a th:href="@{/left}">客户信息</a></li>
-        <li id="customInfo"><a th:href="@{/main}">客户资料</a></li>
-        <li id="mainInfo"><a th:href="@{/maintain}">客户运维</a></li>
-        <li id="signInfo"><a th:href="@{/findContract}">合同签订</a></li>
-        <li id="reportInfo"><a th:href="@{/report}">统计报表</a></li>
-        <li id="chartInfo"><a th:href="@{/chart}">统计图表</a></li>
-    </ol>
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" id="muul" style="margin-right: 10px;width: 100%">
+        <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;" id="baseInfo">基础信息</a>
+            <dl class="layui-nav-child">
+                <dd  id="user"><a th:href="@{/user}">人员信息</a></dd>
+                <dd  id="power"><a th:href="@{/power}">权限信息</a></dd>
+                <dd  id="basedata"><a th:href="@{/basedata}">基础设置</a></dd>
+                <dd  id="setpw" onclick="opensetpw()"><a href="#">口令设置</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">业务信息</a>
+            <dl class="layui-nav-child">
+                <dd id="custom"><a th:href="@{/left}">客户信息</a></dd>
+                <dd id="customInfo"><a th:href="@{/main}">客户资料</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">运维信息</a>
+            <dl class="layui-nav-child">
+                <dd id="mainInfo"><a th:href="@{/maintain}">客户运维</a></dd>
+                <dd id="signInfo"><a th:href="@{/findContract}">合同签订</a></dd>
+                <dd id="ordermain"><a th:href="@{/findOrderMaintain}">服务记录单</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">统计信息</a>
+            <dl class="layui-nav-child">
+                <dd id="reportInfo"><a th:href="@{/report}">统计报表</a></dd>
+                <dd id="chartInfo"><a th:href="@{/chart}">统计分析</a></dd>
+            </dl>
+        </li>
+    </ul>
 </div>
 </body>
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+
+        });
+    });
+</script>
 
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
@@ -77,21 +89,27 @@
             var datare3 = "";
             var datare4 = "";
             var datare5 = "";
-            for (var i = 0; i < other.length; i++) {
+            var datare6="";
+            var datare7="";
+            for (var i = 0; i < other.length; i++)  {
                 if (other[i][2] == "人员信息")
                     result = "1";
+                if (other[i][2] == "基础设置")
+                    datare7 = "1";
                 if (other[i][2] == "客户信息")
                     datare = "1";
                 if (other[i][2] == "客户资料")
                     datare1 = "1";
-                if (other[i][2] == "统计报表")
-                    datare2 = "1";
                 if (other[i][2] == "客户运维")
                     datare3 = "1";
-                if (other[i][2] == "统计图表")
-                    datare4 = "1";
                 if (other[i][2] == "合同签订")
                     datare5 = "1";
+                if (other[i][2] == "服务记录单")
+                    datare6 = "1";
+                if (other[i][2] == "统计报表")
+                    datare2 = "1";
+                if (other[i][2] == "统计分析")
+                    datare4 = "1";
             }
             if (result != "1")
                 $("#user").attr("style", "display:none");
@@ -107,9 +125,43 @@
                 $("#chartInfo").attr("style", "display:none");
             if (datare5 != "1")
                 $("#signInfo").attr("style", "display:none");
+            if (datare6 != "1")
+                $("#ordermain").attr("style", "display:none");
+            if (datare7 != "1")
+                $("#basedata").attr("style", "display:none");
         }
     }
     /*]]>*/
+</script>
+
+<script>
+    function opensetpw() {
+        layer.open({
+            type: 2,
+            title: '口令设置',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['350px', '300px'],
+            content: 'setpw',
+            btn: ['确定', '取消'],
+            success: function (layero, index) {
+            },
+            yes: function (index, layero) {
+                var res = $(layero).find("iframe")[0].contentWindow.getPw();
+                $.ajax({
+                    type:'post',
+                    url:encodeURI( res.data),
+                    success:function (data) {
+                        if(data){
+                            layer.close(layer.index);
+                        }else
+                            layer.msg("保存失败,请重试");
+                    },
+                    dataType:'json'
+                })
+            }
+        });
+    }
 </script>
 
 </html>

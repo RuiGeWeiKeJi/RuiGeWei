@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
@@ -64,4 +63,10 @@ public class CustomBRS implements Serializable {
      */
     @Column(name = "BRS007",nullable = false,length = 20)
     private String BRS007;
+
+//    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    @JoinColumn(name = "BRS002",updatable = false,insertable = false)
+//    private Custom custom;
+
 }

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>基础设置</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/basedata.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+
+    <script>
+        
+        $(function () {
+
+            $("#table").attr("style","display:block");
+            $("#softword").attr("style","display:none");
+
+            var url='type?bas001='+'类别'+'';
+            readDataMain(url);
+        })
+        
+        function readDataMain(url) {
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#test',
+                    url: encodeURI(url),
+                    height:530,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        ,limit:50
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'bas002', title: '类别', width: '60%',sort:true},
+                            {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '40%'}
+                        ]
+                    ],
+                    limits: [50,100,200],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        // layui.msg(res);
+                        //得到当前页码
+                        // layui.msg(curr);
+                        //得到数据总量
+                        // layui.msg(count);
+                    }
+                });
+
+                //表格事件
+                table.on('tool(test)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        editItem(data);
+                    }else if (obj.event === 'delete') {
+                        deleteItem(data);
+                    }
+                });
+
+            });
+        }
+        
+        function btnSave() {
+            $.ajax({
+                type: 'post',
+                url: 'savebasedata',
+                data: {
+                    "id": $("#id").val(),
+                    "BAS001": '类别',
+                    "BAS002": $("#BAS002").val()
+                },
+                success: function (data) {
+                    if (data) {
+                        var url = 'type?bas001=' + '类别' + '';
+                        readDataMain(url);
+                    } else
+                        layer.msg("行业:" + $("#BAS002").val() + '已经存在');
+                },
+                dataType: 'json'
+            });
+        }
+
+        function editItem(obj) {
+            $("#BAS002").val(obj.bas002);
+            $("#id").val(obj.id);
+        }
+
+        function deleteItem(obj) {
+            var id = obj.id;
+            layer.confirm('确认删除?',{
+                ben:['确定','取消']
+            },function (index) {
+                layer.close(index);
+                $.ajax({
+                    type:'post',
+                    url:'deletebasedata',
+                    data:{"id":id},
+                    success:function (data) {
+                        if(data){
+                            var url='type?bas001='+'类别'+'';
+                            readDataMain(url);
+                        }
+                    }
+                })
+            })
+        }
+
+        function btnOpenComRecord() {
+            $("#table").attr("style","display:block");
+            $("#softword").attr("style","display:none");
+
+            var url='type?bas001='+'类别'+'';
+            readDataMain(url);
+        }
+
+        function btnAdd() {
+            $("#id").val('');
+            $("#BAS002").val('');
+        }
+
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+    </script>
+
+    <script>
+
+        function effective() {
+            $("#table").attr("style","display:none");
+            $("#softword").attr("style","display:block");
+
+            var url='type?bas001='+'软件'+'';
+            readDataSoft(url);
+        }
+
+        function readDataSoft(url) {
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                table.render({
+                    elem: '#test1',
+                    url: encodeURI(url),
+                    height:530,
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        ,limit:50
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    , cols: [
+                        [
+                            {field: 'bas002', title: '软件', width: '60%',sort:true},
+                            {fixed: 'right', title: '操作', toolbar: '#barDemox', width: '40%'}
+                        ]
+                    ],
+                    limits: [50,100,200],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        // layui.msg(res);
+                        //得到当前页码
+                        // layui.msg(curr);
+                        //得到数据总量
+                        // layui.msg(count);
+                    }
+                });
+
+                //表格事件
+                table.on('tool(test1)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'editx') {
+                        editItemx(data);
+                    }else if (obj.event === 'deletex') {
+                        deleteItemx(data);
+                    }
+                });
+
+            });
+        }
+
+        function btnSavex() {
+            $.ajax({
+                type: 'post',
+                url: 'savebasedata',
+                data: {
+                    "id": $("#idx").val(),
+                    "BAS001": '软件',
+                    "BAS002": $("#BAS002x").val()
+                },
+                success: function (data) {
+                    if (data) {
+                        var url = 'type?bas001=' + '软件' + '';
+                        readDataSoft(url);
+                    } else
+                        layer.msg("软件:" + $("#BAS002x").val() + '已经存在');
+                },
+                dataType: 'json'
+            });
+        }
+
+        function editItemx(obj) {
+            $("#BAS002x").val(obj.bas002);
+            $("#idx").val(obj.id);
+        }
+
+        function deleteItemx(obj) {
+            var id = obj.id;
+            layer.confirm('确认删除?',{
+                ben:['确定','取消']
+            },function (index) {
+                layer.close(index);
+                $.ajax({
+                    type:'post',
+                    url:'deletebasedata',
+                    data:{"id":id},
+                    success:function (data) {
+                        if(data){
+                            var url='type?bas001='+'软件'+'';
+                            readDataSoft(url);
+                        }
+                    }
+                })
+            })
+        }
+
+        function btnAddx() {
+            $("#idx").val('');
+            $("#BAS002x").val('');
+        }
+
+    </script>
+
+    <script type="text/html" id="barDemox">
+        <a class="layui-btn layui-btn-xs" lay-event="editx">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="deletex">删除</a>
+    </script>
+
+</head>
+
+
+<body>
+
+<div th:replace="index.html">
+</div>
+
+    <div class="left">
+        <div>
+            <input id="linkUpCus" class="btnStyle" type="button" value="客户行业" onclick="btnOpenComRecord()">
+        </div>
+        <div>
+            <input id="levelCus" class="btnStyle" type="button" value="客户软件" onclick="effective()" style="display: block" >
+        </div>
+    </div>
+    <div class="right" style="height: 580px;overflow: auto" id="other">
+        <div id="table">
+            <div class="top"  style="height: 45px">
+                <ol class="list-inline">
+                    <li id="topOne">
+                        <label style="margin-left: 10px">客户行业</label>
+                        <input type="text" style="margin-left: 5px;top: 2px;width: 200px;height: 25px;color: black;background-color: white" id="BAS002" >
+                    </li>
+                    <li id="topSix">
+                        <input type="button" value="新增" onclick="btnAdd()">
+                    </li>
+                    <li id="topFor">
+                        <input type="button" value="保存" onclick="btnSave()">
+                    </li>
+                    <div hidden="hidden"><input id="id" hidden="hidden" name="id"></div>
+                </ol>
+            </div>
+            <div style="left: 0;margin-top: 45px">
+              <table class="layui-hide" id="test" lay-filter="test"></table>
+            </div>
+        </div>
+        <div id="softword">
+            <div class="top"  style="height: 45px">
+                <ol class="list-inline">
+                    <li id="topTwo">
+                        <label style="margin-left: 10px">客户用软件</label>
+                        <input type="text" style="margin-left: 5px;top: 2px;width: 200px;height: 25px;color: black;background-color: white" id="BAS002x" >
+                    </li>
+                    <li id="topSev">
+                        <input type="button" value="新增" onclick="btnAddx()">
+                    </li>
+                    <li id="topFiv">
+                        <input type="button" value="保存" onclick="btnSavex()">
+                    </li>
+                    <div hidden="hidden"><input id="idx" hidden="hidden" name="idx"></div>
+                </ol>
+            </div>
+            <div style="left: 0;margin-top: 45px">
+                <table class="layui-hide" id="test1" lay-filter="test1"></table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

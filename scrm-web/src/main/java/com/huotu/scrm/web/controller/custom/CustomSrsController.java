@@ -125,7 +125,6 @@ public class CustomSrsController {
     ) {
         Specification specification=addCondition(customId,oddNum);
         CustomSRS customSRSList=customSrsService.findAllCustomsrs(specification);
-        System.out.println(customSRSList.getCustomId());
         customSrsService.deleteCustomSrs(customSRSList);
         specification = addCondition(customId);
         return datasource(pageIndex, pageSize, specification);

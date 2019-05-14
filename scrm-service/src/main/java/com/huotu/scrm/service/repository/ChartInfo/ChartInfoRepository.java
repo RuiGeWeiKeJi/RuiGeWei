@@ -3,7 +3,6 @@ package com.huotu.scrm.service.repository.ChartInfo;
 import com.huotu.scrm.service.entity.CustomBrs.CustomBRS;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
-import com.huotu.scrm.service.model.increasebrs;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -62,7 +61,15 @@ public interface ChartInfoRepository extends JpaRepository<CustomBRS, Long>, Jpa
      * 获取本期级别增长或减少数量
      * @return
      */
-    @Query(value = "select * from levthisresult",nativeQuery = true)
+    @Query(value = "select lev,premonth,monthadd from levthisresult where username=?1 AND lev in ('A','B','C')",nativeQuery = true)
+    List<Object> getincreasebrs(String username);
+
+    /**
+     * 获取本期级别增长或减少数量
+     * @return
+     */
+    @Query(value = "select lev,sum(premonth),sum(monthadd) from levthisresult where lev in ('A','B','C') group by lev;",nativeQuery = true)
     List<Object> getincreasebrs();
+
 
 }

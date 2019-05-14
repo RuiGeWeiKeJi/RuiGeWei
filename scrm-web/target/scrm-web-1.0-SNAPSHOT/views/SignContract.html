@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/maintain.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/signcontract.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
@@ -64,6 +64,7 @@
                 table.render({
                     elem: '#test',
                     url: encodeURI(url),
+                    height:560,
                     method: 'post',
                     ContentType: 'application/json;charset=utf-8'
                     , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -196,7 +197,6 @@
     <div th:include="index::html"></div>
 </div>
 
-<div class="container">
     <div class="top" style="height: 45px">
         <ol class="list-inline">
             <li id="topOne">
@@ -215,10 +215,9 @@
             </li>
         </ol>
     </div>
-    <div class="buttom" style="margin-left: 2%;width: 107.8%;margin-top:0%;background: #FDFBFC">
+    <div class="buttom">
         <table class="layui-hide" id="test" lay-filter="test"></table>
     </div>
-</div>
 
 </body>
 </html>

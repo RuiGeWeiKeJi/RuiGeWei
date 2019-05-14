@@ -1,5 +1,7 @@
 package com.huotu.scrm.service.service.ChartInfo;
 
+import com.huotu.scrm.service.entity.Chart.ChartAvg;
+import com.huotu.scrm.service.entity.baseset.Reachflt;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
 import com.huotu.scrm.service.model.increasebrs;
@@ -39,6 +41,23 @@ public interface ChartInfoService {
      * 获取本期级别增长或减少数量
      * @return
      */
+    List<Object> getincreasebrs(String username);
+
+    /**
+     * 获取本期级别增长或减少数量
+     * @return
+     */
     List<Object> getincreasebrs();
+
+    /**
+     * 获取本人一段时间内的所有平均数
+     * @param username
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    List<ChartAvg>  findAllByAVG001AndAVG003BetweenAAndAVG003(String username, Date dateStart, Date dateEnd,Integer days);
+
+    List<Reachflt> getAllBy();
 
 }

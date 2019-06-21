@@ -52,4 +52,15 @@ public interface CustomService {
      */
     boolean existsCustomNameAndId(String customName,String customId);
 
+
+    /**
+     * 保存
+     * @param list
+     */
+    void saveAndRefresh(List<Custom> list);
+
+    List<Custom> findAll(Specification<Custom> specification);
+
+    Long getCount(Specification<Custom> specification);
+
 }

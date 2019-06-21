@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/modules/layer/default/layer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-select.min.css}">
 
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/jquery.placeholder.js}"></script>
@@ -25,6 +26,7 @@
     <script type="text/javascript" th:src="@{/resources/js/language/zh_CN.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
     <script type="text/javascript" th:src="@{/resources/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap-select.min.js}"></script>
 
     <script>
         //完成异步搜索功能
@@ -64,116 +66,128 @@
         }
 
         var formDateMainQuery=function () {
-            var mai002=$("#MAI002").val().trim();
-            var mai008=$("#MAI008").val().trim();
-            var mai005=$("#MAI005").val().trim();
-            var mai009=$("#MAI009").val().trim();
-            var mai006=$("#MAI006").val().trim();
-            var mai0061=$("#MAI0061").val().trim();
-            var mai010=$("#MAI010").val().trim();
-            var mai0101=$("#MAI0101").val().trim();
-            var mai011=$("#MAI011").val().trim();
-            var mai0111=$("#MAI0111").val().trim();
-            var mai007=$("#MAI007").val().trim();
-            var mai012=$("#MAI012").val().trim();
-            var url='findMain';
-            var data={
-                data:url+'?mai002='+mai002+'&mai008='+mai008+'&mai005='+mai005+'&mai009='+mai009+'&mai006='+mai006+'&mai0061='+mai0061+'&mai010='+mai010+'&mai0101='+mai0101+'&mai011='+mai011+'' +
-                    '&mai0111='+mai0111+'&mai007='+mai007+'&mai012='+mai012+''
+            var mai002 = $("#MAI002").val();
+            var mai008 = $("#MAI008").val();
+            var mai005 = $("#MAI005").val();
+            var mai009 = $("#MAI009").val();
+            var mai006 = $("#MAI006").val();
+            var mai0061 = $("#MAI0061").val();
+            var mai010 = $("#MAI010").val();
+            var mai0101 = $("#MAI0101").val();
+            var mai011 = $("#MAI011").val();
+            var mai0111 = $("#MAI0111").val();
+            var mai007 = $("#MAI007").val().trim();
+            var mai012 = $("#MAI012").val().trim();
+            var url = '';
+            var data = {
+                data: url + 'mai002=' + mai002 + '&mai008=' + mai008 + '&mai005=' + mai005 + '&mai009=' + mai009 + '&mai006=' + mai006 + '&mai0061=' + mai0061 + '&mai010=' + mai010 + '&mai0101=' + mai0101 + '&mai011=' + mai011 + '' +
+                    '&mai0111=' + mai0111 + '&mai007=' + mai007 + '&mai012=' + mai012 + ''
             };
             return data;
         }
         
     </script>
 
-    <style>
-        .form-group input{
-            height: 30px;
-            width: 100px
-        }
-        .form-group select{
-            height: 30px;
-            width: 100px
-        }
-        .form-group{
-            margin-top:10px;
-            margin-left: 5px
-        }
-    </style>
-
 </head>
 <body>
 
-<div class="container">
-    <form class="form-inline" style="margin-top: 20px;">
-        <div class="form-group">
-            <label>客户名称</label>
-            <input type="text" class="form-control" id="MAI002" name="MAI002" onkeyup="searchName(this)">
-            <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
-                 id="result">
+<div class="container" style="width: 500px">
+    <form role="form" class="form-horizontal" style="margin-top: 20px;width: 400px">
 
+        <div class="form-group">
+            <label for="MAI002" class="control-label text-right col-xs-4">客户名称</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="MAI002" name="MAI002" onkeyup="searchName(this)" required>
+                <div style="display: none;position: absolute;z-index: 1000;background: white;border: 1px solid #c0c0c0"
+                     id="result">
+
+                </div>
             </div>
         </div>
+
         <div class="form-group">
-            <label>处理人</label>
-            <select class="form-control" id="MAI008" name="MAI008">
+            <label for="MAI008" class="control-label text-right col-xs-4">处理人</label>
+            <div class="col-xs-8">
+            <select class="form-control selectpicker show-tick" id="MAI008" name="MAI008" multiple data-live-search="true">
                 <option></option>
                 <option th:each="c:${mainList}" th:value="${c}" th:text="${c}"></option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <label>提问方式</label>
-            <select class="form-control" id="MAI005" name="MAI005">
+            <label for="MAI005" class="control-label text-right col-xs-4">提问方式</label>
+            <div class="col-xs-8">
+            <select class="form-control show-tick selectpicker" id="MAI005" name="MAI005" multiple data-live-search="true">
                 <option></option>
                 <option>电话</option>
                 <option>QQ</option>
                 <option>微信</option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <label>处理进度</label>
-            <select class="form-control" id="MAI009" name="MAI009">
+            <label for="MAI009" class="control-label text-right col-xs-4">处理进度</label>
+            <div class="col-xs-8">
+            <select class="form-control selectpicker show-tick" id="MAI009" name="MAI009" multiple data-live-search="true">
                 <option></option>
                 <option>未开始</option>
                 <option>进行中</option>
                 <option>完成</option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <label>提出时间</label>
-            <input type="text" class="form-control" id="MAI006" name="MAI006" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
-            <label>到</label>
-            <input type="text" class="form-control" id="MAI0061" name="MAI0061" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+            <label for="MAI006" class="control-label text-right col-xs-4">提出时间</label>
+            <div class="col-xs-8 form-inline">
+                <div class="col-xs-6">
+                      <input type="text" class="form-control" id="MAI006" name="MAI006"
+                        onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" id="MAI0061" name="MAI0061"
+                         onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+            </div>
+            </div>
         </div>
         <div class="form-group">
-            <label>预计完成时间</label>
-            <input type="text" class="form-control" id="MAI010" name="MAI010" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
-
-            <label>到</label>
-            <input type="text" class="form-control" id="MAI0101" name="MAI0101" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+            <label for="MAI010" class="control-label text-right col-xs-4">预计完成时间</label>
+            <div class="col-xs-8 form-inline">
+                <div class="col-xs-6">
+                <input type="text" class="form-control" id="MAI010" name="MAI010"
+                       onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+                <div class="col-xs-6">
+                <input type="text" class="form-control" id="MAI0101" name="MAI0101"
+                       onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+            </div>
         </div>
         <div class="form-group">
-            <label>实际完成时间</label>
-            <input type="text" class="form-control" id="MAI011" name="MAI011" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
-
-            <label>到</label>
-            <input type="text" class="form-control" id="MAI0111" name="MAI0111" style="width: 120px;"
-                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+            <label for="MAI011" class="control-label text-right col-xs-4">实际完成时间</label>
+            <div class="col-xs-8 form-inline">
+                <div class="col-xs-6">
+                      <input type="text" class="form-control" id="MAI011" name="MAI011"
+                       onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+                <div class="col-xs-6">
+                      <input type="text" class="form-control" id="MAI0111" name="MAI0111"
+                       onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+            </div>
         </div>
         <div class="form-group">
-            <label>问题描述</label>
-            <textarea type="text" class="form-control" id="MAI007" name="MAI007" style="width: 300px;">
+            <label for="MAI007" class="control-label text-right col-xs-4">问题描述</label>
+            <div class="col-xs-8">
+            <textarea type="text" class="form-control" id="MAI007" name="MAI007" >
             </textarea>
+            </div>
         </div>
         <div class="form-group">
-            <label>处理方案</label>
-            <textarea type="" class="form-control" id="MAI012" name="MAI012" style="width: 250px;">
+            <label for="MAI012" class="control-label text-right col-xs-4">处理方案</label>
+            <div class="col-xs-8">
+            <textarea type="" class="form-control" id="MAI012" name="MAI012">
             </textarea>
+            </div>
         </div>
     </form>
 </div>

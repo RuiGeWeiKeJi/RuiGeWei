@@ -2,6 +2,7 @@ package com.huotu.scrm.service.service.ChartInfo.impl;
 
 import com.huotu.scrm.service.entity.Chart.ChartAvg;
 import com.huotu.scrm.service.entity.baseset.Reachflt;
+import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
 import com.huotu.scrm.service.repository.ChartInfo.ChartAvgRepository;
@@ -9,6 +10,7 @@ import com.huotu.scrm.service.repository.ChartInfo.ChartInfoRepository;
 import com.huotu.scrm.service.repository.baseset.ReachfltRepository;
 import com.huotu.scrm.service.service.ChartInfo.ChartInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,5 +100,6 @@ public class ChartInfoServiceImpl implements ChartInfoService {
     public List<Reachflt> getAllBy() {
         return reachfltRepository.getAllBy();
     }
+
 
 }

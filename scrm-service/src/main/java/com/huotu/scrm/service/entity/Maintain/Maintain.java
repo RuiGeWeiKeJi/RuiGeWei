@@ -1,6 +1,5 @@
 package com.huotu.scrm.service.entity.Maintain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;

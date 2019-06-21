@@ -61,15 +61,14 @@ public interface ChartInfoRepository extends JpaRepository<CustomBRS, Long>, Jpa
      * 获取本期级别增长或减少数量
      * @return
      */
-    @Query(value = "select lev,premonth,monthadd from levthisresult where username=?1 AND lev in ('A','B','C')",nativeQuery = true)
+    @Query(value = "select lev,premonth,monthadd from levthisresult where username=?1 AND lev in ('A','B','C','D','E')",nativeQuery = true)
     List<Object> getincreasebrs(String username);
 
     /**
      * 获取本期级别增长或减少数量
      * @return
      */
-    @Query(value = "select lev,sum(premonth),sum(monthadd) from levthisresult where lev in ('A','B','C') group by lev;",nativeQuery = true)
+    @Query(value = "select lev,sum(premonth),sum(monthadd) from levthisresult where lev in ('A','B','C','D','E') group by lev;",nativeQuery = true)
     List<Object> getincreasebrs();
-
 
 }

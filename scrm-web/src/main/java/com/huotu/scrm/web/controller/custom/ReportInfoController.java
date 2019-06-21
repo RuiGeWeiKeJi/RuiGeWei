@@ -99,7 +99,7 @@ public class ReportInfoController {
     @RequestMapping(value = "/customtrans")
     @ResponseBody
     public Object getListForBusCustom(
-            @RequestParam("CUS012") String CUS012,
+            @RequestParam("BRS008") String BRS008,
             @RequestParam("BRS003") String BRS003,
             @RequestParam("BRS0031") String BRS0031,
             @RequestParam ("CUS004") String CUS004,
@@ -122,18 +122,18 @@ public class ReportInfoController {
 
         CUS004= StringSplitAndCom.getStrs(CUS004);
         CUS010= StringSplitAndCom.getStrs(CUS010);
-        CUS012= StringSplitAndCom.getStrs(CUS012);
+        BRS008= StringSplitAndCom.getStrs(BRS008);
 
         Sort sort = new Sort(Sort.Direction.DESC, "BRS001");
         Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
 
-        StringBuilder stringBuilder = new StringBuilder("select CUS001,CUS002,CUS004,CUS010,CUS012,BRS001,BRS005,BRS006,BRS007 from rgwcus a inner join rgwbrs b on a.CUS001=b.BRS002 ");
+        StringBuilder stringBuilder = new StringBuilder("select CUS001,CUS002,CUS004,CUS010,CUS012,BRS001,BRS005,BRS006,BRS007,BRS008 from rgwcus a inner join rgwbrs b on a.CUS001=b.BRS002 ");
         StringBuilder countBuilder=new StringBuilder("select count(*) from rgwcus a inner join rgwbrs b on a.CUS001=b.BRS002 ");
 
         StringBuilder whereSql=new StringBuilder(" WHERE 1=1");
 
-        if(!CUS012.equals("null")) {
-            whereSql.append(" AND CUS012 IN (" + CUS012 + ")");
+        if(!BRS008.equals("null")) {
+            whereSql.append(" AND BRS008 IN (" + BRS008 + ")");
         }
         whereSql.append(" AND BRS003>= '"+BRS003+"'");
         whereSql.append(" AND BRS003<= '"+BRS0031+"'");
@@ -172,6 +172,7 @@ public class ReportInfoController {
                     cus.setBRS005(objects[6].toString());
                     cus.setBRS006(objects[7].toString());
                     cus.setBRS007(objects[8].toString());
+                    cus.setBRS008(objects[9].toString());
                     customtransList.add(cus);
                 }
         Page<customtrans> customtransPage = new PageImpl<>(customtransList,pageable,total);

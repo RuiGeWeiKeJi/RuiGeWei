@@ -1,32 +1,40 @@
 package com.huotu.scrm.web.controller.custom;
 
 import com.huotu.scrm.common.utils.Constant;
+import com.huotu.scrm.service.entity.CustomBrs.CustomBRS;
 import com.huotu.scrm.service.entity.custom.Custom;
+import com.huotu.scrm.service.entity.customUse.CustomUse;
 import com.huotu.scrm.service.repository.ReportInfo.ReportInfoRepository;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import com.huotu.scrm.service.service.bar.barService;
 import com.huotu.scrm.service.service.customBrs.CustomBrsService;
+import com.huotu.scrm.service.service.customUse.CustomUseService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.cutom.CustomService;
-import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
+import com.huotu.scrm.web.GetUserInfo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.internet.MimeUtility;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -47,6 +55,9 @@ public class CustomController {
 
     @Autowired
     private ReportInfoService reportInfoService;
+
+    @Autowired
+    private CustomUseService customUseService;
 
     /**
      * 分页获取客户资料
@@ -95,6 +106,8 @@ public class CustomController {
         return model;
     }
 
+    private String sss="";
+
     /**
      * 保存数据
      *
@@ -103,7 +116,7 @@ public class CustomController {
      */
     @RequestMapping(value = "/addcustom")
     @ResponseBody
-    public boolean insertCustom(Custom custom) {
+    public boolean insertCustom(Custom custom,HttpServletRequest request) {
         if (custom.getCUS009() == "")
             custom.setCUS009(null);
         if (custom.getCUS011() == "")
@@ -119,10 +132,18 @@ public class CustomController {
         custom.setCUS014(custom.getCUS014().trim());
         custom.setCUS016(custom.getCUS016().trim());
         custom.setCUS017(custom.getCUS017().trim());
-        custom.setCUS018(custom.getCUS018().trim());
+        if (!custom.getCUS018().trim().contains("-"))
+            custom.setCUS018(DateFormat.getFormatForDate(custom.getCUS018().trim()));
+        else
+            custom.setCUS018(custom.getCUS018().trim());
+        if (custom.getCUS019().trim() == "")
+            custom.setCUS019(GetUserLoginInfo.getUserInfo(request).getUSE002());
+        else
+            custom.setCUS019(custom.getCUS019().trim());
+        if (StringUtils.isEmpty(custom.getCUS018()))
+            custom.setCUS018(customBrsService.getDateNow().toString());
         boolean result = customService.existsCustomNameAndId(custom.getCUS002(), custom.getCUS001());
         if (result == false) {
-            custom.setCUS018(customBrsService.getDateNow().toString());
             customService.insertCustom(custom);
         }
         return result;
@@ -208,6 +229,333 @@ public class CustomController {
         map.put("custominfo",customInfo);
         map.put("date",date);
         return map;
+    }
+
+
+
+    @RequestMapping(value = "/findexecl")
+    @ResponseBody
+    public ModelAndView getExeclReportHtml(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("ExeclExport");
+        return modelAndView;
+    }
+
+    private boolean result=false;
+    private String info="";
+
+    @RequestMapping(value = "/saveexecl")
+    @ResponseBody
+    public Object getExeclData(
+            @RequestParam(value = "files",required = false) MultipartFile multipartFile
+            ) {
+        if (multipartFile.isEmpty()) {
+            return "文件不存在";
+        }
+        List<String> levelList=new ArrayList<>();
+        levelList.add("无");
+        levelList.add("A");
+        levelList.add("B");
+        levelList.add("C");
+        levelList.add("D");
+        levelList.add("E");
+        levelList.add("X");
+        levelList.add("Y");
+        info="";
+        InputStream in = null;
+        try {
+            in = multipartFile.getInputStream();
+            List<List<Object>> lists = ExeclUtils.getBankListByExecl(in, multipartFile.getOriginalFilename());
+            List<Custom> customList = new ArrayList<Custom>();
+            List<String> cusName=new ArrayList<>();
+            result=true;
+            for (int i = 0; i < lists.size(); i++) {
+                List<Object> ob = lists.get(i);
+                Custom custom = new Custom();
+                if(StringUtils.isEmpty( ob.get(0)) ){
+                    info="第"+i+1+"行客户编号为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS001(String.valueOf(ob.get(0)).trim());
+                if(custom.getCUS001().trim().length()<6){
+                    info="客户编号少于6位,请核实后再导入";
+                    result=false;
+                    break;
+                }
+                if(StringUtils.isEmpty( ob.get(1) ) ){
+                    info="客户编号:"+custom.getCUS001()+"的客户名称为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS002(String.valueOf(ob.get(1)).trim());
+                if(!cusName.contains(custom.getCUS002()))
+                    cusName.add(custom.getCUS002().trim());
+                if(StringUtils.isEmpty( ob.get(2)) ){
+                    info="客户编号:"+custom.getCUS001()+"的联系人为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS003(String.valueOf(ob.get(2)).trim());
+                if(StringUtils.isEmpty( ob.get(3)) ){
+                    info="客户编号:"+custom.getCUS001()+"的级别为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS004(String.valueOf(ob.get(3)).trim());
+                if(!levelList.contains(custom.getCUS004())){
+                    info="客户编号:"+custom.getCUS001()+"的级别不符合要求";
+                    result=false;
+                    break;
+                }
+                if(StringUtils.isEmpty( ob.get(4) ) ){
+                    info="客户编号:"+custom.getCUS001()+"的地址为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS005(String.valueOf(ob.get(4)).trim());
+                Double db = null;
+                if (StringUtils.isEmpty(String.valueOf(ob.get(5))))
+                    custom.setCUS006(0.0);
+                else {
+                    db = new Double(String.valueOf(ob.get(5)));
+                    custom.setCUS006(db.doubleValue());
+                }
+                if (StringUtils.isEmpty(String.valueOf(ob.get(6))))
+                    custom.setCUS007(0.0);
+                else {
+                    db = new Double(String.valueOf(ob.get(6)));
+                    custom.setCUS007(db.doubleValue());
+                }
+                if (StringUtils.isEmpty(String.valueOf(ob.get(7))))
+                    custom.setCUS008(0.0);
+                else {
+                    db = new Double(String.valueOf(ob.get(7)));
+                    custom.setCUS008(db.doubleValue());
+                }
+                if(StringUtils.isEmpty( ob.get(8) ) ){
+                    info="客户编号:"+custom.getCUS001()+"的行业为空";
+                    result=false;
+                    break;
+                }
+                custom.setIndustry(String.valueOf(ob.get(8)).trim());
+                if(StringUtils.isEmpty( ob.get(9)) ){
+                    info="客户编号:"+custom.getCUS001()+"的业务员为空";
+                    result=false;
+                    break;
+                }
+                custom.setSalesman(String.valueOf(ob.get(9)).trim());
+                if(StringUtils.isEmpty( ob.get(10)) ){
+                    info="客户编号:"+custom.getCUS001()+"的来源为空";
+                    result=false;
+                    break;
+                }
+                custom.setCUS013(String.valueOf(ob.get(10)).trim());
+
+                custom.setCUS014(String.valueOf(ob.get(11)).trim());
+                if (StringUtils.isEmpty(String.valueOf(ob.get(12))))
+                    custom.setCUS015(0);
+                else {
+                    Integer bd = new Integer(String.valueOf(ob.get(12)));
+                    custom.setCUS015(bd.intValue());
+                }
+                custom.setCUS016(String.valueOf(ob.get(13)).trim());
+                custom.setCUS017(String.valueOf(ob.get(14)).trim());
+                custom.setCUS018(String.valueOf(ob.get(15)).trim());
+                custom.setCUS019(String.valueOf(ob.get(16)).trim());
+                customList.add(custom);
+            }
+
+            if(result==false)
+                return "";
+
+            Specification<Custom> specification=new Specification<Custom>() {
+                @Override
+                public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                   List<Predicate> list=new ArrayList<>();
+                    if(list!=null && list.size()>0){
+                        CriteriaBuilder.In<String> in=cb.in(root.get("CUS002").as(String.class));
+                        for(String i :cusName){
+                            in.value(i);
+                        }
+                        list.add(in);
+                    }
+                    //pList转换为具体类型的数组
+                    Predicate[] predicate = new Predicate[list.size()];
+                    //将条件进行汇总并返回
+                    return cb.and(list.toArray(predicate));
+                }
+            };
+            List<Custom> customList1=customService.findAll(specification);
+            if(customList1!=null && customList1.size()>0) {
+               for(int i=0;i<customList1.size();i++){
+                   for(int j=0;j<customList.size();j++){
+                       if(customList.get(j).getCUS002().trim().equals(customList1.get(i).getCUS002().trim())){
+//                           customList.remove(j);
+//                           j--;
+                           info="客户:"+customList.get(j).getCUS002().trim()+"重复,请核实后再导入";
+                           result=false;
+                           break;
+                       }
+                   }
+                   if(result==false)
+                       break;
+               }
+            }
+
+            if(result==false)
+                return "";
+
+            customList= ListUtils.removeDuplicate(customList);
+            customService.saveAndRefresh(customList);
+            result=true;
+        } catch (Exception e) {
+            info=e.getMessage()+"字段类型错误,请核实后重新导入";
+            result=false;
+        } finally {
+            return getMap(in,info,result);
+        }
+    }
+
+    @RequestMapping(value = "/saveexecluse")
+    @ResponseBody
+    public Object getExeclDataUse(
+            @RequestParam(value = "files",required = false) MultipartFile multipartFile
+    ){
+        if (multipartFile.isEmpty()) {
+            return "文件不存在";
+        }
+        result=true;
+        info="";
+        InputStream in = null;
+        try {
+            in = multipartFile.getInputStream();
+            List<List<Object>> lists = ExeclUtils.getBankListByExecl(in, multipartFile.getOriginalFilename());
+            List<CustomUse> customList = new ArrayList<CustomUse>();
+            List<String> cusName=new ArrayList<>();
+            for (int i = 0; i < lists.size(); i++) {
+                List<Object> ob = lists.get(i);
+                CustomUse custom = new CustomUse();
+                custom.setUserId(String.valueOf(ob.get(0)).trim());
+                if(custom.getUserId().contains("."))
+                {
+                    info="人员编号数据格式错误,不应该包括小数";
+                    result=false;
+                    break;
+                }
+                if(custom.getUserId().trim().length()<6){
+                    info="人员编号少于6位,请核实后重新导入";
+                    result=false;
+                    break;
+                }
+                if(!cusName.contains(custom.getUserId()))
+                    cusName.add(custom.getUserId());
+
+                custom.setCUR002(String.valueOf(ob.get(1)).trim());
+                custom.setCUR003(String.valueOf(ob.get(2)).trim());
+                custom.setCUR004(String.valueOf(ob.get(3)).trim());
+                custom.setCUR005(String.valueOf(ob.get(4)).trim());
+                custom.setCUR006(String.valueOf(ob.get(5)).trim());
+                custom.setCUR007(String.valueOf(ob.get(6)).trim());
+                custom.setCUR008(null);
+                custom.setCUR009(String.valueOf(ob.get(8)).trim());
+                custom.setCustomId(String.valueOf(ob.get(9)));
+                if(custom.getCustomId().contains("."))
+                {
+                    info="客户编号数据格式错误,不应该包括小数";
+                    result=false;
+                    break;
+                }
+                if(custom.getCustomId().trim().length()<6){
+                    info="客户编号少于6位,请核实后重新导入";
+                    result=false;
+                    break;
+                }
+                if(StringUtils.isEmpty(custom.getUserId().trim()) || StringUtils.isEmpty(custom.getCUR002().trim()) || StringUtils.isEmpty(custom.getCUR007()) || StringUtils.isEmpty(custom.getCustomId())){
+                    info= custom.getUserId().trim();
+                    result=false;
+                    break;
+                }
+                customList.add(custom);
+            }
+
+            if(result==false)
+                return "";
+
+            Specification<CustomUse> specification=new Specification<CustomUse>() {
+                @Override
+                public Predicate toPredicate(Root<CustomUse> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                    List<Predicate> list=new ArrayList<>();
+                    if(list!=null && list.size()>0){
+                        CriteriaBuilder.In<String> in=cb.in(root.get("userId").as(String.class));
+                        for(String i :cusName){
+                            in.value(i);
+                        }
+                        list.add(in);
+                    }
+                    //pList转换为具体类型的数组
+                    Predicate[] predicate = new Predicate[list.size()];
+                    //将条件进行汇总并返回
+                    return cb.and(list.toArray(predicate));
+                }
+            };
+            List<CustomUse> customList1=customUseService.findAll(specification);
+            if(customList1!=null && customList1.size()>0) {
+                for(int i=0;i<customList1.size();i++){
+                    for(int j=0;j<customList.size();j++){
+                        if(customList.get(j).getUserId().trim().equals(customList1.get(i).getUserId().trim())){
+//                            customList.remove(j);
+//                            j--;
+                            info="联系人编号:"+customList.get(j).getUserId().trim()+"重复,请核实后再导入";
+                            result=false;
+                            break;
+                        }
+                    }
+                    if(result==false)
+                        break;
+                }
+            }
+
+            if(result==false)
+                return "";
+
+            customList= ListUtils.removeDuplicate(customList);
+            customUseService.saveAndRefresh(customList);
+            result=true;
+        } catch (Exception e) {
+            info="数据格式错误,请核实";
+            result=false;
+        } finally {
+            return getMap(in,info,result);
+        }
+    }
+
+
+    static Map<Object,Object> getMap( InputStream in ,String info,boolean result) {
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Map<Object, Object> map = new LinkedHashMap<>();
+        map.put("info", info);
+        if (result)
+            map.put("result", "true");
+        else
+            map.put("result", "false");
+        return map;
+    }
+
+    @RequestMapping(value = "/download")
+    public void downloadExecl(HttpServletRequest request,HttpServletResponse response){
+        String fileName="客户信息.xlsx";
+        DownLoad.DownLoadInfo(fileName,response,request);
+    }
+
+    @RequestMapping(value = "/downloaduse")
+    public void downloadExeclUse(HttpServletRequest request,HttpServletResponse response){
+        String fileName="联系人信息.xlsx";
+        DownLoad.DownLoadInfo(fileName,response,request);
     }
 
     Specification addCondition(String data,String condition) {

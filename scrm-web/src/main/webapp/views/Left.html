@@ -44,6 +44,7 @@
                 <dd id="mainInfo"><a th:href="@{/maintain}">客户运维</a></dd>
                 <dd id="signInfo"><a th:href="@{/findContract}">合同签订</a></dd>
                 <dd id="ordermain"><a th:href="@{/findOrderMaintain}">服务记录单</a></dd>
+                <dd id="devInfo"><a th:href="@{/devmain}">开发运维</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item">
@@ -91,6 +92,7 @@
             var datare5 = "";
             var datare6="";
             var datare7="";
+            var datare8="";
             for (var i = 0; i < other.length; i++)  {
                 if (other[i][2] == "人员信息")
                     result = "1";
@@ -110,6 +112,8 @@
                     datare2 = "1";
                 if (other[i][2] == "统计分析")
                     datare4 = "1";
+                if (other[i][2] == "开发运维")
+                    datare8 = "1";
             }
             if (result != "1")
                 $("#user").attr("style", "display:none");
@@ -129,6 +133,9 @@
                 $("#ordermain").attr("style", "display:none");
             if (datare7 != "1")
                 $("#basedata").attr("style", "display:none");
+            if (datare8 != "1")
+                $("#devInfo").attr("style", "display:none");
+
         }
     }
     /*]]>*/

@@ -6,6 +6,7 @@ import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
+import com.huotu.scrm.web.GetUserInfo.StringSplitAndCom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -87,7 +88,7 @@ public class CustemInfoController {
         String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
         roleUser=false;
         Constant.Position = "业务";
-        if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService))
+        if (GetUserLoginInfo.getUserListForRole(userName, reportInfoService) )
             roleUser=true;
 
         Specification<Custom> specification = new Specification<Custom>() {
@@ -97,25 +98,50 @@ public class CustemInfoController {
                 //定义条件对象列表
                 List<Predicate> plist = new ArrayList<>();
                 //单表条件对象构建(定区编码和地区关键字在分区表中)
+                String[] strSplit = {};
                 if (!StringUtils.isEmpty(CUS002)) {
                     Predicate p1 = cb.equal(root.get("CUS002"), CUS002);
                     plist.add(p1);
                 }
-                if (!StringUtils.isEmpty(CUS004)) {
-                    Predicate p1 = cb.equal(root.get("CUS004"), CUS004);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(CUS004)  && !CUS004.equals("null")) {
+                    strSplit= StringSplitAndCom.getStrSplit(CUS004);
+                    if(strSplit!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("CUS004").as(String.class));
+                        for(String i :strSplit){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
-                if (!StringUtils.isEmpty(industry)) {
-                    Predicate p1 = cb.equal(root.get("industry"), industry);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(industry) && !industry.equals("null")) {
+                    strSplit= StringSplitAndCom.getStrSplit(industry);
+                    if(strSplit!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("industry").as(String.class));
+                        for(String i :strSplit){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
-                if (!StringUtils.isEmpty(salesman)) {
-                    Predicate p1 = cb.equal(root.get("salesman"), salesman);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(salesman) && !salesman.equals("null")) {
+                    strSplit= StringSplitAndCom.getStrSplit(salesman);
+                    if(strSplit!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("salesman").as(String.class));
+                        for(String i :strSplit){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
-                if (!StringUtils.isEmpty(CUS013)) {
-                    Predicate p1 = cb.equal(root.get("CUS013"), CUS013);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(CUS013) && !CUS013.equals("null")) {
+                    strSplit= StringSplitAndCom.getStrSplit(CUS013);
+                    if(strSplit!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("CUS013").as(String.class));
+                        for(String i :strSplit){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
                 if (!StringUtils.isEmpty(CUS009start)) {
                     Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS009").as(String.class), CUS009start);
@@ -133,7 +159,7 @@ public class CustemInfoController {
                     Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
                     plist.add(p2);
                 }
-                if (!StringUtils.isEmpty(userName) && !userName.equals("系统管理员") && roleUser==false) {
+                if (!StringUtils.isEmpty(userName) && !userName.equals("系统管理员") && roleUser==false && !salesman.equals(("无"))) {
                     Predicate p2 = cb.equal(root.get("salesman").as(String.class), userName);
                     plist.add(p2);
                 }

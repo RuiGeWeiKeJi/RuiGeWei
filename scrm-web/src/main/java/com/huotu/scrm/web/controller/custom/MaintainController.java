@@ -8,6 +8,8 @@ import com.huotu.scrm.service.repository.CustomBrs.CustomBrsRepository;
 import com.huotu.scrm.service.service.Maintain.MaintainService;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
+import com.huotu.scrm.web.GetUserInfo.MainUtils;
+import com.huotu.scrm.web.GetUserInfo.StringSplitAndCom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
@@ -165,18 +167,7 @@ public class MaintainController {
     public ModelAndView editpow(   @RequestParam("data") String data,
                                    HttpServletRequest request
     ) {
-        try {
-            URLDecoder.decode(data, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        ModelAndView modelAndView=new ModelAndView();
-        String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
-        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(userName, modelAndView, reportInfoService, maintainService);
-        modelAndView.setViewName("MaintainAdd");
-        modelAndView.addObject("mainList", mainList);
-        List<String> getUserInfo = maintainService.getUserInfo(data);
-        modelAndView.addObject("getsernfo", getUserInfo);
+        ModelAndView modelAndView = MainUtils.getEdit(data, request, reportInfoService, maintainService);
         return modelAndView;
     }
 
@@ -186,11 +177,8 @@ public class MaintainController {
     @RequestMapping("/queryMain")
     @ResponseBody
     public ModelAndView queryMain(HttpServletRequest request){
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("MaintainQuery");
-       String userName= GetUserLoginInfo.getUserInfo(request).getUSE002();
-        List<String> mainList = GetUserLoginInfo.queryRoleForMainList(userName, modelAndView, reportInfoService, maintainService);
-        modelAndView.addObject("mainList", mainList);
+        ModelAndView modelAndView=MainUtils.getQuery(request,reportInfoService,maintainService);
+
         return modelAndView;
     }
 
@@ -215,6 +203,7 @@ public class MaintainController {
             @RequestParam("limit") Integer pageSize,
             @RequestParam("page") Integer pageIndex
     ){
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Specification<Maintain> specification=new Specification<Maintain>() {
             @Override
@@ -224,17 +213,36 @@ public class MaintainController {
                     Predicate p1 = cb.equal(root.get("MAI002"), mai002);
                     plist.add(p1);
                 }
-                if (!StringUtils.isEmpty(mai008)) {
-                    Predicate p1 = cb.equal(root.get("MAI008"), mai008);
-                    plist.add(p1);
+                String[] strings={};
+                if (!StringUtils.isEmpty(mai008) && !mai008.equals("null")) {
+                    strings= StringSplitAndCom.getStrSplit(mai008);
+                    if(strings!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("MAI008").as(String.class));
+                        for(String i :strings){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
-                if (!StringUtils.isEmpty(mai005)) {
-                    Predicate p1 = cb.equal(root.get("MAI005"), mai005);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(mai005)&& !mai005.equals("null")) {
+                    strings= StringSplitAndCom.getStrSplit(mai005);
+                    if(strings!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("MAI005").as(String.class));
+                        for(String i :strings){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
-                if (!StringUtils.isEmpty(mai009)) {
-                    Predicate p1 = cb.equal(root.get("MAI009"), mai009);
-                    plist.add(p1);
+                if (!StringUtils.isEmpty(mai009)&& !mai009.equals("null")) {
+                    strings= StringSplitAndCom.getStrSplit(mai009);
+                    if(strings!=null) {
+                        CriteriaBuilder.In<String> in=cb.in(root.get("MAI009").as(String.class));
+                        for(String i :strings){
+                            in.value(i);
+                        }
+                        plist.add(in);
+                    }
                 }
                 try {
                     if (!StringUtils.isEmpty(mai006)) {

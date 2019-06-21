@@ -28,57 +28,60 @@
     <script>
 
         function query() {
-            var CUS004 = $("#CUS004").val();
-            var industry = $("#industry").val();
-            var salesman = $("#salesman").val();
-            var CUS013 = $("#CUS013").val();
-            var CUS009start = $("#currentCon").val();
-            var CUS009end = $("#nextCon").val();
-            var CUS011start = $("#nextcurrentCon").val();
-            var CUS011end = $("#nextnextCon").val();
-            var CUS002=$("#CUS002").val();
-            var other="";
-            var url = 'querycustom?CUS004=' + CUS004 + '&industry=' + industry + '&salesman=' + salesman + '&CUS013=' + CUS013 + '&CUS009start=' + CUS009start + '&' +
-                'CUS009end=' + CUS009end + '&CUS011start=' + CUS011start + '&CUS011end=' + CUS011end + '&CUS002='+CUS002+'&other='+other+'';
-            url=encodeURI(url);
-            layui.use('table', function () {
-                var table = layui.table;
-                table.render({
-                    elem: '#test',
-                    height:410,
-                    url: url,
-                    method:'post',
-                    ContentType:'application/json;charset=utf-8'
-                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-                        //,curr: 5 //设定初始在第 5 页
-                        , groups: 5 //只显示 1 个连续页码
-                        , first: false //不显示首页
-                        , last: false //不显示尾页
-                    }
-                    , cols: [
-                        [
-                            {field: 'cus001', width:80, title: '编号', sort: true}
-                            , {field: 'cus002', width:180 ,title: '名称'}
-                            , {field: 'cus003', width:80 , title: '联系人'}
-                            , {field: 'cus004', width:80, title: '级别', sort: true}
-                            , {field: 'cus005', width:180, title: '地址'}
-                            , {field: 'cus006', width:100, title: '最小产值', sort: true}
-                            , {field: 'cus007', width:100, title: '最大产值', sort: true}
-                            , {field: 'cus008', width:100, title: '注册资金', sort: true}
-                            , {field: 'cus018', width:100, title: '录入时间', sort: true}
-                            , {field: 'cus009', width:175, title: '最近联系日期', sort: true}
-                            , {field: 'cus011', width:175, title: '预计下次联系时间', sort: true}
-                            , {field: 'industry', width:80, title: '行业', sort: true}
-                            , {field: 'salesman', width:80, title: '业务员', sort: true}
-                            , {field: 'cus013', width:80, title: '来源', sort: true}
-                            , {field: 'cus015', width:80, title: '人数', sort: true}
-                            , {field: 'cus016', width:80, title: '法人', sort: true}
-                            , {field: 'cus017', width:100, title: '购买模块'}
-                            , {field: 'cus014', width:200, title: '备注'}
-                        ]
-                    ]
-                });
+            layer.open({
+                type: 2,
+                title: '客户资料查询',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['450px', '530px'],
+                content: 'custemQuery',
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    var res = $(layero).find("iframe")[0].contentWindow.formData();
+                    var url = encodeURI(res.data);
+                    layui.use('table', function () {
+                        var table = layui.table;
+                        table.render({
+                            elem: '#test',
+                            height:560,
+                            url: url,
+                            method:'post',
+                            ContentType:'application/json;charset=utf-8'
+                            , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                                //,curr: 5 //设定初始在第 5 页
+                                ,limit:50
+                                , groups: 5 //只显示 1 个连续页码
+                                , first: false //不显示首页
+                                , last: false //不显示尾页
+                            }
+                            , cols: [
+                                [
+                                    {field: 'cus001', width:80, title: '编号', sort: true}
+                                    , {field: 'cus002', width:180 ,title: '名称'}
+                                    , {field: 'cus003', width:80 , title: '联系人'}
+                                    , {field: 'cus004', width:80, title: '级别', sort: true}
+                                    , {field: 'cus005', width:180, title: '地址'}
+                                    , {field: 'cus006', width:100, title: '最小产值', sort: true}
+                                    , {field: 'cus007', width:100, title: '最大产值', sort: true}
+                                    , {field: 'cus008', width:100, title: '注册资金', sort: true}
+                                    , {field: 'cus018', width:100, title: '录入时间', sort: true}
+                                    , {field: 'cus009', width:175, title: '最近联系日期', sort: true}
+                                    , {field: 'cus011', width:175, title: '预计下次联系时间', sort: true}
+                                    , {field: 'industry', width:80, title: '行业', sort: true}
+                                    , {field: 'salesman', width:80, title: '业务员', sort: true}
+                                    , {field: 'cus013', width:80, title: '来源', sort: true}
+                                    , {field: 'cus015', width:80, title: '人数', sort: true}
+                                    , {field: 'cus016', width:80, title: '法人', sort: true}
+                                    , {field: 'cus019', width:80, title: '录入者', sort: true}
+                                    , {field: 'cus017', width:100, title: '购买模块'}
+                                    , {field: 'cus014', width:200, title: '备注'}
+                                ]
+                            ]
+                        });
+                    });
+                    layer.close(layer.index);
+                }
             });
         }
 
@@ -133,96 +136,8 @@
             <a th:href="@{/main}"><input class="top-btn" type="button" value="客户资料" style="width: 70px"></a>
             <input class="top-btn" type="button" value="查询" onclick="query()">
         </div>
-        <div>
-            <form class="form-inline" style="left:20px;margin-top:15px" autocomplete="off">
-                <div class="form-group" style="position: relative">
-                    <label for="CUS002" style="margin-left: 10px">名称</label>
-                    <input type="text" class="select form-control"
-                           style="height:30px;width:170px;margin-left:13px;font-size: 10px" id="CUS002" name="CUS002"
-                           onkeyup="searchName(this)" required>
-                    <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
-                         id="result">
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="CUS004" style="margin-left: 10px">级别</label> <select
-                        class="select form-control"
-                        style="height:30px;width:170px;margin-left:10px" id="CUS004"
-                        name="CUS004" required>
-                    <option></option>
-                    <option>无</option>
-                    <option >A</option>
-                    <option >B</option>
-                    <option >C</option>
-                    <option >D</option>
-                    <option >E</option>
-                    <option >X</option>
-                    <option >Y</option>
-                </select>
-                </div>
-                <div class="form-group">
-                    <label>行业</label>
-                    <select class="select form-control"
-                            style="height: 30px;width: 170px;margin-left: 10px" id="industry"
-                            name="industry" required
-                    >
-                        <option></option>
-                        <option th:each="c:${industry}" th:value="${c}" th:text="${c}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>业务员</label>
-                    <select class="select form-control"
-                            style="height: 30px;width: 170px;margin-left: 10px" id="salesman"
-                            name="salesman" required
-                    >
-                        <option></option>
-                        <option th:each="d:${salesman}" th:value="${d}" th:text="${d}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>来源</label>
-
-                    <select class="select form-control"
-                            style="height: 30px;width: 170px;margin-left: 10px" id="CUS013"
-                            name="CUS013" required>
-                        <option></option>
-                        <option>无</option>
-                        <option >天眼</option>
-                        <option >鼎捷</option>
-                        <option >网站</option>
-                        <option >老客</option>
-                        <option >朋友</option>
-                    </select>
-
-                </div>
-                <div class="form-group">
-                    <label>最近联系日期</label>
-                    <input type="text" class="form-control" id="currentCon" name="CUS009"
-                           onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextCon\')}'})"
-                           style="width: 100px;height: 30px"
-                    >
-
-                    <input type="text" class="form-control" id="nextCon" name="CUS009"
-                           onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'currentCon\')}'})"
-                           style="width: 100px;height: 30px">
-                </div>
-                <div class="form-group" style="margin-top: 5px">
-                    <label style="margin-left: 10px">预计下次联系日期</label>
-                    <input type="text" class="form-control" id="nextcurrentCon" name="CUS011"
-                           onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextnextCon\')}'})"
-                           style="width: 100px;height: 30px"
-                    >
-
-                    <input type="text" class="form-control" id="nextnextCon" name="CUS011"
-                           onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'nextcurrentCon\')}'})"
-                           style="width: 100px;height: 30px">
-                </div>
-            </form>
-        </div>
     </div>
-    <div class="bottom" style="height: 440px;overflow: auto">
+    <div class="bottom" style="height: 580px;overflow: auto">
         <table class="layui-hide" id="test"></table>
     </div>
 </div>

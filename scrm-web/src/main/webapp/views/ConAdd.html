@@ -21,47 +21,6 @@
 
     <script>
 
-        $(function () {
-            // $('#myform').bootstrapValidator({
-            //     feedbackIcons: {
-            //         //根据验证结果显示的各种图标
-            //         valid: 'glyphicon glyphicon-ok',
-            //         invalid: 'glyphicon glyphicon-remove',
-            //         validating: 'glyphicon glyphicon-refresh'
-            //     },
-            //     fields: {
-            //         BRS007: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择联系人'
-            //                 }
-            //             }
-            //         },
-            //         BRS005: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择沟通方式'
-            //                 }
-            //             }
-            //         },
-            //         BRS004: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请选择下次联系日期'
-            //                 }
-            //             }
-            //         },
-            //         BRS006: {
-            //             validators: {
-            //                 notEmpty: {
-            //                     message: '请填写沟通内容'
-            //                 }
-            //             }
-            //         }
-            //     }
-            // });
-        })
-
         function closeThis() {
             var index = parent.layer.getFrameIndex(window.name)
             parent.layer.close(index)
@@ -91,11 +50,6 @@
         }
 
         var formData =  function  () {
-            // $("#myform").bootstrapValidator('validate');
-            // if ($("#myform").data('bootstrapValidator').isValid()==false) {
-            //     //获取验证结果，如果成功，执行下面代码
-            //     return;
-            // }
             if(saveThis()==false)
                 return;
               var url = 'customBrsFind?customId='+$("#customId").val()+'&' +
@@ -139,7 +93,7 @@
             <label style="margin-left: 27px">沟通方式</label>
             <select class="form-control" id="BRS005" name="BRS005" style="width: 180px;height: 30px;margin: 5px;">
                 <option></option>
-                <option>手机号</option>
+                <option>手机</option>
                 <option>邮箱</option>
                 <option>座机</option>
                 <option>其他</option>

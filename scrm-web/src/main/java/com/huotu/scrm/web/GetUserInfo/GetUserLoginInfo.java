@@ -2,6 +2,8 @@ package com.huotu.scrm.web.GetUserInfo;
 
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.User.User;
+import com.huotu.scrm.service.service.Maintain.DevelopMainService;
+import com.huotu.scrm.service.service.Maintain.MainService;
 import com.huotu.scrm.service.service.Maintain.MaintainService;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,11 @@ public class GetUserLoginInfo {
         if(username=="")
             model.addObject("fail","fail");
         else {
-            if(getUserListForRole(username,reportInfoService))
-                getSales=reportInfoService.getSalesManForUser();
+            if(getUserListForRole(username,reportInfoService)) {
+                getSales = reportInfoService.getSalesManForUser();
+                if (getSales.contains("无"))
+                    getSales.remove("无");
+            }
             else
                 getSales.add(username);
             model.addObject("userSales", getSales);
@@ -83,7 +88,7 @@ public class GetUserLoginInfo {
      * @param maintainService
      * @return
      */
-    public static List<String>  queryRoleForMainList(String username , ModelAndView model,ReportInfoService reportInfoService,MaintainService maintainService){
+    public static List<String>  queryRoleForMainList(String username , ModelAndView model,ReportInfoService reportInfoService, MainService maintainService){
         List<String> mainList=new ArrayList<>();
         if(StringUtils.isEmpty(username))
             return null;
@@ -95,6 +100,7 @@ public class GetUserLoginInfo {
         }
         return mainList;
     }
+
 
     /**
      * 获取用户名等信息从session中

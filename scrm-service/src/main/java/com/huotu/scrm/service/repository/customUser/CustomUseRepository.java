@@ -24,7 +24,7 @@ public interface CustomUseRepository extends JpaRepository<CustomUse, Long>, Jpa
      * 获取联系人编号
      * @return
      */
-    @Query(value = "select max(CUR001) CUR001 from rgwcur",nativeQuery = true)
+    @Query(value = "select MAX(CONVERT(CUR001,SIGNED)) CUR001 from rgwcur",nativeQuery = true)
     String findOneByCode();
 
     /**

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -38,13 +39,13 @@ public class CustomBRS implements Serializable {
      * 联系日期
      */
     @Column(name = "BRS003",nullable = false,length = 6)
-    private String BRS003;
+    private Date BRS003;
 
     /**
      * 下次联系日期
      */
     @Column(name = "BRS004",nullable = false,length = 6)
-    private String BRS004;
+    private Date BRS004;
 
     /**
      * 沟通方式
@@ -63,6 +64,12 @@ public class CustomBRS implements Serializable {
      */
     @Column(name = "BRS007",nullable = false,length = 20)
     private String BRS007;
+
+    /**
+     * 业务员
+     */
+    @Column(name = "BRS008",nullable = false,length = 20)
+    private String BRS008;
 
 //    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //    @JsonIgnore

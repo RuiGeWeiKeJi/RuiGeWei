@@ -132,6 +132,12 @@ public class Custom implements Serializable {
      */
     @Column(name = "CUS018")
     private String CUS018;
+
+    /**
+     * 录入人
+     */
+    @Column(name = "CUS019")
+    private String CUS019;
 //
 //    @OneToMany(mappedBy="rgwbrs",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "BRS002")

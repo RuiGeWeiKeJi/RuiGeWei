@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.huotu.scrm.service.entity.CustomBrs.CustomBRS;
 import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.customBrs.CustomBrsService;
+import com.huotu.scrm.web.GetUserInfo.DateFormat;
+import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -69,13 +72,12 @@ public class CustomBrsController {
             @RequestParam("BRS006") String BRS006,
             @RequestParam("id") Integer id,
             @RequestParam("page") Integer pageIndex,
-            @RequestParam("limit") Integer pageSize
+            @RequestParam("limit") Integer pageSize,
+            HttpServletRequest request
     ) {
         try {
             URLDecoder.decode(BRS007,"UTF-8");
             URLDecoder.decode(BRS005,"UTF-8");
-            URLDecoder.decode(BRS003,"UTF-8");
-            URLDecoder.decode(BRS004,"UTF-8");
             URLDecoder.decode(BRS006,"UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -84,15 +86,20 @@ public class CustomBrsController {
         customBRS.setId(id);
         customBRS.setOddNum(oddNum);
         customBRS.setCustomId(customId);
-        customBRS.setBRS003(BRS003);
-        customBRS.setBRS004(BRS004);
+        customBRS.setBRS003(DateFormat.getFormatForString(BRS003));
+        customBRS.setBRS004(DateFormat.getFormatForString(BRS004));
         customBRS.setBRS005(BRS005);
         customBRS.setBRS006(BRS006);
         customBRS.setBRS007(BRS007);
+        String username = GetUserLoginInfo.getUserInfo(request).getUSE002();
+
+        customBRS.setBRS008(username);
         Custom custom=new Custom();
         custom.setCUS001(customId);
+
         custom.setCUS009(BRS003);
         custom.setCUS011(BRS004);
+
         customBrsService.insertCustomUse(customBRS);
         customBrsService.updateCustom(custom);
 

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
-public interface MaintainService {
+public interface MaintainService extends MainService {
 
     /**
      * 根据条件获取问题处理数据

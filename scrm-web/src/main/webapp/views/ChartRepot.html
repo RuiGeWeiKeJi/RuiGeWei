@@ -37,10 +37,13 @@
                         <option>全体</option>
                         <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
                     </select>
-                    <label style="color:green;margin-left: 2%" id="aLive"></label>
-                    <label style="color:green;margin-left: 2%" id="bLive"></label>
-                    <label style="color:green;margin-left: 2%" id="cLive"></label>
-                    <label style="color:red;margin-left: 2%;font-size: 20px" id="warncount"> 超期:45</label>
+                    <label style="color:green;" id="aLive"></label>
+                    <label style="color:green;" id="bLive"></label>
+                    <label style="color:green;" id="cLive"></label>
+                    <label style="color:green;" id="dLive"></label>
+                    <label style="color:green;" id="eLive"></label>
+                    <label style="color:red;font-size: 20px" id="warncount"> 超期:45</label>
+                    <label style="color:green" id="alladd"></label>
                     <!--<input id="linkUpCus" class="btnStyle" type="button" value="沟通记录" onclick="btnOpenComRecord()">-->
                 </div>
             </div>
@@ -108,24 +111,32 @@
         }
     }
 
-    var styleForLabel=function (objAlev,objBlev,objClev,objDlev) {
+    var styleForLabel=function (objAlev,objBlev,objClev,objDlev,objElev,objFlev) {
         if (objAlev.indexOf("-") != -1)
-            $("#aLive").attr("style", "color:red;margin-left: 2%");
+            $("#aLive").attr("style", "color:red;margin-left: 1px");
         else
-            $("#aLive").attr("style", "color:green;margin-left: 2%");
+            $("#aLive").attr("style", "color:green;margin-left: 1px");
         if (objBlev.indexOf('-') != -1)
-            $("#bLive").attr("style", "color:red;margin-left: 2%");
+            $("#bLive").attr("style", "color:red;margin-left: 1px");
         else
-            $("#bLive").attr("style", "color:green;margin-left: 2%");
+            $("#bLive").attr("style", "color:green;margin-left: 1px");
         if (objClev.indexOf('-') != -1)
-            $("#cLive").attr("style", "color:red;margin-left: 2%");
+            $("#cLive").attr("style", "color:red;margin-left: 1px");
         else
-            $("#cLive").attr("style", "color:green;margin-left: 2%");
-        var result=objDlev.split(":");
+            $("#cLive").attr("style", "color:green;margin-left: 1px");
+        if (objDlev.indexOf('-') != -1)
+            $("#dLive").attr("style", "color:red;margin-left: 1px");
+        else
+            $("#dLive").attr("style", "color:green;margin-left: 1px");
+        if (objElev.indexOf('-') != -1)
+            $("#eLive").attr("style", "color:red;margin-left: 1px");
+        else
+            $("#eLive").attr("style", "color:green;margin-left: 1px");
+        var result=objFlev.split(":");
         if (parseInt(result[1])<1)
-            $("#warncount").attr("style", "color:green;margin-left: 2%;font-size: 20px");
+            $("#warncount").attr("style", "color:green;margin-left: 1%;font-size: 20px");
         else
-            $("#warncount").attr("style", "color:red;margin-left: 2%;font-size: 20px");
+            $("#warncount").attr("style", "color:red;margin-left: 1%;font-size: 20px");
     }
 
    function btnOpenComRecord() {
@@ -148,8 +159,11 @@
                $("#aLive").text(data.ALev);
                $("#bLive").text(data.BLev);
                $("#cLive").text(data.CLev);
+               $("#dLive").text(data.DLev);
+               $("#eLive").text(data.ELev);
+               $("#alladd").text(data.addAll);
                $("#warncount").text(data.count);
-               styleForLabel(data.ALev,data.BLev,data.CLev,data.count);
+               styleForLabel(data.ALev,data.BLev,data.CLev,data.DLev,data.ELev,data.count);
                lengends.push(username);
                var item = new seriesquery();
                var item1=new seriesquery1('black');
@@ -202,9 +216,12 @@
     $("#aLive").text([[${ALev}]]);
     $("#bLive").text([[${BLev}]]);
     $("#cLive").text([[${CLev}]]);
+    $("#dLive").text([[${DLev}]]);
+    $("#eLive").text([[${ELev}]]);
+    $("#alladd").text([[${addAll}]]);
     $("#warncount").text([[${count}]]);
 
-    styleForLabel([[${ALev}]],[[${BLev}]],[[${CLev}]],[[${count}]]);
+    styleForLabel([[${ALev}]],[[${BLev}]],[[${CLev}]],[[${DLev}]],[[${ELev}]],[[${count}]]);
 
     var item=new seriesquery();
     var item1=new seriesquery1('black');

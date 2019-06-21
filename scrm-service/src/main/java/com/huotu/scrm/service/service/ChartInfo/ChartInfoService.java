@@ -2,9 +2,12 @@ package com.huotu.scrm.service.service.ChartInfo;
 
 import com.huotu.scrm.service.entity.Chart.ChartAvg;
 import com.huotu.scrm.service.entity.baseset.Reachflt;
+import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.model.avgbrs;
 import com.huotu.scrm.service.model.everybrs;
 import com.huotu.scrm.service.model.increasebrs;
+import org.eclipse.persistence.config.CacheUsage;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Date;
 import java.util.List;
@@ -59,5 +62,6 @@ public interface ChartInfoService {
     List<ChartAvg>  findAllByAVG001AndAVG003BetweenAAndAVG003(String username, Date dateStart, Date dateEnd,Integer days);
 
     List<Reachflt> getAllBy();
+
 
 }

@@ -147,8 +147,10 @@ public class LoginController {
             request.getSession().setAttribute("count", count);
             if(user.getUSE004().contains("技术"))
                 map.put("page","maintain");
-            else
+            else if(user.getUSE004().contains("业务"))
                 map.put("page","chart");
+            else if(user.getUSE004().contains("开发"))
+                map.put("page","devmain");
         }
         return map;
     }

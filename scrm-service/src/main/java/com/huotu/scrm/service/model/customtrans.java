@@ -74,4 +74,10 @@ public class customtrans implements Serializable {
      */
     private DateTime BRS003;
 
+
+    /**
+     * 联系人
+     */
+    private String BRS008;
+
 }

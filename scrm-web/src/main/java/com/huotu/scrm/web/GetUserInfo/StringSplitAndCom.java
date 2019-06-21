@@ -30,6 +30,22 @@ public class StringSplitAndCom {
             return strs;
     }
 
+    public static String[] getStrSplit (String strs){
+        String[] strings ={};
+        if(!StringUtils.isEmpty(strs)) {
+            if (strs.contains(",")) {
+                strings = strs.split(",");
+                return  strings;
+            }
+            else {
+                strings=new String[1];
+                strings[0]=strs;
+                return strings;
+            }
+        }
+        else
+            return null;
+    }
 
 
 }

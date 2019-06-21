@@ -78,4 +78,20 @@ public class CustomServiceImpl implements CustomService {
         return result>0?true:false;
     }
 
+    @Override
+    public void saveAndRefresh(List<Custom> list) {
+        customRepository.save(list);
+
+    }
+
+    @Override
+    public List<Custom> findAll(Specification<Custom> specification) {
+        return customRepository.findAll(specification);
+    }
+
+    @Override
+    public Long getCount(Specification<Custom> specification) {
+        return customRepository.count(specification);
+    }
+
 }

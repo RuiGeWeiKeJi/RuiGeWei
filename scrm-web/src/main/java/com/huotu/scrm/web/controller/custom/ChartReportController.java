@@ -3,22 +3,29 @@ package com.huotu.scrm.web.controller.custom;
 import com.huotu.scrm.common.utils.Constant;
 import com.huotu.scrm.service.entity.Chart.ChartAvg;
 import com.huotu.scrm.service.entity.baseset.Reachflt;
+import com.huotu.scrm.service.entity.custom.Custom;
 import com.huotu.scrm.service.service.ChartInfo.ChartInfoService;
 import com.huotu.scrm.service.service.ReportInfo.ReportInfoService;
+import com.huotu.scrm.service.service.cutom.CustomService;
 import com.huotu.scrm.service.service.user.LoginService;
+import com.huotu.scrm.web.GetUserInfo.DateFormat;
 import com.huotu.scrm.web.GetUserInfo.GetUserLoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import sun.nio.cs.US_ASCII;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -35,6 +42,9 @@ public class ChartReportController {
 
     @Autowired
     private ReportInfoService reportInfoService;
+
+    @Autowired
+    private CustomService customService;
 
     @Autowired
     private LoginService loginService;
@@ -88,6 +98,7 @@ public class ChartReportController {
     Map<Object, Object> getResult(ModelAndView model, String username) {
         Map<Object, Object> map = new LinkedHashMap<>();
         Date date = chartInfoService.getDate();
+        Date date1=date;
         Integer days = 0;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -133,9 +144,13 @@ public class ChartReportController {
             stringBuilder.append("date_format(DATE_ADD(date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " + days + " day),'%Y-%m-%d'),INTERVAL id DAY),'%Y%m%d') AS `TIME` FROM rgwcus ");
             stringBuilder.append("WHERE DATE_ADD('" + format.format(date) + "',INTERVAL id DAY) <= DATE_ADD(DATE_ADD('" + format.format(date) + "',INTERVAL 1 day),INTERVAL 3 month) ORDER BY time) a ");
             stringBuilder.append("left join ( ");
-            stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
+//            stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
+//                    "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
+//                    "-90 day),'%Y%m%d')  and CUS012='" + username + "' group by date_format" +
+//                    "(BRS003,'%Y%m%d') ) b on a.TIME=b.days ");
+            stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs  where date_format(BRS003,'%Y%m%d')>=" +
                     "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
-                    "-90 day),'%Y%m%d')  and CUS012='" + username + "' group by date_format" +
+                    "-90 day),'%Y%m%d')  and BRS008='" + username + "' group by date_format" +
                     "(BRS003,'%Y%m%d') ) b on a.TIME=b.days ");
         }
 
@@ -232,9 +247,14 @@ public class ChartReportController {
                 }else {
 
                     stringBuilder.append("left join ( ");
+//                    stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
+//                            "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
+//                            "-90 day),'%Y%m%d')  and CUS012='" + username + "' and (" + result + ") group by date_format" +
+//                            "(BRS003,'%Y%m%d') ) d on a.TIME=d.days ,(SELECT @rowNum:=0) c");
+
                     stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
                             "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
-                            "-90 day),'%Y%m%d')  and CUS012='" + username + "' and (" + result + ") group by date_format" +
+                            "-90 day),'%Y%m%d')  and BRS008='" + username + "' and (" + result + ") group by date_format" +
                             "(BRS003,'%Y%m%d') ) d on a.TIME=d.days ,(SELECT @rowNum:=0) c");
 
                     stringBuilder.append(" union all ");
@@ -244,10 +264,16 @@ public class ChartReportController {
                     stringBuilder.append("date_format(DATE_ADD(date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " + days + " day),'%Y-%m-%d'),INTERVAL id DAY),'%Y%m%d') AS `TIME` FROM rgwcus ");
                     stringBuilder.append("WHERE DATE_ADD('" + format.format(date) + "',INTERVAL id DAY) <= DATE_ADD(DATE_ADD('" + format.format(date) + "',INTERVAL 1 day),INTERVAL 3 month) ORDER BY time) a ");
                     stringBuilder.append("left join ( ");
+//                    stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
+//                            "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
+//                            "-90 day),'%Y%m%d')  and CUS012='" + username + "' and (" + result + ") group by date_format" +
+//                            "(BRS003,'%Y%m%d') ) b on a.TIME=b.days order by AVG003");
                     stringBuilder.append("select date_format(BRS003,'%Y%m%d') days,count(1) coun from rgwbrs a inner join rgwcus b on a.BRS002=b.CUS001 where date_format(BRS003,'%Y%m%d')>=" +
                             "date_format(DATE_ADD('" + format.format(date) + "',INTERVAL " +
-                            "-90 day),'%Y%m%d')  and CUS012='" + username + "' and (" + result + ") group by date_format" +
+                            "-90 day),'%Y%m%d')  and BRS008='" + username + "' and (" + result + ") group by date_format" +
                             "(BRS003,'%Y%m%d') ) b on a.TIME=b.days order by AVG003");
+
+
                 }
             } else {
                 stringBuilder.append("left join (select date_format(BRS003,'%Y%m%d') days,0 coun from rgwbrs) d on a.TIME=d.days ,(SELECT @rowNum:=0) c ");
@@ -258,8 +284,32 @@ public class ChartReportController {
         Query dataQquery=entityManager.createNativeQuery(stringBuilder.toString(),ChartAvg.class);
         List<ChartAvg> chartAvgs =dataQquery.getResultList();
 
+        Specification<Custom> specification=new Specification<Custom>() {
+            @Override
+            public Predicate toPredicate(Root<Custom> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                predicates.add(cb.like(root.get("CUS018"), "%"+DateFormat.getFormatForDateyyyyMM(date1)+"%"));
+                if(!username.equals("全体")){
+                    predicates.add(cb.equal(root.get("CUS019"),username));
+                }
+                //pList转换为具体类型的数组
+                Predicate[] predicate = predicates.toArray(new Predicate[0]);
+                //将条件进行汇总并返回
+                return cb.and(predicate);
+            }
+        };
 
-        String ALev = "", BLev = "", CLev = "" ;
+        Long allAdd=customService.getCount(specification);
+
+//        stringBuilder = new StringBuilder("SELECT count(1) FROM rgwcus where DATE_FORMAT(CUS018,'%Y%m')=DATE_FORMAT(NOW(),'%Y%m') ");
+//        if(!username.equals("全体")) {
+//            stringBuilder.append(" and CUS019='" + username + "'");
+//        }
+//
+//        dataQquery=entityManager.createNativeQuery(stringBuilder.toString(),Object.class);
+//        Object allAdd=dataQquery.getResultList().get(0);
+
+        String ALev = "", BLev = "", CLev = "" , DLev = "", ELev = ""  ,addAll="本月新增客户["+allAdd+"]";
         for (int i = 0; i < getIncreasebrs.size(); i++) {
             Object[] objects = (Object[]) getIncreasebrs.get(i);
 
@@ -272,6 +322,12 @@ public class ChartReportController {
             } else if (objects[0].toString().equals("C")) {
                 CLev = "C级[上月:" + objects[1].toString();
                 CLev = CLev + " 新增:" + objects[2].toString() + "]";
+            }else if (objects[0].toString().equals("D")) {
+                DLev = "D级[上月:" + objects[1].toString();
+                DLev = DLev + " 新增:" + objects[2].toString() + "]";
+            }else if (objects[0].toString().equals("E")) {
+                ELev = "E级[上月:" + objects[1].toString();
+                ELev = ELev + " 新增:" + objects[2].toString() + "]";
             }
         }
 
@@ -281,6 +337,10 @@ public class ChartReportController {
             BLev = "B级[上月:0 新增:0]";
         if (StringUtils.isEmpty(CLev))
             CLev = "C级[上月:0 新增:0]";
+        if (StringUtils.isEmpty(DLev))
+            DLev = "D级[上月:0 新增:0]";
+        if (StringUtils.isEmpty(ELev))
+            ELev = "E级[上月:0 新增:0]";
 
         String countResult = "";
 
@@ -289,16 +349,21 @@ public class ChartReportController {
         else
             countResult = "超期:0";
 
-
         map.put("ALev", ALev);
         map.put("BLev", BLev);
         map.put("CLev", CLev);
+        map.put("DLev", DLev);
+        map.put("ELev", ELev);
+        map.put("addAll", addAll);
         map.put("count", countResult);
         map.put("chartAvgs", chartAvgs);
 
         model.addObject("ALev", ALev);
         model.addObject("BLev", BLev);
         model.addObject("CLev", CLev);
+        model.addObject("DLev", DLev);
+        model.addObject("ELev", ELev);
+        model.addObject("addAll", addAll);
         model.addObject("count", countResult);
         model.addObject("chartAvgs", chartAvgs);
         model.addObject("username", username);

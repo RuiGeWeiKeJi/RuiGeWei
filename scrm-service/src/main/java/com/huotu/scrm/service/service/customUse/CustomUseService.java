@@ -42,4 +42,8 @@ public interface CustomUseService {
      */
     CustomUse findOneByCustomIdAndUserId(Specification specification);
 
+    List<CustomUse> findAll(Specification<CustomUse> specification);
+
+    void saveAndRefresh(List<CustomUse> customUses);
+
 }

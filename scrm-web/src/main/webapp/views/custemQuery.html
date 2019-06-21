@@ -16,12 +16,15 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-select.min.css}">
+
 
     <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/layui.js}" charset="UTF-8"></script>
     <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
     <script type="text/javascript" th:src="@{/resources/js/bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{/resources/layer/layer.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap-select.min.js}"></script>
 
     <style>
         .form-group {
@@ -92,91 +95,115 @@
 
 </head>
 <body>
-<div class="content">
-    <form class="form-inline" style="left:20px;margin-top:15px" autocomplete="off">
+
+<div class="container">
+
+    <form role="form" class="form-horizontal" style="margin-top:15px;width: 400px" autocomplete="off">
+
         <div class="form-group" style="position: relative">
-            <label for="CUS002" style="margin-left: 10px">名称</label>
-            <input type="text" class="select form-control"
-                   style="height:25px;width:170px;margin-left:13px;font-size: 10px" id="CUS002" name="CUS002"
+            <label for="CUS002" class="control-label col-xs-4 text-right ">名称</label>
+            <div class="col-xs-8">
+            <input type="text" class="form-control"
+                    id="CUS002" name="CUS002"
                    onkeyup="searchName(this)" required>
-            <div style="display: none;position: absolute;z-index: 1000;background: white;width: 170px;border: 1px solid #c0c0c0;margin-left:55px"
+            <div style="display: none;position: absolute;z-index: 1000;background: white;border: 1px solid #c0c0c0;"
                  id="result">
 
             </div>
         </div>
-        <div class="form-group">
-            <label for="CUS004" style="margin-left: 10px">级别</label> <select
-                class="select form-control"
-                style="height:25px;width:170px;margin-left:10px;font-size: 10px" id="CUS004"
-                name="CUS004" required>
-            <option></option>
-            <option style="font-size:10px">无</option>
-            <option style="font-size:10px">A</option>
-            <option style="font-size:10px">B</option>
-            <option style="font-size:10px">C</option>
-            <option style="font-size:10px">D</option>
-            <option style="font-size:10px">E</option>
-            <option style="font-size:10px">X</option>
-            <option style="font-size:10px">Y</option>
-        </select>
+
         </div>
+
         <div class="form-group">
-            <label>行业</label>
-            <select class="select form-control"
-                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="industry"
-                    name="industry" required
-            >
+            <label for="CUS004" class="control-label col-xs-4 text-right">级别</label>
+            <div class="col-xs-8">
+                <select
+                    class="form-control selectpicker  show-tick"  multiple data-live-search="true"
+                     id="CUS004"
+                    name="CUS004" required>
+                <option></option>
+                <option>无</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+                <option>X</option>
+                <option>Y</option>
+            </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="industry" class="control-label col-xs-4 text-right">行业</label>
+            <div class="col-xs-8">
+            <select class="form-control selectpicker show-tick" multiple data-live-search="true"
+                     id="industry"
+                    name="industry" required>
                 <option></option>
                 <option th:each="c:${industry}" th:value="${c}" th:text="${c}"></option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <label>业务员</label>
-            <select class="select form-control"
-                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="salesman"
+            <label for="salesman" class="control-label col-xs-4 text-right">业务员</label>
+            <div class="col-xs-8">
+            <select class="form-control selectpicker show-tick" multiple data-live-search="true"
+                     id="salesman"
                     name="salesman" required>
                 <option></option>
                 <option th:each="d:${salesman}" th:value="${d}" th:text="${d}"></option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <label style="margin-left: 10px">来源</label>
-            <select class="select form-control"
-                    style="height: 25px;width: 170px;margin-left: 10px;font-size: 10px" id="CUS013"
+            <label for="CUS013" class="control-label col-xs-4 text-right">来源</label>
+            <div class="col-xs-8">
+            <select class="form-control selectpicker show-tick" multiple data-live-search="true"
+                     id="CUS013"
                     name="CUS013" required>
                 <option></option>
-                <option style="font-size:10px">无</option>
-                <option style="font-size:10px">鼎捷</option>
-                <option style="font-size:10px">网站</option>
-                <option style="font-size:10px">老客</option>
-                <option style="font-size:10px">朋友</option>
+                <option>无</option>
+                <option>鼎捷</option>
+                <option>网站</option>
+                <option>老客</option>
+                <option>朋友</option>
+                <option>天眼</option>
             </select>
+            </div>
         </div>
         <div class="form-group">
-            <input type="checkbox" id="lastone" name="lastone"  value="1">
-            <label for="lastone">超期</label>
-        </div>
-        <div class="form-group">
-            <label>最近联系日期</label>
-            <input type="text" class="form-control" id="currentCon" name="CUS009"
+            <label class="control-label col-xs-4 text-right">最近联系日期</label>
+            <div class="col-xs-8 form-inline">
+                <div class="col-xs-6">
+            <input type="text" class="form-control form-inline" id="currentCon" name="CUS009"
                    onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextCon\')}'})"
-                   style="width: 100px;height: 25px"
-            >
-
-            <input type="text" class="form-control" id="nextCon" name="CUS009"
+                   >
+                </div>
+                    <div class="col-xs-6">
+            <input type="text" class="form-control form-inline  " id="nextCon" name="CUS009"
                    onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'currentCon\')}'})"
-                   style="width: 100px;height: 25px">
+                   >
+                    </div>
+            </div>
         </div>
         <div class="form-group" style="margin-top: 10px">
-            <label style="margin-left: 10px">预计下次联系日期</label>
+            <label class="control-label col-xs-4 text-right">下次联系日期</label>
+            <div class="col-xs-8 form-inline">
+                <div class="col-xs-6">
             <input type="text" class="form-control" id="nextcurrentCon" name="CUS011"
-                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextnextCon\')}'})"
-                   style="width: 100px;height: 25px"
-            >
-
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'nextnextCon\')}'})">
+                </div>
+                <div class="col-xs-6">
             <input type="text" class="form-control" id="nextnextCon" name="CUS011"
-                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'nextcurrentCon\')}'})"
-                   style="width: 100px;height: 25px">
+                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'nextcurrentCon\')}'})">
+                </div>
+        </div>
+        </div>
+        <div class="form-inline" style="margin-left: 150px">
+            <input type="checkbox" id="lastone" name="lastone"  value="1" class="text-right">
+            <label for="lastone">超期</label>
         </div>
     </form>
 </div>

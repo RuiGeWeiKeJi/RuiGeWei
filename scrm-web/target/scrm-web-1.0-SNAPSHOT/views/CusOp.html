@@ -3,6 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <title>客户资料</title>
 
     <meta charset="UTF-8">
@@ -42,48 +43,39 @@
         //检查输入结果
         function checkResult() {
             var cus002 = $("#CUS002").val();
-            if (cus002 == "") {
+            if (cus002 == "" || cus002==null) {
                 layer.msg("请录入客户名称");
                 return false;
             }
             var cus005 = $("#CUS005").val();
-            if (cus005 == "") {
+            if (cus005 == "" || cus005==null) {
                 layer.msg("请录入地址");
                 return false;
             }
             var cus003 = $("#CUS003").val();
-            if (cus003 == "") {
+            if ( cus003 == "" || cus003==null) {
                 layer.msg("请录入联系人");
                 return false;
             }
             var cus004 = $("#CUS004").val();
-            if (cus004 == "") {
+
+            if (cus004 == "" || cus004==null) {
                 layer.msg("请选择级别");
                 return false;
             }
 
-            // var cus009 = $("#CUS009").val();
-            // if (cus009 == "") {
-            //     layer.msg("请选择最近联系日期");
-            //     return false;
-            // }
-            // var cus011 = $("#CUS011").val();
-            // if (cus011 == "") {
-            //     layer.msg("请选择下次联系日期");
-            //     return false;
-            // }
             var cus013 = $("#CUS013").val();
-            if (cus013 == "") {
+            if (cus013 == "" || cus013==null) {
                 layer.msg("请选择来源");
                 return false;
             }
             var salesman = $("#salesman").val();
-            if (salesman == "") {
+            if (salesman == "" || salesman==null) {
                 layer.msg("请选择业务员");
                 return false;
             }
             var industry = $("#industry").val();
-            if (industry == "") {
+            if (industry == "" || industry==null) {
                 layer.msg("请录入行业");
                 return false;
             }
@@ -126,11 +118,6 @@
 
         //保存客户资料
         function saveAll() {
-            // $("#customForm").bootstrapValidator('validate');
-            // if ($("#customForm").data('bootstrapValidator').isValid() == false) {
-            //     //获取验证结果，如果成功，执行下面代码
-            //     return;
-            // }
             if (checkResult() == false)
                 return;
             var data = $("#customForm").serialize();
@@ -167,7 +154,7 @@
                     if (data.custominfo != "") {
                         $("#saveBtn").show();
                         $("#cancelBtn").show();
-                        $("#CUS018").val(data.date);
+                        // $("#CUS018").val(data.date);
                     } else {
                         layer.msg("该客户不存在,请核实");
                     }
@@ -185,12 +172,14 @@
 
         //查询客户资料
         function queryInfo() {
+
+            var height = $(".right-bottom").height();
             layer.open({
                 type: 2,
                 title: '客户资料查询',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area: ['800px', '300px'],
+                area: ['450px', '530px'],
                 content: 'custemQuery',
                 btn: ['确定', '取消'],
                 yes: function (index, layero) {
@@ -201,13 +190,14 @@
                         var datasource = null;
                         table.render({
                             elem: '#test',
-                            height:220,
+                            height:height-20,
                             url: url,
                             method: 'post',
                             ContentType: 'application/json;charset=utf-8'
                             , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
                                 //,curr: 5 //设定初始在第 5 页
+                                ,limit:100
                                 , groups: 5 //只显示 1 个连续页码
                                 , first: false //不显示首页
                                 , last: false //不显示尾页
@@ -219,7 +209,7 @@
                                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: '20%'}
                                 ]
                             ],
-                            limits: [10, 20, 30, 40, 50]
+                            limits: [100,200,500,1000]
                             ,
                             done: function (res, curr, count) {
                                 datasource = res;
@@ -268,14 +258,35 @@
                     $("#industry").val(arr[i]["industry"]);
                     $("#salesman").val(arr[i]["salesman"]);
                     $("#CUS008").val(arr[i]["cus008"]);
-                    $("#CUS009").val(arr[i]["cus009"]);
+                    $("#CUS009").val(createTime( arr[i]["cus009"]));
                     $("#CUS011").val(arr[i]["cus011"]);
                     $("#CUS017").val(arr[i]["cus017"]);
                     $("#CUS014").val(arr[i]["cus014"]);
+                    $("#CUS018").val(arr[i]["cus018"]);
+                    $("#CUS019").val(arr[i]["cus019"]);
                     var url = 'readcuscon?customId=' + v + '';
                     readInfo(url);
                 }
             }
+        }
+
+        //时间转换
+        function createTime(v){
+            if(v==null)
+                return '';
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            // d = d<10?("0"+d):d;
+            // var h = date.getHours();
+            // h = h<10?("0"+h):h;
+            // var M = date.getMinutes();
+            // M = M<10?("0"+M):M;
+            // var str = y+"-"+m+"-"+d+" "+h+":"+M;
+            var str = y+"-"+m+"-"+d;
+            return str;
         }
 
         //读取联系人
@@ -288,7 +299,7 @@
 
                     var result = $("#salesman");
                     result.empty();
-                    var otherResult = "<option></option>";
+                    var otherResult = "<option>无</option>";
                     $.each(data.salesman, function (x, y) {
                         otherResult += "<option>" + y + "</option>";
                     })
@@ -310,34 +321,39 @@
         //读取客户联系记录的数据
         function readInfo(url) {
             url = encodeURI(url);
+            var height = $(".bottom-btm").height();
             layui.use('table', function () {
                 var table = layui.table;
                 var datasource = null;
                 table.render({
                     elem: '#conInfo',
-                    height:250,
+                    height:height-20,
                     url: url,
                     method: 'post',
                     ContentType: 'application/json;charset=utf-8'
                     , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                         layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
                         //,curr: 5 //设定初始在第 5 页
+                        ,limit:100
                         , groups: 5 //只显示 1 个连续页码
                         , first: '首页' //不显示首页
                         , last: '尾页' //不显示尾页
                     }
                     , cols: [
                         [
-                            {field: 'oddNum', width: '10%', title: '单号', sort: true}
-                            , {field: 'brs007', width: '5%', title: '联系人'}
-                            , {field: 'brs003', width: '15%', title: '联系日期', sort: true}
-                            , {field: 'brs004', width: '10%', title: '下次联系日期', sort: true}
-                            , {field: 'brs005', width: '5%', title: '沟通方式', sort: true}
-                            , {field: 'brs006', width: '54%', title: '沟通内容'}
+                            , {field: 'brs007', width: '10%', title: '联系人'}
+                            , {field: 'brs003', width: '9%', title: '联系日期', templet:function (row) {
+                                return createTime(row.brs003);
+                            }}
+                            , {field: 'brs004', width: '10%', title: '下次联系日期', templet:function (row) {
+                                return createTime(row.brs004);
+                            }}
+                            , {field: 'brs005', width: '8%', title: '沟通方式'}
+                            , {field: 'brs006', width: '63%', title: '沟通内容'}
                             // , {fixed: 'right', title: '操作', toolbar: '#barCus', width: 120}
                         ]
                     ],
-                    limits: [10, 20,50,100],
+                    limits: [100,200,500,1000],
                     done: function (res, curr, count) {
                         datasource = res;
                         //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -527,6 +543,104 @@
 
         }
 
+        //导入客户execl
+        function exportExecl() {
+            layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                title: 'Execl导入',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['350px', '200px'],
+                content: 'findexecl',
+                btn: ["保存", "取消"],
+                success: function (layero, index) {
+                },
+                yes: function (index, layero) {
+                    //接收弹出层返回的数据
+                    var res = $(layero).find("iframe")[0].contentWindow.execlData();
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'saveexecl',
+                        data: res.data,
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            layer.close(layer.index);
+                            if (data.result == "true") {
+                                layer.msg("导入成功");
+                            }
+                            else {
+                                if (data.info != "")
+                                    layer.msg(data.info );
+                                else
+                                    layer.msg("导入失败");
+                            }
+                        },
+                        dataType: 'json'
+                    });
+
+                }
+            });
+        }
+
+        //导入客户联系人execl
+        function exportExeclUse() {
+            layer.open({
+                type: 2,//弹窗类型 ['dialog', 'page', 'iframe', 'loading', 'tips']
+                title: 'Execl导入',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['350px', '200px'],
+                content: 'findexecl',
+                btn: ["保存", "取消"],
+                success: function (layero, index) {
+                },
+                yes: function (index, layero) {
+                    //接收弹出层返回的数据
+                    var res = $(layero).find("iframe")[0].contentWindow.execlData();
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'saveexecluse',
+                        data: res.data,
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            layer.close(layer.index);
+                            if (data.result == "true") {
+                                layer.msg("导入成功");
+                                // alert("导入成功");
+                            }
+
+                            else {
+                                if (data.info != "")
+                                    layer.msg(data.info);
+                                else
+                                    layer.msg("导入失败");
+                            }
+                        },
+                        dataType: 'json'
+                    });
+
+                }
+            });
+        }
+
+        //下载客户导入模板
+        function exportDownLoad() {
+            window.location.href="/download";
+        }
+
+        //下载联系人导入模板
+        function exportDownLoadUse() {
+          window.location.href="/downloaduse";
+        }
+
     </script>
 
     <script type="text/html" id="barDemo">
@@ -539,214 +653,234 @@
     </script>
 
 </head>
+
 <body>
-<div class="index">
-    <div th:include="index::html"></div>
-</div>
-<div>
-    <!-- 左边 -->
-    <div class="container">
-        <!-- 上边 -->
-        <div class="top">
-            <div class="top-top">
-                <ol class="list-inline">
-                    <li id="top1">客户资料</li>
-                    <!--<li id="top2"><input style="font-size: 12px" type="button" value="联系单" onclick="maintain()"/>-->
-                    <!--</li>-->
-                    <li id="top3"><input style="font-size: 12px" type="button" value="联系人" onclick="con()"/>
-                    </li>
-                </ol>
-            </div>
-            <div class="top-buttom" id="cusInfo">
 
-                <form class="form-inline" style="margin-top:5px" id="customForm"
-                      enctype="multipart/form-data"
-                      target="nm_iframe"> <!--th:action="@{/addcustom}" method="post" -->
+    <div class="index">
 
-                    <div class="form-group">
-                        <label for="CUS001">编号</label>
-                        <input type="text"
-                               class="form-control"
-                               id="CUS001"
-                               name="CUS001"
-                               readonly="readonly"
-                               style="width: 80px"
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS002">名称</label>
-                        <input type="text"
-                               class="form-control"
-                               id="CUS002"
-                               name="CUS002"
-                               style="width:230px"
-                               placeholder="请录入客户名称">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS005">地址</label>
-                        <input type="text"
-                               class="form-control"
-                               id="CUS005"
-                               name="CUS005"
-                               style="width:225px"
-                               placeholder="请录入客户地址">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS016">法人</label>
-                        <input type="text"
-                               class="form-control"
-                               id="CUS016"
-                               name="CUS016"
-                               style="width:110px"
-                               placeholder="法人">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS003">联系人</label>
-                        <input type="text"
-                               class="form-control" id="CUS003" name="CUS003"
-                               style="width:100px" placeholder="联系人">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS015">人数</label>
-                        <input type="text"
-                               class="form-control" id="CUS015" name="CUS015"
-                               style="width:70px" placeholder="人数"
-                               oninput="value=value.replace(/[^\d]/g,'')">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS004">级别</label>
-                        <select
-                                class="select form-control"
-                                style="height:30px;width:70px" id="CUS004"
-                                name="CUS004">
-                            <option>无</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>D</option>
-                            <option>E</option>
-                            <option>X</option>
-                            <option>Y</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS013">来源</label>
-                        <select
-                            class="select form-control" id="CUS013" name="CUS013"
-                            style="height:30px;width:80px">
-                        <option>无</option>
-                        <option>天眼</option>
-                        <option>鼎捷</option>
-                        <option>网站</option>
-                        <option>老客</option>
-                        <option>朋友</option>
-                    </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS006">产值</label>
-                        <input type="text"
-                               class="form-control" id="CUS006" name="CUS006"
-                               style="width:60px" placeholder="最小产值"
-                               onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
-                        <label for="CUS006" style="width:5px">~</label>
-                        <input type="text"
-                               class="form-control" id="CUS007"
-                               name="CUS007"
-                               style="width:60px" placeholder="最大产值"
-                               onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
-                    </div>
-                    <div class="form-group">
-                        <label for="industry">行业</label>
-                        <select class="select form-control" id="industry" name="industry"
-                                style="height:30px;width:93px" placeholder="客户行业">
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="salesman">业务员</label>
-                        <select class="form-control" id="salesman" name="salesman"
-                                style="width:115px;height: 30px;">
-                            <!--<option th:each="c:${users}" th:value="${c}" th:text="${c}"></option>-->
-                        </select>
+        <div th:include="index::html"></div>
 
-                        <!--<input type="text" class="form-control" id="salesman" name="salesman" style="width:210px" placeholder="请选择客户所属业务员" required>-->
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS008" style="width:60px">注册资金</label>
-                        <input
-                                type="text" class="form-control" id="CUS008" name="CUS008"
-                                style="width:60px" placeholder="注册资金"
-                                onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS009" style="width:85px">最近联系时间</label>
-                        <input type="text" class="form-control" id="CUS009" name="CUS009" disabled="true"
-                               onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})">
-                        <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})"-->
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS011" style="width:115px">预计下次联系时间</label>
-                        <input type="text" style="width: 100px" class="form-control" id="CUS011" name="CUS011"
-                               disabled="true"
-                               onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})">
-                        <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})"-->
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS017" style="width:56px">购买模块</label> <input
-                            type="text" class="form-control" id="CUS017" name="CUS017"
-                            style="width:740px" placeholder="请录入客户购买模块">
-                    </div>
-                    <div class="form-group">
-                        <label for="CUS014" style="text-align:right;height:1px">备注</label>
-                        <textarea class="form-control" id="CUS014" name="CUS014"
-                                  style="width:767px;margin-top: 5px" placeholder="其它备注信息"></textarea>
-                    </div>
-                    <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
-                    <div hidden="hidden"><input hidden="hidden" id="CUS018" name="CUS018"></div>
-                    <div class="top-top-btn">
-                        <ol class="list-inline">
-                            <li id="top01">
-                                <button id="saveBtn" style="font-size: 12px" onclick="saveAll()">保存</button>
-                            </li>
-                            <li id="top02">
-                                <button id="cancelBtn" style="font-size: 12px" onclick="cancelAll()">取消</button>
-                            </li>
-                        </ol>
-                    </div>
-
-                </form>
-
-                <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
-
-            </div>
-        </div>
-        <!-- 下边 -->
-        <div class="bottom">
-            <div class="bottom-top">
-                <ol class="list-inline">
-                    <li id="top4">记录单</li>
-                    <li><input id="btn01" style="font-size: 12px;" type="button" value="新建" onclick="contAdd()">
-                    </li>
-                </ol>
-            </div>
-            <div class="bottom-btm" style="height: 275px;overflow: auto">
-                <table class="layui-hide" id="conInfo" lay-filter="conInfo"></table>
-            </div>
-        </div>
-        <!-- 右边 -->
-        <div class="right">
-            <div class="right-top">
-                <label style="text-align:left;margin-left:10px;font-weight: bold;color: #7F8F9C;line-height: 30px;font-size: 16px;">客户信息预览</label>
-                <input style="font-size: 12px" type="button" value="查询" onclick="queryInfo()" id="btn02"/>
-                <input style="font-size: 12px" type="button" value="新建" onclick="add()" id="addBtn"/>
-                <input style="font-size: 12px" type="button" value="编辑" onclick="update()" id="btn03"/>
-            </div>
-            <div class="right-bottom" style="height: 240px;overflow: auto">
-                <table class="layui-hide" id="test" lay-filter="test"></table>
-            </div>
-        </div>
     </div>
 
-</div>
+    <div>
+
+        <!-- 左边 -->
+        <div class="container">
+            <!-- 上边 -->
+            <div class="top">
+                <div class="top-top">
+                    <ol class="list-inline">
+                        <li id="top1">客户资料</li>
+                        <!--<li id="top2"><input style="font-size: 12px" type="button" value="联系单" onclick="maintain()"/>-->
+                        <!--</li>-->
+                        <li id="top3"><input style="font-size: 12px" type="button" value="联系人" onclick="con()"/>
+                        </li>
+                        <li>
+                            <input style="font-size: 12px;width: 85px" type="button" value="下载客户模板" onclick="exportDownLoad()" id="btndowmload"/>
+                        </li>
+                        <li>
+                            <input style="font-size: 12px;width: 85px" type="button" value="导入客户信息" onclick="exportExecl()" id="btnExport"/>
+                        </li>
+                        <li>
+                            <input style="font-size: 12px;width: 95px" type="button" value="下载联系人模板" onclick="exportDownLoadUse()" id="btndowmloaduse"/>
+                        </li>
+                        <li>
+                            <input style="font-size: 12px;width: 95px" type="button" value="导入客户联系人" onclick="exportExeclUse()" id="btnExportUse"/>
+                        </li>
+                    </ol>
+                </div>
+                <div class="top-buttom" id="cusInfo">
+
+                    <form class="form-inline" style="margin-top:5px" id="customForm"
+                          enctype="multipart/form-data"
+                          target="nm_iframe"> <!--th:action="@{/addcustom}" method="post" -->
+
+                        <div class="form-group">
+                            <label for="CUS001">编号</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="CUS001"
+                                   name="CUS001"
+                                   readonly="readonly"
+                                   style="width: 80px"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS002">名称</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="CUS002"
+                                   name="CUS002"
+                                   style="width:230px"
+                                   placeholder="请录入客户名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS005">地址</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="CUS005"
+                                   name="CUS005"
+                                   style="width:225px"
+                                   placeholder="请录入客户地址">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS016">法人</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="CUS016"
+                                   name="CUS016"
+                                   style="width:110px"
+                                   placeholder="法人">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS003">联系人</label>
+                            <input type="text"
+                                   class="form-control" id="CUS003" name="CUS003"
+                                   style="width:100px" placeholder="联系人">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS015">人数</label>
+                            <input type="text"
+                                   class="form-control" id="CUS015" name="CUS015"
+                                   style="width:70px" placeholder="人数"
+                                   oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS004">级别</label>
+                            <select
+                                    class="select form-control"
+                                    style="height:30px;width:70px" id="CUS004"
+                                    name="CUS004">
+                                <option>无</option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                                <option>X</option>
+                                <option>Y</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS013">来源</label>
+                            <select
+                                class="select form-control" id="CUS013" name="CUS013"
+                                style="height:30px;width:80px">
+                            <option>无</option>
+                            <option>天眼</option>
+                            <option>鼎捷</option>
+                            <option>网站</option>
+                            <option>老客</option>
+                            <option>朋友</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS006">产值</label>
+                            <input type="text"
+                                   class="form-control" id="CUS006" name="CUS006"
+                                   style="width:60px" placeholder="最小"
+                                   onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                            <label for="CUS006" style="width:5px">~</label>
+                            <input type="text"
+                                   class="form-control" id="CUS007"
+                                   name="CUS007"
+                                   style="width:60px" placeholder="最大"
+                                   onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="industry">行业</label>
+                            <select class="select form-control" id="industry" name="industry"
+                                    style="height:30px;width:93px" placeholder="客户行业">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="salesman">业务员</label>
+                            <select class="form-control" id="salesman" name="salesman"
+                                    style="width:115px;height: 30px;">
+                                <!--<option th:each="c:${users}" th:value="${c}" th:text="${c}"></option>-->
+                            </select>
+
+                            <!--<input type="text" class="form-control" id="salesman" name="salesman" style="width:210px" placeholder="请选择客户所属业务员" required>-->
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS008" style="width:60px">注册资金</label>
+                            <input
+                                    type="text" class="form-control" id="CUS008" name="CUS008"
+                                    style="width:60px" placeholder="资金"
+                                    onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS009" style="width:85px">最近联系时间</label>
+                            <input type="text" class="form-control" id="CUS009" name="CUS009" disabled="true"
+                                   onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})">
+                            <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,maxDate:'#F{$dp.$D(\'CUS011\')}'})"-->
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS011" style="width:115px">预计下次联系时间</label>
+                            <input type="text" style="width: 100px" class="form-control" id="CUS011" name="CUS011"
+                                   disabled="true"
+                                   onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})">
+                            <!--onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true,minDate:'#F{$dp.$D(\'CUS009\')}'})"-->
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS017" style="width:56px">购买模块</label> <input
+                                type="text" class="form-control" id="CUS017" name="CUS017"
+                                style="width:740px" placeholder="请录入客户购买模块">
+                        </div>
+                        <div class="form-group">
+                            <label for="CUS014" style="text-align:right;height:1px">备注</label>
+                            <textarea class="form-control" id="CUS014" name="CUS014"
+                                      style="width:767px;margin-top: 5px" placeholder="其它备注信息"></textarea>
+                        </div>
+                        <div hidden="hidden"><input hidden="hidden" id="id" name="id"></div>
+                        <div hidden="hidden"><input hidden="hidden" id="CUS018" name="CUS018"></div>
+                        <div hidden="hidden"><input hidden="hidden" id="CUS019" name="CUS019"></div>
+                        <div class="top-top-btn">
+                            <ol class="list-inline">
+                                <li id="top01">
+                                    <button id="saveBtn" style="font-size: 12px" onclick="saveAll()">保存</button>
+                                </li>
+                                <li id="top02">
+                                    <button id="cancelBtn" style="font-size: 12px" onclick="cancelAll()">取消</button>
+                                </li>
+                            </ol>
+                        </div>
+
+                    </form>
+
+                    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+
+                </div>
+            </div>
+            <!-- 下边 -->
+            <div class="bottom">
+                <div class="bottom-top">
+                    <ol class="list-inline">
+                        <li id="top4">记录单</li>
+                        <li><input id="btn01" style="font-size: 12px;" type="button" value="新建" onclick="contAdd()">
+                        </li>
+                    </ol>
+                </div>
+                <div class="bottom-btm" style="height: 275px;overflow: auto">
+                    <table class="layui-hide" id="conInfo" lay-filter="conInfo" style="height: 100%"></table>
+                </div>
+            </div>
+            <!-- 右边 -->
+            <div class="right">
+                <div class="right-top">
+                    <label style="text-align:left;margin-left:10px;font-weight: bold;color: #7F8F9C;line-height: 30px;font-size: 16px;">客户信息预览</label>
+                    <input style="font-size: 12px" type="button" value="查询" onclick="queryInfo()" id="btn02"/>
+                    <input style="font-size: 12px" type="button" value="新建" onclick="add()" id="addBtn"/>
+                    <input style="font-size: 12px" type="button" value="编辑" onclick="update()" id="btn03"/>
+
+                </div>
+                <div class="right-bottom" style="height: 240px;overflow: auto">
+                    <table class="layui-hide" id="test" lay-filter="test" style="height: 100%"></table>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 

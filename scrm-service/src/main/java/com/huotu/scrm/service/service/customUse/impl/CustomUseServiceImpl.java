@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -57,6 +59,7 @@ public class CustomUseServiceImpl implements CustomUseService {
     @Override
     public void deleteByCustomIdAndUserId(CustomUse customUse) {
         customUseRepository.delete(customUse);
+
     }
 
     /**
@@ -66,6 +69,16 @@ public class CustomUseServiceImpl implements CustomUseService {
     @Override
     public CustomUse findOneByCustomIdAndUserId(Specification specification) {
         return  customUseRepository.findOne(specification);
+    }
+
+    @Override
+    public List<CustomUse> findAll(Specification<CustomUse> specification) {
+        return customUseRepository.findAll(specification);
+    }
+
+    @Override
+    public void saveAndRefresh(List<CustomUse> customUses) {
+        customUseRepository.save(customUses);
     }
 
 

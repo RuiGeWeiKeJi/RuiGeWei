@@ -12,6 +12,7 @@ import com.huotu.scrm.service.service.customUse.CustomUseService;
 import com.huotu.scrm.service.service.cutom.CustemInfoService;
 import com.huotu.scrm.service.service.cutom.CustomService;
 import com.huotu.scrm.web.GetUserInfo.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -261,7 +262,7 @@ public class CustomController {
         levelList.add("E");
         levelList.add("X");
         levelList.add("Y");
-        info="";
+        info="导入成功";
         InputStream in = null;
         try {
             in = multipartFile.getInputStream();
@@ -271,8 +272,15 @@ public class CustomController {
             result=true;
             for (int i = 0; i < lists.size(); i++) {
                 List<Object> ob = lists.get(i);
+                int size=ob.size();
+                if (size <= 1)
+                    break;
                 Custom custom = new Custom();
-                if(StringUtils.isEmpty( ob.get(0)) ){
+                if(StringUtils.isEmpty( ob.get(0)) && StringUtils.isEmpty(ob.get(1)) )
+                    break;
+                if(ob.get(0).toString().equals("null") || ob.get(1).toString().equals("null"))
+                    break;
+                if(StringUtils.isEmpty( ob.get(0)) && !StringUtils.isEmpty(ob.get(1)) ){
                     info="第"+i+1+"行客户编号为空";
                     result=false;
                     break;
@@ -386,6 +394,7 @@ public class CustomController {
                     return cb.and(list.toArray(predicate));
                 }
             };
+            List<Custom> repearCus=new ArrayList<>();
             List<Custom> customList1=customService.findAll(specification);
             if(customList1!=null && customList1.size()>0) {
                for(int i=0;i<customList1.size();i++){
@@ -393,24 +402,32 @@ public class CustomController {
                        if(customList.get(j).getCUS002().trim().equals(customList1.get(i).getCUS002().trim())){
 //                           customList.remove(j);
 //                           j--;
-                           info="客户:"+customList.get(j).getCUS002().trim()+"重复,请核实后再导入";
-                           result=false;
-                           break;
+                           repearCus.add(customList.get(j));
+//                           info="客户:"+customList.get(j).getCUS002().trim()+"重复,请核实后再导入";
+//                           result=false;
+//                           break;
                        }
                    }
-                   if(result==false)
-                       break;
+//                   if(result==false)
+//                       break;
                }
             }
 
-            if(result==false)
-                return "";
+            if(repearCus.size()>0){
+                info="部分客户重复,其它客户已导入成功";
+                for(Custom cus:repearCus){
+                    customList.remove(cus);
+                }
+            }
+
+//            if(result==false)
+//                return "";
 
             customList= ListUtils.removeDuplicate(customList);
             customService.saveAndRefresh(customList);
             result=true;
         } catch (Exception e) {
-            info=e.getMessage()+"字段类型错误,请核实后重新导入";
+            info=e.getMessage()+"字段类型错误,请核实后重新导入" +"  "+e.getStackTrace();
             result=false;
         } finally {
             return getMap(in,info,result);
@@ -426,57 +443,95 @@ public class CustomController {
             return "文件不存在";
         }
         result=true;
-        info="";
+        info="导入成功";
         InputStream in = null;
         try {
             in = multipartFile.getInputStream();
             List<List<Object>> lists = ExeclUtils.getBankListByExecl(in, multipartFile.getOriginalFilename());
             List<CustomUse> customList = new ArrayList<CustomUse>();
             List<String> cusName=new ArrayList<>();
-            for (int i = 0; i < lists.size(); i++) {
-                List<Object> ob = lists.get(i);
-                CustomUse custom = new CustomUse();
-                custom.setUserId(String.valueOf(ob.get(0)).trim());
-                if(custom.getUserId().contains("."))
-                {
-                    info="人员编号数据格式错误,不应该包括小数";
-                    result=false;
-                    break;
-                }
-                if(custom.getUserId().trim().length()<6){
-                    info="人员编号少于6位,请核实后重新导入";
-                    result=false;
-                    break;
-                }
-                if(!cusName.contains(custom.getUserId()))
-                    cusName.add(custom.getUserId());
+            List<String> customNum=new ArrayList<>();
 
-                custom.setCUR002(String.valueOf(ob.get(1)).trim());
-                custom.setCUR003(String.valueOf(ob.get(2)).trim());
-                custom.setCUR004(String.valueOf(ob.get(3)).trim());
-                custom.setCUR005(String.valueOf(ob.get(4)).trim());
-                custom.setCUR006(String.valueOf(ob.get(5)).trim());
-                custom.setCUR007(String.valueOf(ob.get(6)).trim());
-                custom.setCUR008(null);
-                custom.setCUR009(String.valueOf(ob.get(8)).trim());
-                custom.setCustomId(String.valueOf(ob.get(9)));
+            for (int i = 0; i < lists.size(); i++) {
+
+                    List<Object> ob = lists.get(i);
+                    if(ob==null)
+                        break;
+                    int size = ob.size();
+                    if (size <= 1)
+                        break;
+                    CustomUse custom = new CustomUse();
+                    custom.setUserId(String.valueOf(ob.get(0)).trim());
+                    if (custom.getUserId().contains(".")) {
+                        info = "人员编号数据格式错误,不应该包括小数";
+                        result = false;
+                        break;
+                    }
+
+                    if (!cusName.contains(custom.getUserId()))
+                        cusName.add(custom.getUserId());
+
+                    custom.setCUR002(String.valueOf(ob.get(1)).trim());
+                    custom.setCUR003(String.valueOf(ob.get(2)).trim());
+                    custom.setCUR004(String.valueOf(ob.get(3)).trim());
+                    custom.setCUR005(String.valueOf(ob.get(4)).trim());
+                    custom.setCUR006(String.valueOf(ob.get(5)).trim());
+                    custom.setCUR007(String.valueOf(ob.get(6)).trim());
+                    custom.setCUR008(null);
+                    custom.setCUR009(String.valueOf(ob.get(8)).trim());
+                    custom.setCustomId(String.valueOf(ob.get(9)));
+
+
                 if(custom.getCustomId().contains("."))
                 {
                     info="客户编号数据格式错误,不应该包括小数";
                     result=false;
                     break;
                 }
+                if(!StringUtils.isEmpty(custom.getCustomId()) && !customNum.contains(custom.getCustomId()))
+                    customNum.add(custom.getCustomId());
+
+                if(StringUtils.isEmpty(custom.getUserId()) && StringUtils.isEmpty(custom.getCustomId())){
+                    break;
+                }
+
+                if(custom.getUserId().equals("null") && custom.getCustomId().equals("null")){
+                    break;
+                }
+                if(custom.getUserId().trim().length()<6){
+                    info="人员编号:"+custom.getUserId().trim()+"少于6位,请核实后重新导入";
+                    result=false;
+                    break;
+                }
                 if(custom.getCustomId().trim().length()<6){
-                    info="客户编号少于6位,请核实后重新导入";
+                    info="人员编号:"+custom.getUserId().trim()+"的客户编号少于6位,请核实后重新导入";
                     result=false;
                     break;
                 }
-                if(StringUtils.isEmpty(custom.getUserId().trim()) || StringUtils.isEmpty(custom.getCUR002().trim()) || StringUtils.isEmpty(custom.getCUR007()) || StringUtils.isEmpty(custom.getCustomId())){
-                    info= custom.getUserId().trim();
+
+                if(StringUtils.isEmpty(custom.getUserId().trim())){
+                    info="人员编号为空,请核实";
                     result=false;
                     break;
                 }
+                if( StringUtils.isEmpty(custom.getCUR002().trim()) ){
+                    info="人员编号:"+custom.getCustomId().trim()+"的姓名为空";
+                    result=false;
+                    break;
+                }
+                if( StringUtils.isEmpty(custom.getCUR007()) ){
+                    info="人员编号:"+custom.getCustomId().trim()+"的性别为空";
+                    result=false;
+                    break;
+                }
+                if(  StringUtils.isEmpty(custom.getCustomId())){
+                    info="人员编号:"+custom.getCustomId().trim()+"的客户编号为空";
+                    result=false;
+                    break;
+                }
+
                 customList.add(custom);
+
             }
 
             if(result==false)
@@ -499,20 +554,48 @@ public class CustomController {
                     return cb.and(list.toArray(predicate));
                 }
             };
+
+            Specification<CustomUse> specification1=new Specification<CustomUse>() {
+                @Override
+                public Predicate toPredicate(Root<CustomUse> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                    List<Predicate> list=new ArrayList<>();
+                    if(list!=null && list.size()>0){
+                        CriteriaBuilder.In<String> in=cb.in(root.get("customId").as(String.class));
+                        for(String i :customNum){
+                            in.value(i);
+                        }
+                        list.add(in);
+                    }
+                    //pList转换为具体类型的数组
+                    Predicate[] predicate = new Predicate[list.size()];
+                    //将条件进行汇总并返回
+                    return cb.and(list.toArray(predicate));
+                }
+            };
+
+            List<CustomUse> customUses=new ArrayList<>();
+
+            //获取已有联系人编号   如果导入的数据中有重复的，将不再重复导入
             List<CustomUse> customList1=customUseService.findAll(specification);
+            //获取导入的客户编号,获取库中所有该客户编号的客户编号，取消库中客户编号中不存在的该客户编号的数据
+            List<String> stringList =custemInfoService.findByCUS001(specification);
+
             if(customList1!=null && customList1.size()>0) {
-                for(int i=0;i<customList1.size();i++){
-                    for(int j=0;j<customList.size();j++){
-                        if(customList.get(j).getUserId().trim().equals(customList1.get(i).getUserId().trim())){
+                for (int j = 0; j < customList.size(); j++) {
+                    for (int i = 0; i < customList1.size(); i++) {
+                        if (customList.get(j).getUserId().trim().equals(customList1.get(i).getUserId().trim())) {
 //                            customList.remove(j);
 //                            j--;
-                            info="联系人编号:"+customList.get(j).getUserId().trim()+"重复,请核实后再导入";
-                            result=false;
-                            break;
+                            customUses.add(customList.get(j));
                         }
                     }
-                    if(result==false)
-                        break;
+                }
+            }
+
+            if(customUses.size()>0){
+                info="联系人部分数据重复,其它数据已导入成功";
+                for (CustomUse user:customUses) {
+                    customList.remove(user);
                 }
             }
 
@@ -523,7 +606,7 @@ public class CustomController {
             customUseService.saveAndRefresh(customList);
             result=true;
         } catch (Exception e) {
-            info="数据格式错误,请核实";
+            info="数据格式错误,请核实"+e.getMessage()+"  "+e.getStackTrace();
             result=false;
         } finally {
             return getMap(in,info,result);
@@ -531,7 +614,7 @@ public class CustomController {
     }
 
 
-    static Map<Object,Object> getMap( InputStream in ,String info,boolean result) {
+    static Map<Object,Object> getMap(InputStream in , String info, boolean result) {
         try {
             in.close();
         } catch (IOException e) {

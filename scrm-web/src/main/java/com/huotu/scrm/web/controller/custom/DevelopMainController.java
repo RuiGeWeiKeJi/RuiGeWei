@@ -101,6 +101,7 @@ public class DevelopMainController {
             @RequestParam("MAI010") String DEV010,
             @RequestParam("MAI011") String DEV011,
             @RequestParam("MAI012") String DEV012,
+            @RequestParam("MAI013") String DEV013,
             @RequestParam("id") Integer id,
             @RequestParam("pageIndex") Integer pageIndex,
             @RequestParam("pageSize") Integer pageSize,
@@ -126,6 +127,7 @@ public class DevelopMainController {
         developMain.setDEV008(DEV008);
         developMain.setDEV009(DEV009);
         developMain.setDEV012(DEV012);
+        developMain.setDEV013(DEV013);
 
         developMainService.saveAndRefresh(developMain);
         Map<Object, Object> map = new LinkedHashMap<>();
@@ -173,6 +175,7 @@ public class DevelopMainController {
             @RequestParam("mai0111") String dev0111,
             @RequestParam("mai007") String dev007,
             @RequestParam("mai012") String dev012,
+            @RequestParam("mai013") String dev013,
             @RequestParam("limit") Integer pageSize,
             @RequestParam("page") Integer pageIndex
     ){
@@ -250,6 +253,10 @@ public class DevelopMainController {
                 }
                 if (!StringUtils.isEmpty(dev012)) {
                     Predicate p1 = cb.like(root.get("DEV012"), "%" + dev012 + "%");
+                    plist.add(p1);
+                }
+                if (!StringUtils.isEmpty(dev013) && !dev013.equals("null")) {
+                    Predicate p1 = cb.equal(root.get("DEV013"),  dev013 );
                     plist.add(p1);
                 }
                 //pList转换为具体类型的数组

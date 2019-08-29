@@ -73,6 +73,11 @@ public class CustomBrsServiceImpl implements CustomBrsService {
          customBrsRepository.updateCustom(custom.getCUS009(),custom.getCUS011(),custom.getCUS001());
     }
 
+    @Override
+    public void updateCustomDate() {
+        customBrsRepository.updateCustomDate();
+    }
+
     /**
      * 分页读取客户记录单数据
      * @param pageable

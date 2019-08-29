@@ -94,4 +94,10 @@ public class DevelopMain implements Serializable {
     @Column(name = "DEV012")
     private String DEV012;
 
+    /**
+     * 性质
+     */
+    @Column(name = "DEV013")
+    private String DEV013;
+
 }

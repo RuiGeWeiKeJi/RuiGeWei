@@ -21,7 +21,7 @@
     <script>
 
         function build() {
-            layer.open({
+                layer.open({
                 type: 2,
                 title: '客户联系人',
                 maxmin: true,
@@ -30,6 +30,7 @@
                 content: 'userId',
                 btn: ['保存', '取消'],
                 success: function (layero, index) {
+
                 },
                 yes: function (index, layero) {
                     //接收弹出层返回的数据
@@ -96,6 +97,7 @@
 
         function readData(url) {
             url=encodeURI(url);
+
             layui.use('table', function () {
                 var table = layui.table;
                 var datasource = null;

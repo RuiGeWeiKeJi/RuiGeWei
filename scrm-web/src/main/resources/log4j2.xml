@@ -37,7 +37,7 @@
 <Configuration status="INFO" debug="true">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p [%c] %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p [%c] %m%n(%F:%L)"/>
         </Console>
         <RollingFile name="ServerDailyRollingFile" filename="logs/scrm/scrm.log"
                      filePattern="logs/scrm/$${date:yyyy-MM}/scrm-%d{yyyy-MM-dd-HH}-%i.log">

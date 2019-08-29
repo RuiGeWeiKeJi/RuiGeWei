@@ -43,19 +43,22 @@
             width: 115px
         }
         #MAI003{
-            width: 170px;
+            width: 145px;
         }
         #MAI005{
-            width: 87px;
+            width: 115px;
         }
         #MAI006{
-            width: 170px;
+            width: 145px;
         }
         #MAI008{
-            width: 180px;
+            width: 115px;
         }
         #MAI009{
-            width: 180px;
+            width: 183px;
+        }
+        #MAI010{
+            width: 115px;
         }
         #MAI007{
             width: 580px;
@@ -64,6 +67,9 @@
         #MAI012{
             width: 580px;
             height: 90px;
+        }
+        #MAI013{
+            width: 145px;
         }
     </style>
 
@@ -169,17 +175,25 @@
             }
             var mai009=$("#MAI009").val().trim();
             var mai010=$("#MAI010").val().trim();
+            if(mai010==""){
+                layer.msg("请选择预计完成时间");
+                return;
+            }
             var mai011=$("#MAI011").val().trim();
             var mai012=$("#MAI012").val().trim();
+            var mai013=$("#MAI013").val().trim();
+            if(mai013==""){
+                layer.msg("请选择性质");
+                return;
+            }
             var id=$("#id").val().trim();
             var url='MAI001='+mai001+'&MAI002='+mai002+'&MAI003='+mai003+'&MAI004='+mai004+'&MAI005='+mai005+'&MAI006='+mai006+'&MAI007='+mai007+'' +
-                '&MAI008='+mai008+'&MAI009='+mai009+'&MAI010='+mai010+'&MAI011='+mai011+'&MAI012='+mai012+'&id='+id+'&pageIndex=1&pageSize=10';
+                '&MAI008='+mai008+'&MAI009='+mai009+'&MAI010='+mai010+'&MAI011='+mai011+'&MAI012='+mai012+'&MAI013='+mai013+'&id='+id+'&pageIndex=1&pageSize=10';
             var data={
                 data:url
             };
             return data;
         }
-
 
     </script>
 
@@ -188,7 +202,7 @@
 <div class="container">
     <form class="form-inline" style="margin-top: 20px;">
         <div class="form-group">
-            <label>单号</label>
+            <label style="margin-left: 28px">单号</label>
             <input type="text" class="form-control" id="MAI001" name="MAI001" readonly="readonly" th:value="${uid}">
         </div>
         <div class="form-group">
@@ -207,7 +221,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>提问方式</label>
+            <label style="margin-left: 28px">提问</label>
             <select class="form-control" id="MAI005" name="MAI005">
                 <option>电话</option>
                 <option>QQ</option>
@@ -224,7 +238,7 @@
                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
         </div>
         <div class="form-group">
-            <label>处理人</label>
+            <label style="margin-left: 14px">处理人</label>
             <select class="form-control" id="MAI008" name="MAI008">
                 <option></option>
                 <option th:each="c:${mainList}" th:value="${c}" th:text="${c}"></option>
@@ -239,12 +253,23 @@
             </select>
         </div>
         <div class="form-group">
-            <label>预计完成时间</label>
+            <label style="margin-left: 28px">性质</label>
+            <select class="form-control" id="MAI013" name="MAI013">
+                <option></option>
+                <option>新增</option>
+                <option>追加</option>
+                <option>修改</option>
+                <option>bug</option>
+                <option>其它</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>预计完成</label>
             <input type="text" class="form-control" id="MAI010" name="MAI010"
                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
         </div>
         <div class="form-group">
-            <label>实际完成时间</label>
+            <label>实际完成</label>
             <input type="text" class="form-control" id="MAI011" name="MAI011"
                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
         </div>

@@ -49,20 +49,18 @@
                     }
                     , cols: [
                         [
-                            {fixed: 'left', title: '操作', toolbar: '#barDemo', width: '5%'},
-                            {fixed: 'left', field: 'dev002', width: '20%', title: '名称', sort: true},
+                            {fixed: 'left', title: '操作', toolbar: '#barDemo', width: '5%'}
+                            ,{fixed: 'left', field: 'dev002', width: '20%', title: '名称', sort: true}
                             , {field: 'dev003', width: '6%', title: '姓名'}
-                            , {field: 'dev005', width: '5%', title: '提问方式'}
-                            , {field: 'dev004', width: '10%', title: '联系方式'}
+                            , {field: 'dev013', width: '6%', title: '性质'}
+                            , {field: 'dev008', width: '6%', title: '处理人'}
+                            , {field: 'dev009', width: '8%', title: '处理进度'}
+                            , {field: 'dev007', width: '20%', title: '问题描述'}
                             , {
                             field: 'dev006', width: '10%', title: '提出时间', templet: function (row) {
                                 return createTime(row.dev006);
                             }, sort: true
                         }
-                            , {field: 'dev007', width: '20%', title: '问题描述'}
-                            , {field: 'dev012', width: '15%', title: '处理方案'}
-                            , {field: 'dev008', width: '6%', title: '处理人'}
-                            , {field: 'dev009', width: '10%', title: '处理进度'}
                             , {
                             field: 'dev010', width: '10%', title: '预计完成时间', templet: function (row) {
                                 return createTime(row.dev010);
@@ -73,9 +71,12 @@
                                 return createTime(row.dev011);
                             }
                         }
+                            , {field: 'dev012', width: '15%', title: '处理方案'}
+                            , {field: 'dev005', width: '5%', title: '提问方式'}
+                            , {field: 'dev004', width: '10%', title: '联系方式'}
                         ]
                     ],
-                    limits: [10, 20, 50, 100, 200],
+                    limits: [ 50, 100, 200],
                     done: function (res, curr, count) {
                         datasource = res;
                     }
@@ -152,6 +153,7 @@
                     body.find("#MAI010").val(createTime(obj["dev010"]));
                     body.find("#MAI011").val(createTime(obj["dev011"]));
                     body.find("#MAI012").val(obj["dev012"]);
+                    body.find("#MAI013").val(obj["dev013"]);
                     body.find("#id").val(obj["id"]);
                 },
                 yes: function (index, layero) {

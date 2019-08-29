@@ -50,8 +50,10 @@
         <li class="layui-nav-item">
             <a href="javascript:;">统计信息</a>
             <dl class="layui-nav-child">
-                <dd id="reportInfo"><a th:href="@{/report}">统计报表</a></dd>
-                <dd id="chartInfo"><a th:href="@{/chart}">统计分析</a></dd>
+                <dd id="reportInfo"><a th:href="@{/report}">业务报表</a></dd>
+                <dd id="chartInfo"><a th:href="@{/chart}">业务分析</a></dd>
+                <dd id="reportInfoDev"><a th:href="@{/maintainQuery}">开发报表</a></dd>
+                <dd id="chartInfoDev"><a th:href="@{/maintainChart}">开发分析</a></dd>
             </dl>
         </li>
     </ul>
@@ -93,27 +95,57 @@
             var datare6="";
             var datare7="";
             var datare8="";
+            var datare9="";
+            var datare10="";
             for (var i = 0; i < other.length; i++)  {
-                if (other[i][2] == "人员信息")
+                if (other[i][2] == "人员信息") {
+                    // $("#user").attr("style", "display:none");
                     result = "1";
-                if (other[i][2] == "基础设置")
+                }
+                if (other[i][2] == "基础设置") {
+                    // $("#basedata").attr("style", "display:none");
                     datare7 = "1";
-                if (other[i][2] == "客户信息")
+                }
+                if (other[i][2] == "客户信息") {
+                    // $("#custom").attr("style", "display:none");
                     datare = "1";
-                if (other[i][2] == "客户资料")
+                }
+                if (other[i][2] == "客户资料"){
+                    // $("#customInfo").attr("style", "display:none");
                     datare1 = "1";
-                if (other[i][2] == "客户运维")
+                }
+                if (other[i][2] == "客户运维"){
+                    // $("#mainInfo").attr("style", "display:none");
                     datare3 = "1";
-                if (other[i][2] == "合同签订")
+                }
+                if (other[i][2] == "合同签订") {
+                    // $("#signInfo").attr("style", "display:none");
                     datare5 = "1";
-                if (other[i][2] == "服务记录单")
+                }
+                if (other[i][2] == "服务记录单") {
+                    // $("#ordermain").attr("style", "display:none");
                     datare6 = "1";
-                if (other[i][2] == "统计报表")
+                }
+                if (other[i][2] == "业务报表") {
+                    // $("#reportInfo").attr("style", "display:none");
                     datare2 = "1";
-                if (other[i][2] == "统计分析")
+                }
+                if (other[i][2] == "业务分析") {
+                    // $("#chartInfo").attr("style", "display:none");
                     datare4 = "1";
-                if (other[i][2] == "开发运维")
+                }
+                if (other[i][2] == "开发运维") {
+                    // $("#devInfo").attr("style", "display:none");
                     datare8 = "1";
+                }
+                if (other[i][2] == "开发报表") {
+                    // $("#devInfo").attr("style", "display:none");
+                    datare9 = "1";
+                }
+                if (other[i][2] == "开发分析") {
+                    // $("#devInfo").attr("style", "display:none");
+                    datare10 = "1";
+                }
             }
             if (result != "1")
                 $("#user").attr("style", "display:none");
@@ -135,7 +167,10 @@
                 $("#basedata").attr("style", "display:none");
             if (datare8 != "1")
                 $("#devInfo").attr("style", "display:none");
-
+            if (datare9 != "1")
+                $("#reportInfoDev").attr("style", "display:none");
+            if (datare10 != "1")
+                $("#chartInfoDev").attr("style", "display:none");
         }
     }
     /*]]>*/

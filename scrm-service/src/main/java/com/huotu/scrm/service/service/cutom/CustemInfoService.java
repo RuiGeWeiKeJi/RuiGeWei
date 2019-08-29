@@ -46,4 +46,6 @@ public interface CustemInfoService {
      */
     Page<Custom> findAllByString(String strWhere, Pageable pageable);
 
+    List<String> findByCUS001(Specification specification);
+
 }

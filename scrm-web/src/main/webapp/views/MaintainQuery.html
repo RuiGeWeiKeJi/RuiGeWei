@@ -78,10 +78,11 @@
             var mai0111 = $("#MAI0111").val();
             var mai007 = $("#MAI007").val().trim();
             var mai012 = $("#MAI012").val().trim();
+            var mai013 = $("#MAI013").val();
             var url = '';
             var data = {
                 data: url + 'mai002=' + mai002 + '&mai008=' + mai008 + '&mai005=' + mai005 + '&mai009=' + mai009 + '&mai006=' + mai006 + '&mai0061=' + mai0061 + '&mai010=' + mai010 + '&mai0101=' + mai0101 + '&mai011=' + mai011 + '' +
-                    '&mai0111=' + mai0111 + '&mai007=' + mai007 + '&mai012=' + mai012 + ''
+                    '&mai0111=' + mai0111 + '&mai007=' + mai007 + '&mai012=' + mai012 + '&mai013=' + mai013 + ''
             };
             return data;
         }
@@ -134,6 +135,19 @@
                 <option>进行中</option>
                 <option>完成</option>
             </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MAI013" class="control-label text-right col-xs-4">性质</label>
+            <div class="col-xs-8">
+                <select class="form-control selectpicker show-tick" id="MAI013" name="MAI013" multiple data-live-search="true">
+                    <option></option>
+                    <option>新增</option>
+                    <option>修改</option>
+                    <option>追加</option>
+                    <option>bug</option>
+                    <option>其它</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

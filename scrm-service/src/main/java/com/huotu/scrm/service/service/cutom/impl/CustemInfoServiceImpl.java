@@ -128,5 +128,10 @@ public class CustemInfoServiceImpl implements CustemInfoService {
         return custemInfoRepository.findAllByString(strWhere,pageable);
     }
 
+    @Override
+    public List<String> findByCUS001(Specification specification) {
+        return custemInfoRepository.findByCUS001(specification);
+    }
+
 
 }

@@ -63,4 +63,9 @@ public interface CustomBrsRepository extends JpaRepository<CustomBRS, Long>, Jpa
     @Modifying
     void updateCustom(String startDate,String endDate,String customId);
 
+    @Query(value = "update rgwcus a,(select BRS002,MAX(BRS003) BRS003,MAX(BRS004) BRS004 from rgwbrs group by BRS002) b set CUS009=BRS003,CUS011=BRS004 WHERE CUS001=BRS002 and (DATE_FORMAT(a.CUS009,'%Y-%m-%d')!=b.BRS003  or DATE_FORMAT(a.CUS011,'%Y-%m-%d')!=b.BRS004 )",
+            nativeQuery = true)
+    @Modifying
+    void  updateCustomDate();
+
 }

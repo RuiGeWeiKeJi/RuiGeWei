@@ -309,7 +309,7 @@ public class ChartReportController {
 //        dataQquery=entityManager.createNativeQuery(stringBuilder.toString(),Object.class);
 //        Object allAdd=dataQquery.getResultList().get(0);
 
-        String ALev = "", BLev = "", CLev = "" , DLev = "", ELev = ""  ,addAll="本月新增客户["+allAdd+"]";
+        String ALev = "", BLev = "", CLev = "" , DLev = "", ELev = ""  ,addAll="本月新增["+allAdd+"]";
         for (int i = 0; i < getIncreasebrs.size(); i++) {
             Object[] objects = (Object[]) getIncreasebrs.get(i);
 

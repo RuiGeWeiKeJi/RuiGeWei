@@ -150,7 +150,7 @@ public class LoginController {
             else if(user.getUSE004().contains("业务"))
                 map.put("page","chart");
             else if(user.getUSE004().contains("开发"))
-                map.put("page","devmain");
+                map.put("page","maintainChart");
         }
         return map;
     }

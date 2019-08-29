@@ -2,6 +2,7 @@ package com.huotu.scrm.service.repository.customUser;
 
 
 import com.huotu.scrm.service.entity.customUse.CustomUse;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -32,8 +33,5 @@ public interface CustomUseRepository extends JpaRepository<CustomUse, Long>, Jpa
      * @return
      */
     //CustomUse findOneByCustomIdAndUserId(String customId, String userId);
-
-
-    
 
 }

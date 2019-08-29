@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>开发报表</title>
+
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrapValidator.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-theme.css}">
+
+    <script type="text/javascript" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrapValidator.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/WdatePicker.js}"></script>
+
+    <style>
+        .top{
+            margin-left: 10%;
+            background-color: #F7F5F6;
+            position: absolute;
+            top:8%;
+            left: 0px;
+            width: 90%;
+            height: 45px;
+        }
+        .bottom{
+            margin-left: 10%;
+            position: absolute;
+            top:13%;
+            left: 0px;
+            width: 90%;
+        }
+        .btnquery{
+            width: 50px; /* 宽度 */
+            height: 30px; /* 高度 */
+            margin-top: 2px;
+            margin-left: 15px;
+            border-width: 0px; /* 边框宽度 */
+            border-radius: 5px; /* 边框半径 */
+            background: #42C2CF; /* 背景颜色 */
+            cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+            outline: none; /* 不显示轮廓线 */
+            font-family: Microsoft YaHei; /* 设置字体 */
+            color: white;
+            font-size: 16px; /* 字体大小 */
+            line-height: 2px;
+            hover: #A5BED9;
+        }
+    </style>
+
+    <script>
+        //完成异步搜索功能
+        function searchName(obj) {
+            var content = "";
+            var datas = $(obj).val();
+            if(datas=="")
+                return;
+            $.ajax({
+                type: "post",
+                url: "findlike",
+                data: {"data": datas,"condition":"Y"},
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            content += "<div style='padding: 5px;cursor:pointer;color: #42C2CF;left: 55px' onmouseover='overFn(this)' onmouseout='outFn(this)' onclick='clickFn(this)'>" +
+                                data[i].cus002 + "</div>";
+                        }
+                        $("#result").html(content);
+                        $("#result").css("display", "block");
+                    }
+                },
+                dataType: "json"
+            })
+        }
+
+        function overFn(obj) {
+            $(obj).css("background", "white");
+        }
+
+        function outFn(obj) {
+            $(obj).css("background", "#42C2CF");
+        }
+
+        function clickFn(obj) {
+            $("#MAI002").val($(obj).html());
+            $("#result").css("display","none");
+        }
+
+        function readDataMain(url) {
+            layui.use('table', function () {
+                var table = layui.table;
+                var datasource = null;
+                var util = layui.util;
+                table.render({
+                    elem: '#test',
+                    height: 550,
+                    url: encodeURI(url),
+                    method: 'post',
+                    ContentType: 'application/json;charset=utf-8'
+                    , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                        //,curr: 5 //设定初始在第 5 页
+                        , groups: 5 //只显示 1 个连续页码
+                        , first: false //不显示首页
+                        , last: false //不显示尾页
+                    }
+                    ,totalRow: true
+                    , cols: [
+                        [
+                              {field: '0', width: '30%', title: '客户名称', sort: true}
+                            , {field: '1', width: '10%', title: '处理人', sort: true}
+                            , {field: '2', width: '10%', title: '处理进度', sort: true}
+                            , {field: '3', width: '10%', title: '新增', sort: true, totalRow: true}
+                            , {field: '4', width: '10%', title: '修改', sort: true, totalRow: true}
+                            , {field: '5', width: '10%', title: '追加', sort: true, totalRow: true}
+                            , {field: '6', width: '10%', title: 'bug', sort: true, totalRow: true}
+                            , {field: '7', width: '10%', title: '其它', sort: true, totalRow: true}
+                        ]
+                    ],
+                    limits: [100, 200,500,1000],
+                    done: function (res, curr, count) {
+                        datasource = res;
+                    }
+                });
+            });
+        }
+
+        function btnQuery() {
+            var dev002 = $("#MAI002").val().trim();
+            var dev009 = $("#MAI009").val().trim();
+            var dev008 = $("#MAI008").val().trim();
+            var mai006 = $("#MAI006").val().trim();
+            var mai0061 = $("#MAI0061").val().trim();
+            var url='findMaintainData?dev002='+dev002+'&dev009='+dev009+'&dev008='+dev008+'&mai006='+mai006+'&mai0061='+mai0061+'';
+            readDataMain(url);
+        }
+        
+    </script>
+
+</head>
+<body>
+<div class="index">
+
+    <div th:include="index::html"></div>
+
+</div>
+    <div class="container">
+        <div class="top">
+            <form class="form-inline" id="myform" style="margin-top:5px;margin-left: 5px">
+                <div class="form-group" >
+                    <label for="MAI002">客户名称</label>
+                    <input type="text" class="form-control" id="MAI002" name="MAI002" onkeyup="searchName(this)"
+                    style="height: 30px;width: 250px">
+                    <div style="display: none;position: absolute;z-index: 1000;background: white;border: 1px solid #c0c0c0;left: 55px"
+                         id="result">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>处理进度</label>
+                    <select
+                            class="select form-control"
+                            style="height:30px;width:100px" id="MAI009"
+                            name="MAI009">
+                        <option></option>
+                        <option>未开始</option>
+                        <option>进行中</option>
+                        <option>完成</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="MAI008">处理人</label>
+                    <select class="select form-control" id="MAI008" name="MAI008" style="height: 30px;width: 100px">
+                        <option></option>
+                        <option th:each="c:${mainList}" th:value="${c}" th:text="${c}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="MAI006">时间</label><!--提出时间-->
+                    <input type="text" class="form-control" id="MAI006" name="MAI006" style="height: 30px;width: 100px"
+                           onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+
+                    <input type="text" class="form-control" id="MAI0061" name="MAI0061" style="height: 30px;width: 100px"
+                           onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true})">
+                </div>
+                <div class="form-group">
+                    <input type="button" value="查询" class="btnquery" onclick="btnQuery()">
+                </div>
+            </form>
+        </div>
+        <div class="bottom">
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+        </div>
+    </div>
+</body>
+</html>

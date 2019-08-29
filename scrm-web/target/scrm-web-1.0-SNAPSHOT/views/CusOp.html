@@ -35,6 +35,7 @@
     <script type="text/javascript">
 
         $(function () {
+
             <!--隐藏保存和取消按钮-->
             $("#saveBtn").hide();
             $("#cancelBtn").hide();
@@ -245,25 +246,25 @@
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i][n] == v) {
                     $("#id").val(arr[i]["id"]);
-                    $("#CUS001").val(arr[i]["cus001"]);
-                    $("#CUS002").val(arr[i]["cus002"]);
-                    $("#CUS005").val(arr[i]["cus005"]);
-                    $("#CUS016").val(arr[i]["cus016"]);
-                    $("#CUS003").val(arr[i]["cus003"]);
+                    $("#CUS001").val(arr[i]["cus001"].trim());
+                    $("#CUS002").val(arr[i]["cus002"].trim());
+                    $("#CUS005").val(arr[i]["cus005"].trim());
+                    $("#CUS016").val(arr[i]["cus016"].trim());
+                    $("#CUS003").val(arr[i]["cus003"].trim());
                     $("#CUS015").val(arr[i]["cus015"]);
-                    $("#CUS004").val(arr[i]["cus004"]);
-                    $("#CUS013").val(arr[i]["cus013"]);
+                    $("#CUS004").val(arr[i]["cus004"].trim());
+                    $("#CUS013").val(arr[i]["cus013"].trim());
                     $("#CUS006").val(arr[i]["cus006"]);
                     $("#CUS007").val(arr[i]["cus007"]);
                     $("#industry").val(arr[i]["industry"]);
-                    $("#salesman").val(arr[i]["salesman"]);
+                    $("#salesman").val(arr[i]["salesman"].trim());
                     $("#CUS008").val(arr[i]["cus008"]);
                     $("#CUS009").val(createTime( arr[i]["cus009"]));
                     $("#CUS011").val(arr[i]["cus011"]);
-                    $("#CUS017").val(arr[i]["cus017"]);
-                    $("#CUS014").val(arr[i]["cus014"]);
+                    $("#CUS017").val(arr[i]["cus017"].trim());
+                    $("#CUS014").val(arr[i]["cus014"].trim());
                     $("#CUS018").val(arr[i]["cus018"]);
-                    $("#CUS019").val(arr[i]["cus019"]);
+                    $("#CUS019").val(arr[i]["cus019"].trim());
                     var url = 'readcuscon?customId=' + v + '';
                     readInfo(url);
                 }
@@ -570,7 +571,7 @@
                         success: function (data) {
                             layer.close(layer.index);
                             if (data.result == "true") {
-                                layer.msg("导入成功");
+                                layer.msg(data.info);
                             }
                             else {
                                 if (data.info != "")

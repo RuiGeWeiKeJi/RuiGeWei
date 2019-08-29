@@ -76,9 +76,9 @@ public class CustomBrsController {
             HttpServletRequest request
     ) {
         try {
-            URLDecoder.decode(BRS007,"UTF-8");
-            URLDecoder.decode(BRS005,"UTF-8");
-            URLDecoder.decode(BRS006,"UTF-8");
+            URLDecoder.decode(BRS007, "UTF-8");
+            URLDecoder.decode(BRS005, "UTF-8");
+            URLDecoder.decode(BRS006, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class CustomBrsController {
         String username = GetUserLoginInfo.getUserInfo(request).getUSE002();
 
         customBRS.setBRS008(username);
-        Custom custom=new Custom();
+        Custom custom = new Custom();
         custom.setCUS001(customId);
 
         custom.setCUS009(BRS003);
@@ -102,11 +102,12 @@ public class CustomBrsController {
 
         customBrsService.insertCustomUse(customBRS);
         customBrsService.updateCustom(custom);
+        customBrsService.updateCustomDate();
 
-        Specification specification=  addCondition(customId);
+        Specification specification = addCondition(customId);
 
         Sort sort = new Sort(Sort.Direction.DESC, "oddNum");
-        Pageable pageable = new PageRequest(pageIndex-1, pageSize, sort);
+        Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
         Page<CustomBRS> customBRSPage = customBrsService.findByCustomId(specification, pageable);
         Map<String, Object> datasource = new LinkedHashMap<String, Object>();
         datasource.put("code", 0);

@@ -144,20 +144,38 @@ public class CustemInfoController {
                     }
                 }
                 if (!StringUtils.isEmpty(CUS009start)) {
-                    Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS009").as(String.class), CUS009start);
-                    plist.add(p2);
-                }
-                if (!StringUtils.isEmpty(CUS009end)) {
-                    Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS009").as(String.class), CUS009end);
-                    plist.add(p2);
+                    if (!StringUtils.isEmpty(CUS009end)) {
+                        Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS009").as(String.class), CUS009start);
+                        plist.add(p2);
+
+                        Predicate p3 = cb.lessThanOrEqualTo(root.get("CUS009").as(String.class), CUS009end);
+                        plist.add(p3);
+                    }else {
+                        Predicate p2 = cb.equal(root.get("CUS009").as(String.class), CUS009start);
+                        plist.add(p2);
+                    }
+                }else {
+                    if (!StringUtils.isEmpty(CUS009end)) {
+                        Predicate p2 = cb.equal(root.get("CUS009").as(String.class), CUS009end);
+                        plist.add(p2);
+                    }
                 }
                 if (!StringUtils.isEmpty(CUS011start)) {
-                    Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS011").as(String.class), CUS011start);
-                    plist.add(p2);
-                }
-                if (!StringUtils.isEmpty(CUS011end)) {
-                    Predicate p2 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
-                    plist.add(p2);
+                    if (!StringUtils.isEmpty(CUS011end)) {
+                        Predicate p2 = cb.greaterThanOrEqualTo(root.get("CUS011").as(String.class), CUS011start);
+                        plist.add(p2);
+
+                        Predicate p3 = cb.lessThanOrEqualTo(root.get("CUS011").as(String.class), CUS011end);
+                        plist.add(p3);
+                    }else{
+                        Predicate p2 = cb.equal(root.get("CUS011").as(String.class), CUS011start);
+                        plist.add(p2);
+                    }
+                }else {
+                    if (!StringUtils.isEmpty(CUS011end)) {
+                        Predicate p2 = cb.equal(root.get("CUS011").as(String.class), CUS011end);
+                        plist.add(p2);
+                    }
                 }
                 if (!StringUtils.isEmpty(userName) && !userName.equals("系统管理员") && roleUser==false && !salesman.equals(("无"))) {
                     Predicate p2 = cb.equal(root.get("salesman").as(String.class), userName);

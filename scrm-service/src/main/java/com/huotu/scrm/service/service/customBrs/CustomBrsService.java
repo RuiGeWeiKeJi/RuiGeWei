@@ -43,6 +43,8 @@ public interface CustomBrsService {
      */
     void updateCustom(Custom custom);
 
+    void updateCustomDate();
+
     /**
      * 根据客户编号,查询所有联系记录单
      * @param pageable

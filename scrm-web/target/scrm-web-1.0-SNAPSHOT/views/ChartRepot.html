@@ -33,7 +33,7 @@
             <div>
                 <div class="form-group" style="margin-top: 0px;margin-left: 10px;width: 90%">
                     <label for="saleman">业务员 </label>
-                    <select class="form-control" id="saleman" name="saleman" style="width: 100px" onchange="btnOpenComRecord()">
+                    <select class="form-control" id="saleman" name="saleman" style="width: 100px;height: 30px" onchange="btnOpenComRecord()">
                         <option>全体</option>
                         <option th:each="c:${userSales}" th:value="${c}" th:text="${c}"></option>
                     </select>
@@ -51,8 +51,9 @@
             <!--<table class="layui-hide" id="reportext" lay-filter="reportext"></table>-->
         </div>
         <div class="bottom" id="main" style="height: 540px;overflow: auto">
+
         </div>
-    </div>
+ </div>
 
 </body>
 

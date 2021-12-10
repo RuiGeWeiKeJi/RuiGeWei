@@ -24,7 +24,7 @@
         <jackson.version>2.6.0</jackson.version>
         <eclipse.persistence.version>2.6.1</eclipse.persistence.version>
         <common.dbcp.version>1.4</common.dbcp.version>
-        <log4j2.version>2.10.0</log4j2.version>
+        <log4j2.version>2.15.0</log4j2.version>
         <io.version>2.4</io.version>
         <scrm.version>1.0-SNAPSHOT</scrm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
